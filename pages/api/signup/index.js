@@ -1,18 +1,25 @@
-import connect from "../../../config/mongodb"
-import UserSchema from '../../../models/user'
+import connect from "../../../config/signup";
+import Model from "../../../models/user";
+import mongoose from "mongoose";
+// async function connect(){
+// }
+// const db = connect()
 
-connect()
+export default async function handler(req, res) {
+    mongoose.connect(process.env.MONGODB_URL);
+    const user = await Model.find({ user: req.body.user });
 
-export default async function handler(req,res){
-    
-    try{
-        const user = await UserSchema.create(req.body)
-        res.status(200).json({code: "User created!"})
-        if(!user){
-            return res.json({code: "User not created"})
+    if (user.length > 0) {
+        // "existe"
+        res.status(200).json({ signin: false });
+    } else {
+        // "Nao existe"
+        try {
+            const user = await Model.create(req.body);
+            res.status(200).json({ signin: true });
+
+        } catch (err) {
+            res.status(400).json({ status: "Not able to create a new User!" });
         }
-    } catch (err){
-        res.status(400).json({status:"Not able to create a new User!"})
     }
 }
-

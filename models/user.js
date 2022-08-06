@@ -1,20 +1,34 @@
-import mongoose from 'mongoose'
-
+import mongoose from "mongoose";
+const StorySchema = new mongoose.Schema({
+    title: {
+        type: String,
+        require: true,
+    },
+    text: {
+        type: String,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
+});
 const UserSchema = new mongoose.Schema({
-    user:{
+    user: {
         type: String,
         unique: true,
         require: true,
     },
-    password:{
+    password: {
         type: String,
         select: false,
         require: true,
     },
-    createdAt:{
+    createdAt: {
         type: Date,
-        default: Date.now()
-    }
-})
+        default: Date.now(),
+    },
+    stories: StorySchema,
+});
 
-module.exports = mongoose.models.User || mongoose.model('User', UserSchema)
+module.exports =
+    mongoose.models.UserList || mongoose.model("UserList", UserSchema);
