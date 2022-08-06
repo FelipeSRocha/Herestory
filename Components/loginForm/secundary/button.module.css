@@ -1,0 +1,18 @@
+.btn{
+    background-color: rgb(82, 142, 255); 
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: "Roboto Slab", serif;
+    font-size: 20px;
+    width: 70px;
+}
+.btn:hover {
+    background-color: white; 
+    color: rgb(82, 142, 255); 
+}

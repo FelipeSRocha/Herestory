@@ -1,0 +1,19 @@
+.loginForm{
+    background-color: rgb(223, 221, 221);
+    /* height: 300px; */
+    width: 200px;
+    grid-row: auto;
+    border-radius: 15px;
+    text-align: left;
+    padding: 15px;
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.402);
+
+    display: grid;
+    gap: 10px;
+
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

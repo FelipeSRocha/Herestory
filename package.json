@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/FelipeSRocha/Herestory#readme",
   "dependencies": {
+    "dotenv": "^16.0.1",
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.0",
     "next": "^12.2.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0"
   }
 }

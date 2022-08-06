@@ -1,0 +1,16 @@
+.grid{
+    display: flex;
+    flex-direction: column;
+}
+.bemvindo{
+    margin: 0;
+    font-family: 'Roboto Slab', serif;
+    color: rgb(85, 85, 85);
+    font-size: 12px;
+}
+.username{
+    font-size: 25px;
+    color: rgb(82, 142, 255);
+    font-family: 'Roboto Slab', serif;
+    margin: 0;
+}
