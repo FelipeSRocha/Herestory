@@ -20,7 +20,7 @@ export default function LoginForm() {
   };
   function login() {
     //call function to login
-    fetch("http://localhost:3000/api/login", {
+    fetch("./api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export default function LoginForm() {
   }
   function signup() {
     // call function to sign in
-    fetch("http://localhost:3000/api/signup", {
+    fetch("./api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
