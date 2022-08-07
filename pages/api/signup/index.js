@@ -1,9 +1,5 @@
-import connect from "../../../config/signup";
 import Model from "../../../models/user";
 import mongoose from "mongoose";
-// async function connect(){
-// }
-// const db = connect()
 
 export default async function handler(req, res) {
     mongoose.connect(process.env.MONGODB_URL);

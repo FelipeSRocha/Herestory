@@ -32,8 +32,25 @@ export default function LoginForm() {
                 password: password,
             }),
         })
-            .then((res) => res.json())
-            .then((data) => console.log(data.text));
+        .then(res=>{
+            if(res.status==200){
+                //if a positive response
+                res.json()
+                .then(res=>{
+            
+                    if(res.login){
+                        //if server created a user
+                        redirectuser(username)
+                    }else{
+                        //if user already exists
+                        alert('Username dont exists!')
+                    }
+                })
+            }else{
+                alert("Not able to login!")
+            }}
+            )
+
     }
     function signup() {
         // call function to sign in
@@ -45,7 +62,6 @@ export default function LoginForm() {
             body: JSON.stringify({
                 user: username,
                 password: password,
-                stories:{title:"First Story"}
             }),
         })
         .then(res=>{
