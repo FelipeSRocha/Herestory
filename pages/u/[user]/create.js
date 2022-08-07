@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import NewStory from "../../Components/NewStory";
+import NewStory from "../../../Components/NewStory";
 import styled from "styled-components";
-import StoryView from "../../Components/StoryView";
-import { injectGlobal } from 'styled-components';
+import StoryView from "../../../Components/StoryView";
+
 
 export default function userPage() {
     const router = useRouter();
@@ -21,17 +21,15 @@ export default function userPage() {
                     <li>test1</li>
                 </StoryList>
             </Menu>
-            <StoryView id="storyview"> </StoryView>
+            <NewStory id="storyview"> </NewStory>
         </Container>
     );
 }
 const Container = styled.div`
-*{
-    margin:0;
-}
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
+    overflow:hidden;
 `;
 const Menu = styled.div`
     background: #FEE6C8;
@@ -40,6 +38,9 @@ const Menu = styled.div`
     display:flex;
     gap:20px;
     flex-direction:column;
+    position:relative;
+    border: 2px black solid;
+    overflow:hidden;
 `;
 const StoryList = styled.div`
 `;

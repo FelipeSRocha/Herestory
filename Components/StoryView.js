@@ -4,9 +4,8 @@ import styled from "styled-components";
 export default function NewStory() {
     const [title, setTitle] = useState("New Story");
     const [text, setText] = useState(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. Suspendisse vestibulum orci velit, vitae ultrices nulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tincidunt velit."
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. Suspendisse vestibulum orci velit, vitae ultrices n ulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tinciLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. \n Suspendisse vestibulum orci velit, vitae ultrices nulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tincidunt veLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. Suspendisse vestibulum orci velit, vitae ultrices nulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tincidunt veLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. Suspendisse vestibulum orci velit, vitae ultrices nulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tincidunt vedunt velit."
     );
-    const [savedState, setSavedState] = useState(true);
 
     function onChangeTitle(event) {
         setSavedState(false);
@@ -20,29 +19,35 @@ export default function NewStory() {
         setText(event.target.value);
     }
     return (
-        <Wrapper id="boxStory">
-            <Title id="title">
-                <h1>{title}</h1>
-            </Title>
-            <Content id="text">
-                <p>{text}</p>
-            </Content>
-        </Wrapper>
+        <Container id="storyArea">
+            <Wrapper id="boxStory">
+                <Title id="title">
+                    <h1 onChange={onChangeTitle}>{title}</h1>
+                </Title>
+                <Content id="text">
+                    <p onChange={onChangeText}>{text}</p>
+                </Content>
+            </Wrapper>
+        </Container>
     );
 }
-
+const Container = styled.div`
+    width:100%;
+    height:100%;
+    padding:50px;
+    overflow:auto;
+    box-sizing: border-box;
+`
 const Wrapper = styled.div`
     font-family: helvetica neue, helvetica, arial, sans-serif;
     font-weight: 200;
     margin: 0;
-    width: 80%;
-    height: auto;
-    min-height: 400px;
+    height: fit-content;
+    min-height:100%;
     background: linear-gradient(to bottom, #fff6e7 29px, #00b0d7 1px);
-    margin: 50px auto;
+    margin: auto;
     background-size: 100% 30px;
     position: relative;
-    overflow: hidden;
     border-radius: 5px;
     -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2),
         0px 0px 6px rgba(0, 0, 0, 0.2);
@@ -83,6 +88,7 @@ const Title = styled.div`
         height: auto;
         margin: 0;
     }
+
 `;
 const Content = styled.div`
     padding-top: 13px;
@@ -95,5 +101,16 @@ const Content = styled.div`
         font-size: 20px;
         line-height: 30px;
         resize: none;
+    }
+`;
+const Savediv = styled.div`
+    position: fixed;
+    top: 500px;
+    left: 380px;
+    .saved {
+        background-color: white;
+    }
+    .unsaved {
+        background-color: blue;
     }
 `;
