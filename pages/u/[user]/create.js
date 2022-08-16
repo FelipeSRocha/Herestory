@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import NewStory from "../../../Components/NewStory";
+
 import styled from "styled-components";
-import StoryView from "../../../Components/StoryView";
 
 
 export default function userPage() {
@@ -12,6 +12,7 @@ export default function userPage() {
         <Container id="container">
             <Menu id="menubar">
                 <h1>{userpage}</h1>
+
                 <StoryList id="storylist">
                     <li>test1</li>
                     <li>test1</li>
@@ -21,7 +22,7 @@ export default function userPage() {
                     <li>test1</li>
                 </StoryList>
             </Menu>
-            <NewStory id="storyview"> </NewStory>
+            <NewStory id="storyview" user={userpage}> </NewStory>
         </Container>
     );
 }
@@ -44,3 +45,12 @@ const Menu = styled.div`
 `;
 const StoryList = styled.div`
 `;
+
+// export async function getStaticProps(){
+//     const router = useRouter();
+//     const userpage = router.query.user;
+
+//     mongoose.connect(process.env.MONGODB_URL);
+//     const user = await Model.find({ user: userpage });
+
+// }

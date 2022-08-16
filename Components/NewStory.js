@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function NewStory() {
+export default function NewStory(props) {
     const [title, setTitle] = useState("New Story");
     const [text, setText] = useState("");
     const [savedState, setSavedState] = useState(true);
@@ -18,9 +18,8 @@ export default function NewStory() {
         setText(event.target.value);
     }
     function save() {
-        setSavedState(true);
-        console.log(title);
-        console.log(text);
+
+
     }
     return (
         <Container id="storyArea">

@@ -103,14 +103,3 @@ const Content = styled.div`
         resize: none;
     }
 `;
-const Savediv = styled.div`
-    position: fixed;
-    top: 500px;
-    left: 380px;
-    .saved {
-        background-color: white;
-    }
-    .unsaved {
-        background-color: blue;
-    }
-`;

@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 
-const StorySchema = new mongoose.Schema({
-    user:{
+let StorySchema = new mongoose.Schema({
+    user: {
         type: String,
         require: true,
     },
     title: {
         type: String,
-        require: true,
     },
     text: {
         type: String,
@@ -16,7 +15,9 @@ const StorySchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
+    published: {
+        type: Boolean,
+        default: false,
+    },
 });
-
-module.exports =
-    mongoose.models.StoryList || mongoose.model("StoryList", StorySchema);
+module.exports = mongoose.models.story || mongoose.model("story", StorySchema);

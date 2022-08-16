@@ -39,18 +39,17 @@ export default function LoginForm() {
                 .then(res=>{
             
                     if(res.login){
-                        //if server created a user
+                        //if server match the login
                         redirectuser(username)
                     }else{
-                        //if user already exists
-                        alert('Username dont exists!')
+                        //if server doesnt match the login
+                        alert('Username or password does not match!')
                     }
                 })
             }else{
                 alert("Not able to login!")
             }}
             )
-
     }
     function signup() {
         // call function to sign in
@@ -72,7 +71,8 @@ export default function LoginForm() {
             
                     if(res.signin){
                         //if server created a user
-                        redirectuser(username)
+                        alert("User Created, you can login now!")
+                        router.push(`/login`)
                     }else{
                         //if user already exists
                         alert('Username already exist, try another one!')
@@ -85,7 +85,7 @@ export default function LoginForm() {
 
     }
     function redirectuser(username){
-        router.push(`/user/${username}`)
+        router.push(`/u/${username}`)
     }
     return (
         <div className={styles.loginForm}>
@@ -102,3 +102,5 @@ export default function LoginForm() {
         </div>
     );
 }
+
+
