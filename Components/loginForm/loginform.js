@@ -72,7 +72,7 @@ export default function LoginForm() {
                     if(res.signin){
                         //if server created a user
                         alert("User Created, you can login now!")
-                        router.push(`/login`)
+                        router.push(`/api/auth/signin`)
                     }else{
                         //if user already exists
                         alert('Username already exist, try another one!')
@@ -92,9 +92,6 @@ export default function LoginForm() {
             <InterativInput onChange={handleChangeUser} username={username} />
             <InputPassword onChange={handleChangePass} />
             <div className={styles.btn}>
-                <Btn action={login} id="login">
-                    Login
-                </Btn>
                 <Btn action={signup} id="sign_up">
                     Sign up
                 </Btn>

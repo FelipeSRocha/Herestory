@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-
+import MenuBar from "../Components/MenuBar"
 
 function Home() {
     const router = useRouter()
@@ -9,8 +9,7 @@ function Home() {
     }
     return (
         <div>
-            <h1>Welcome!</h1>
-            <button onClick={pushtologin}>Ir para login</button>
+            <MenuBar/>
         </div>
     );
 }

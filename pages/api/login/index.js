@@ -1,11 +1,11 @@
-import Model from "../../../models/user";
+import Model from "../../../models/user_model";
 import mongoose from "mongoose";
 import cookie from 'cookie'
 
 export default async function handler(req, res) {
     mongoose.connect(process.env.MONGODB_URL);
     const user = await Model.find({ user: req.body.user, password: req.body.password });
-
+    console.log(user)
     if (user.length > 0) {
         // "existe"
         res.setHeader(

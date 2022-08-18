@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import NewStory from "../../../Components/NewStory";
+import NewStory from "../../Components/NewStory";
 
 import styled from "styled-components";
 

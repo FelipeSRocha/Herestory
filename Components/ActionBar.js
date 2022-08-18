@@ -1,19 +1,21 @@
 import styled from "styled-components";
-import mongoose from "mongoose";
-import Model from '../models/story_model'
 
-export default async function ActionBar() {
-    mongoose.connect(process.env.MONGODB_URL);
-    async function createStory(){
-        const new_Story  = Model.create({
-            user: req.body.user,
-            title: "",
-            text:"",
+export default function ActionBar() {
+    function createStory() {
+        console.log("log");
+        fetch("../api/createstory", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user: "test",
+            }),
         });
     }
     return (
         <Container>
-            <button></button>
+            <button onClick={createStory}>Create</button>
         </Container>
     );
 }

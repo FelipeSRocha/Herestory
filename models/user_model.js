@@ -12,6 +12,12 @@ const userSchema = new mongoose.Schema(
             select: false,
             require: true,
         },
+        userToken:{
+            type: String,
+            require: true,
+            unique: true,
+            select: false,
+        },
         createdAt: {
             type: Date,
             default: Date.now(),
