@@ -54,7 +54,6 @@ export default function createstoryPage(data) {
         const result = confirm("Are you shure you want to publish this story?")
         if (result){
             setPublishedState(true)
-            
         }
     }
 

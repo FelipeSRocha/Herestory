@@ -13,9 +13,7 @@ export default async function getStoryUser(req,res){
                 updatedAt:req.body.updatedAt, 
             }
             )
-        update.then(()=>{
         res.status(200);
-        })
 
     } else{
         res.status(401);
