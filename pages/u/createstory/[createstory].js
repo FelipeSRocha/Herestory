@@ -30,7 +30,7 @@ export default function createstoryPage(data) {
     }
     async function Save() {
         setSavedState(true);
-        const update = await fetch(process.env.MAIN_URL+"api/updateStory",{
+        const update = await fetch(process.env.LOCAL? process.env.MAIN_URL+"api/getStoryUser":"https://herestory.vercel.app/api/updateStory",{
             method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -138,7 +138,7 @@ export async function getServerSideProps(context) {
         };
     } else {
         if (context.params.createstory) {
-            const response = await fetch(process.env.MAIN_URL+"api/getStory", {
+            const response = await fetch(process.env.LOCAL? process.env.MAIN_URL+"api/getStory":"https://herestory.vercel.app/api/getStory", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
