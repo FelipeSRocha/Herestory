@@ -98,7 +98,7 @@ export async function getServerSideProps(context) {
             },
         };
     } else {
-        const response = await fetch(process.env.MAIN_URL+"api/getStoryUser", {
+        const response = await fetch("https://herestory.vercel.app/api/getStoryUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
