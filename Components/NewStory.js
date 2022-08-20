@@ -2,20 +2,18 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export default function NewStory(props) {
-    const [title, setTitle] = useState(props.data.title);
-    const [text, setText] = useState(props.data.text);
-    const [savedState, setSavedState] = useState(true);
-    console.log(title, text);
     function onChangeTitle(event) {
-        setSavedState(false);
-        setTitle(event.target.value);
+        props.onchageTitle(event)
     }
 
     function onChangeText(event) {
         event.target.style.height = "inherit";
         event.target.style.height = `${event.target.scrollHeight}px`;
-        setSavedState(false);
-        setText(event.target.value);
+        props.onchangeText(event)
+
+    }
+    function updateTextArea(event) {
+        console.log("test");
     }
     function save() {}
     return (
@@ -25,20 +23,15 @@ export default function NewStory(props) {
                     <input
                         placeholder="New Story"
                         onChange={onChangeTitle}
-                        value={title}
+                        defaultValue={props.story.title}
                     />
                 </Title>
                 <Content id="text">
-                    <textarea onChange={onChangeText}>{text}</textarea>
+                    <textarea
+                        onChange={onChangeText}
+                        defaultValue={props.story.text}
+                    ></textarea>
                 </Content>
-                <Savediv>
-                    <button
-                        onClick={save}
-                        className={savedState ? "saved" : "unsaved"}
-                    >
-                        Save
-                    </button>
-                </Savediv>
             </Wrapper>
         </Container>
     );

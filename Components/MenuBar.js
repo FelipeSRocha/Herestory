@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 export default function MenuBar() {
     const { data: session } = useSession();
     const router = useRouter();
-    function createStory() {
+    function userHome() {
         router.push("./u/userhome");
     }
     function Signup() {
@@ -35,7 +35,7 @@ export default function MenuBar() {
                     <>
                         <h1>{session.user.name}</h1>
                         <ActionBar>
-                            <button onClick={createStory}>Create</button>
+                            <button onClick={userHome}>Home</button>
                             <button onClick={()=>{signOut()}}>Logout</button>
 
                         </ActionBar>

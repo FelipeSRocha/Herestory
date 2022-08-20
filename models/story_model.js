@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
+
+
 let StorySchema = new mongoose.Schema({
+    
     user: {
         type: String,
         require: true,
@@ -22,9 +25,17 @@ let StorySchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
+    updatedAt:{
+        type: Date,
+        default: Date.now(),
+    },
     published: {
         type: Boolean,
         default: false,
     },
+    publishedAt:{
+        type: Date,
+        default: Date.now(),
+    }
 });
 module.exports = mongoose.models.story || mongoose.model("story", StorySchema);

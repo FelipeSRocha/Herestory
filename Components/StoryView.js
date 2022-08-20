@@ -1,11 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function NewStory() {
-    const [title, setTitle] = useState("New Story");
-    const [text, setText] = useState(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. Suspendisse vestibulum orci velit, vitae ultrices n ulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tinciLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. \n Suspendisse vestibulum orci velit, vitae ultrices nulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tincidunt veLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. Suspendisse vestibulum orci velit, vitae ultrices nulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tincidunt veLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas fringilla turpis id sodales. Suspendisse vestibulum orci velit, vitae ultrices nulla dignissim nec. Morbi vitae mi sed mi tristique sagittis. Aenean id risus et enim laoreet placerat. Aliquam vestibulum erat at enim gravida auctor. Curabitur consequat felis eget nunc dictum tristique. Proin a dolor aliquam, sagittis lorem a, tincidunt vedunt velit."
-    );
+export default function NewStory(props) {
 
     function onChangeTitle(event) {
         setSavedState(false);
@@ -22,10 +18,10 @@ export default function NewStory() {
         <Container id="storyArea">
             <Wrapper id="boxStory">
                 <Title id="title">
-                    <h1 onChange={onChangeTitle}>{title}</h1>
+                    <h1 onChange={onChangeTitle}>{props.story.title}</h1>
                 </Title>
                 <Content id="text">
-                    <p onChange={onChangeText}>{text}</p>
+                    <p onChange={onChangeText}>{props.story.text}</p>
                 </Content>
             </Wrapper>
         </Container>

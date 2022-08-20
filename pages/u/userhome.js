@@ -1,12 +1,15 @@
-import { getSession } from "next-auth/react";
+import { getSession, signOut} from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import NewStory from "../../Components/NewStory";
+import StoryList from "../../Components/StoryList";
+import StoryView from "../../Components/StoryView";
 import styled from "styled-components";
 
-export default function userPage(data) {
-    const [story, setStory] = useState(data.story.story_list[0]);
+export default function userhome(data) {
+    const [selected, setSelected] = useState(0);
+    const [story, setStory] = useState(data.story.story_list[selected]);
+
     const router = useRouter();
     const user = data.user.user.name;
     const stories = data.story.story_list;
@@ -14,38 +17,42 @@ export default function userPage(data) {
     function onchageTitle() {}
     function onchangeText() {}
 
-    function StoryContainer(props) {
-        const id = props.data.story_id;
-        const preview = props.data.text.substr(0, 100);
-        return (
-            <StoryBox key={id} id={id}>
-                <Title key={"title:" + id} id={"title:" + id}>
-                    Title:
-                </Title>
-                <PreviewText key={"preview:" + id} id={"preview:" + id}>
-                    "{preview}..."
-                </PreviewText>
-            </StoryBox>
-        );
+    function selectStory(event) {
+        setStory(stories[event.target.id]);
+        setSelected(event.target.id);
+    }
+
+    function editstory(event, key) {
+        console.log(event, key);
+        router.push('./createstory/'+key)
     }
     return (
-        <Container id="container">
-            <Menu id="menubar">
+        <Container id="container" key="container">
+            <Menu id="menubar" key="menubar">
                 <h1>{user}</h1>
-                <StoryList>
-                    {stories.map((item) => {
-                        return <StoryContainer data={item} />;
-                    })}
-                </StoryList>
+                <Storycontainer key="Storycontainer">
+                    <StoryList
+                        story={stories}
+                        selected={selected}
+                        selectStory={selectStory}
+                        edit={editstory}
+                    />
+                </Storycontainer>
+                <UserBar>
+                    <h1>{user}</h1>
+                        <ActionBar>
+                            <button onClick={()=>{signOut()}}>Logout</button>
+                        </ActionBar>
+                </UserBar>
             </Menu>
-            <NewStory
+            <StoryView
                 id="storyview"
-                data={story}
+                story={story}
                 onchageTitle={onchageTitle}
                 onchangeText={onchangeText}
             >
                 {" "}
-            </NewStory>
+            </StoryView>
         </Container>
     );
 }
@@ -66,25 +73,18 @@ const Menu = styled.div`
     border: 2px black solid;
     overflow: hidden;
 `;
-const StoryList = styled.div`
+const UserBar = styled.div`
+    position: relative;
     display: flex;
-    gap: 5px;
     flex-direction: column;
-    overflow: auto;
-    box-sizing: border-box;
+    padding: 5px 5px;
+    gap: 10px;
+    border: 2px solid black;
+    h1 {
+        margin: 0;
+    }
 `;
-
-const StoryBox = styled.div`
-    display: flex;
-    gap: 5px;
-    flex-direction: column;
-`;
-const Title = styled.h2`
-    margin: 0;
-`;
-const PreviewText = styled.p`
-    margin: 0;
-`;
+const ActionBar = styled.div``;
 export async function getServerSideProps(context) {
     const session = await getSession(context);
     if (!session) {
@@ -98,7 +98,7 @@ export async function getServerSideProps(context) {
             },
         };
     } else {
-        const response = await fetch("http://localhost:3000/api/getStoryUser", {
+        const response = await fetch(process.env.MAIN_URL+"api/getStoryUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -116,3 +116,11 @@ export async function getServerSideProps(context) {
         };
     }
 }
+
+const Storycontainer = styled.div`
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    overflow: auto;
+    box-sizing: border-box;
+`;
