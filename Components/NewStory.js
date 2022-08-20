@@ -2,10 +2,10 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export default function NewStory(props) {
-    const [title, setTitle] = useState("New Story");
-    const [text, setText] = useState("");
+    const [title, setTitle] = useState(props.data.title);
+    const [text, setText] = useState(props.data.text);
     const [savedState, setSavedState] = useState(true);
-
+    console.log(title, text);
     function onChangeTitle(event) {
         setSavedState(false);
         setTitle(event.target.value);
@@ -17,18 +17,19 @@ export default function NewStory(props) {
         setSavedState(false);
         setText(event.target.value);
     }
-    function save() {
-
-
-    }
+    function save() {}
     return (
         <Container id="storyArea">
             <Wrapper id="boxStory">
                 <Title id="title">
-                    <input placeholder="New Story" onChange={onChangeTitle} />
+                    <input
+                        placeholder="New Story"
+                        onChange={onChangeTitle}
+                        value={title}
+                    />
                 </Title>
                 <Content id="text">
-                    <textarea onChange={onChangeText} />
+                    <textarea onChange={onChangeText}>{text}</textarea>
                 </Content>
                 <Savediv>
                     <button
@@ -43,18 +44,18 @@ export default function NewStory(props) {
     );
 }
 const Container = styled.div`
-    width:100%;
-    height:100%;
-    padding:50px;
-    overflow:auto;
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+    overflow: auto;
     box-sizing: border-box;
-`
+`;
 const Wrapper = styled.div`
     font-family: helvetica neue, helvetica, arial, sans-serif;
     font-weight: 200;
     margin: 0;
     height: fit-content;
-    min-height:100%;
+    min-height: 100%;
     background: linear-gradient(to bottom, #fff6e7 29px, #00b0d7 1px);
     margin: auto;
     background-size: 100% 30px;
@@ -111,6 +112,8 @@ const Content = styled.div`
         background: transparent;
         margin: 0;
         width: 90%;
+        height: inherit;
+        overflow: hidden;
         border: none;
         font-size: 20px;
         line-height: 30px;

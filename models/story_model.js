@@ -7,9 +7,16 @@ let StorySchema = new mongoose.Schema({
     },
     title: {
         type: String,
+        default: "",
     },
     text: {
         type: String,
+        default: "",
+    },
+    story_id:{
+        type: String,
+        require: true,
+        unique: true,
     },
     createdAt: {
         type: Date,

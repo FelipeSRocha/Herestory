@@ -1,32 +1,34 @@
-// import Model from "../../models/story_model";
-// import mongoose from "mongoose";
-// import cookie from "cookie";
+import Model from "../../models/story_model";
+import mongoose from "mongoose";
+import cookie from "cookie";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
+import { getSession } from "next-auth/react";
 
-// export default function handler(req, res) {
-//     mongoose.connect(process.env.MONGODB_URL);
-//     if (req.headers.cookie) {
-//         const incoming_cookies = cookie.parse(req.headers.cookie);
-//         console.log(incoming_cookies);
-//     }
+//need to secure this API Route
+export default async (req, res) => {
+    function uuid() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            function (c) {
+                var r = (Math.random() * 16) | 0,
+                    v = c == "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            }
+        );
+    }
 
-//     const user = await Model.find({ user: req.body.user });
+    if (req.body.session) {
+        const user = req.body.session.user.name;
 
-//     // if (user.length > 0) {
-//     //     // "existe"
-//     //     res.status(200).json({ signin: false });
-//     // } else {
-//     //     // "Nao existe"
-//     //     try {
-//     //         console.log("foi")
-//     //         const new_user  = Model.create({
-//     //             user: req.body.user,
-//     //             password: req.body.password
-//     //         });
+        mongoose.connect(process.env.MONGODB_URL);
+        const data = { user: user, story_id: uuid() };
+        const new_story = await Model.create(data);
+        res.status(200).json({new_story: new_story})
 
-//     //         res.status(200).json({ signin: true });
+    } else {
+        res.status(401);
+    }
+};
 
-//     //     } catch (err) {
-//     //         res.status(400).json({ status: "Not able to create a new User!" });
-//     //     }
-//     // }
-// }
+// const user = await Model.find({ user: req.body.user });

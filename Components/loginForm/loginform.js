@@ -20,37 +20,7 @@ export default function LoginForm() {
         const text = event.target.value;
         setpassword(text);
     };
-    function login() {
-        //call function to login
-        fetch("./api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                user: username,
-                password: password,
-            }),
-        })
-        .then(res=>{
-            if(res.status==200){
-                //if a positive response
-                res.json()
-                .then(res=>{
-            
-                    if(res.login){
-                        //if server match the login
-                        redirectuser(username)
-                    }else{
-                        //if server doesnt match the login
-                        alert('Username or password does not match!')
-                    }
-                })
-            }else{
-                alert("Not able to login!")
-            }}
-            )
-    }
+
     function signup() {
         // call function to sign in
         fetch("./api/signup", {

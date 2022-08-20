@@ -4,30 +4,16 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function MenuBar() {
     const { data: session } = useSession();
-    console.log();
     const router = useRouter();
     function createStory() {
-        console.log("log");
-        fetch("../api/createstory", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                user: "test",
-            }),
-        });
+        router.push("./u/userhome");
     }
-
     function Signup() {
         router.push("./signup");
     }
     function Login() {
         router.push("./api/auth/signin");
     }
-
-
-
     return (
         <Menu id="menubar">
             <h1>Username</h1>
@@ -71,8 +57,8 @@ const Menu = styled.div`
     justify-items: center;
     box-sizing: border-box;
 `;
-const StoryList = styled.div``;
-
+const StoryList = styled.div`
+`;
 const UserBar = styled.div`
     position: relative;
     display: flex;
@@ -84,4 +70,5 @@ const UserBar = styled.div`
         margin: 0;
     }
 `;
-const ActionBar = styled.div``;
+const ActionBar = styled.div`
+`;
