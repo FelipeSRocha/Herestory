@@ -1,34 +1,59 @@
 import styled from "styled-components";
 
 export default function StoryList(props) {
+    if(props.story.length>0){props.story.sort(function (a, b) {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+    });
     return props.story.map((element, index) => {
         const key = element.story_id;
         const title = element.title.substr(0, 25);
         const preview = element.text.substr(0, 100);
-        function setStory(event){
-            props.selectStory(event)
+        function setStory(event) {
+            props.selectStory(event);
         }
-        function editStory(event,key){
-            props.edit(event,key)
+        function editStory(event, key) {
+            props.edit(event, key);
+        }
+        function deleteStory(event, key) {
+            props.delete(event, key);
         }
         return (
-            <StoryBox key={"box"+key} id={index} >
-                <Title key={"title" + key} id={index} onClick={setStory}>
-                    Title: {title}
-                </Title>
-                <PreviewText key={"preview" + key} id={index} onClick={setStory}>
-                    "{preview}..."
-                </PreviewText>
+            <StoryBox key={"box" + key} id={index}>
+                <ClickBox onClick={setStory}>
+                    <Title key={"title" + key} id={index} onClick={setStory}>
+                        Title: {title}
+                    </Title>
+                    <PreviewText
+                        key={"preview" + key}
+                        id={index}
+                        onClick={setStory}
+                    >
+                        "{preview}..."
+                    </PreviewText>
+                </ClickBox>
                 <button
                     className={props.selected == index ? "selected" : "none"}
-                    onClick={(event)=>editStory(event,key)}
-                    key={key} id={index} 
+                    onClick={(event) => editStory(event, key)}
+                    key={"edit_" + key}
+                    id={index}
                 >
                     Edit Story
                 </button>
+                <button
+                    className={props.selected == index ? "selected" : "none"}
+                    onClick={(event) => deleteStory(event, key)}
+                    key={"delete_" + key}
+                    id={index}
+                >
+                    Delete Story
+                </button>
             </StoryBox>
         );
-    });
+    })}else{
+        return(<h2>^ Create a New History!</h2>)
+    }
+    
+    
 }
 
 const StoryBox = styled.div`
@@ -40,6 +65,7 @@ const StoryBox = styled.div`
         display: none;
     }
 `;
+const ClickBox = styled.div``;
 const Title = styled.h2`
     margin: 0;
     z-index: 1;

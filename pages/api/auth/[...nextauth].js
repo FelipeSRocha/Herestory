@@ -15,7 +15,6 @@ export default NextAuth({
                 mongoose.connect(process.env.MONGODB_URL);
                 const user = await Model.find({ user: credentials.username, password:credentials.password });
 
-
                 if ( user.length >0) {
                     return {
                         id: 2,

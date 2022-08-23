@@ -10,12 +10,14 @@ export default async function getStoryUser(req,res){
             {
                 title:req.body.title,
                 text:req.body.text,
-                updatedAt:req.body.updatedAt, 
+                updatedAt:Date.now(), 
             }
             )
         res.status(200);
-
+        res.end()
     } else{
         res.status(401);
+        res.end()
+
     }
 }

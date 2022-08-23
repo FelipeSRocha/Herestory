@@ -16,7 +16,6 @@ export default function createstoryPage(data) {
     const [savedState, setSavedState] = useState(true);
     const [publishedState, setPublishedState] = useState(false);
 
-
     function onchangeTitle(event) {
         setTitle(event.target.value);
         setSavedState(false);
@@ -30,7 +29,7 @@ export default function createstoryPage(data) {
     }
     async function Save() {
         setSavedState(true);
-        const update = await fetch(process.env.LOCAL? process.env.MAIN_URL+"api/getStoryUser":"https://herestory.vercel.app/api/updateStory",{
+        const update = await fetch("../../api/updateStory",{
             method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -43,12 +42,14 @@ export default function createstoryPage(data) {
                     story_id: story.story_id,
                 }),
         }
-        )
-        if(update.status==200){
+        ).then(res=>{if(res.status==200){
             alert("Story Saved")
         }else{
             alert("We cannot save yout story right now!")
         }
+    })
+
+
     }
     function Publish() {
         const result = confirm("Are you shure you want to publish this story?")
@@ -130,8 +131,7 @@ export async function getServerSideProps(context) {
             redirect: {
                 destination:
                     "/api/auth/signin?callbackUrl=" +
-                    process.env.MAIN_URL +
-                    "u/createstory",
+                    process.env.MAIN_URL,
                 permanent: false,
             },
         };
