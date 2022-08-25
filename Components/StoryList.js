@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export default function StoryList(props) {
-    if(props.story.length>0){props.story.sort(function (a, b) {
-        return new Date(b.updatedAt) - new Date(a.updatedAt);
-    });
+    if(props.story.length>0){
+
     return props.story.map((element, index) => {
         const key = element.story_id;
         const title = element.title.substr(0, 25);

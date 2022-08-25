@@ -8,6 +8,9 @@ import styled from "styled-components";
 
 export default function userhome(data) {
     const [selected, setSelected] = useState(0);
+    if(data.story.story_list.length>0){data.story.story_list.sort(function (a, b) {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })}
     const [story, setStory] = useState(data.story.story_list[selected]);
     
     const router = useRouter();

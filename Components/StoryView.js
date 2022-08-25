@@ -23,8 +23,8 @@ export default function NewStory(props) {
                 </Title>
                 <Content id="text">
                     {arrayOfText.map(element =>{
-                        console.log(element=='')
-                        return(<p>{element?element:""}</p>)
+ 
+                        return(element==""?(<div/>):(<p>{element}</p>))
                     })}
                 </Content>
             </Wrapper>
@@ -101,5 +101,8 @@ const Content = styled.div`
         font-size: 20px;
         line-height: 30px;
         resize: none;
+    }
+    div {
+        height: 30px;
     }
 `;
