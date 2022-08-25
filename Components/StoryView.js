@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export default function NewStory(props) {
+    const arrayOfText = props.story.text.split('\n');
 
     function onChangeTitle(event) {
         setSavedState(false);
@@ -21,7 +22,10 @@ export default function NewStory(props) {
                     <h1 onChange={onChangeTitle}>{props.story.title}</h1>
                 </Title>
                 <Content id="text">
-                    <p onChange={onChangeText}>{props.story.text}</p>
+                    {arrayOfText.map(element =>{
+                        console.log(element=='')
+                        return(<p>{element?element:""}</p>)
+                    })}
                 </Content>
             </Wrapper>
         </Container>

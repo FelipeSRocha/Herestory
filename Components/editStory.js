@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function NewStory(props) {
+    const [text, setText] = useState("");
+    useEffect(()=>{setText(props.story.text)}, []);
+
+    useEffect(()=>{
+        const textArea = document.getElementById("textArea");
+        textArea.style.height = "inherit";
+        textArea.style.height = `${textArea.scrollHeight}px`;
+    }, [text])
+
     function onChangeTitle(event) {
-        props.onchageTitle(event)
+        props.onchageTitle(event);
     }
 
     function onChangeText(event) {
-        event.target.style.height = "inherit";
-        event.target.style.height = `${event.target.scrollHeight}px`;
-        props.onchangeText(event)
+            setText(event.target.value);
+            props.onchangeText(event);
+    }
 
-    }
-    function updateTextArea(event) {
-        console.log("test");
-    }
-    function save() {}
     return (
         <Container id="storyArea">
             <Wrapper id="boxStory">
@@ -27,10 +31,7 @@ export default function NewStory(props) {
                     />
                 </Title>
                 <Content id="text">
-                    <textarea
-                        onChange={onChangeText}
-                        defaultValue={props.story.text}
-                    ></textarea>
+                    <textarea id="textArea" value={text} onChange={onChangeText}></textarea>
                 </Content>
             </Wrapper>
         </Container>
@@ -101,11 +102,10 @@ const Title = styled.div`
 const Content = styled.div`
     padding-top: 13px;
     padding-left: 150px;
+    display: flex;
     textarea {
         background: transparent;
-        margin: 0;
         width: 90%;
-        height: inherit;
         overflow: hidden;
         border: none;
         font-size: 20px;

@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import NewStory from "../../../Components/NewStory";
+import NewStory from "../../../Components/editStory";
 import styled from "styled-components";
 
 export default function createstoryPage(data) {
