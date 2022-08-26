@@ -2,36 +2,55 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function NewStory(props) {
+    const [title, setTitle] = useState("");
     const [text, setText] = useState("");
-    useEffect(()=>{setText(props.story.text)}, []);
 
-    useEffect(()=>{
+    useEffect(() => {
+        setText(props.story.text);
+    }, []);
+    useEffect(() => {
+        setTitle(props.story.title);
+    }, []);
+
+    useEffect(() => {
         const textArea = document.getElementById("textArea");
         textArea.style.height = "inherit";
         textArea.style.height = `${textArea.scrollHeight}px`;
-    }, [text])
+    }, [text]);
+    useEffect(() => {
+        const titleArea = document.getElementById("titleArea");
+        titleArea.style.height = "inherit";
+        titleArea.style.height = `${titleArea.scrollHeight}px`;
+    }, [title]);
 
     function onChangeTitle(event) {
+        setTitle(event.target.value)
         props.onchageTitle(event);
+
     }
 
     function onChangeText(event) {
-            setText(event.target.value);
-            props.onchangeText(event);
+        setText(event.target.value);
+        props.onchangeText(event);
     }
 
     return (
         <Container id="storyArea">
             <Wrapper id="boxStory">
                 <Title id="title">
-                    <input
-                        placeholder="New Story"
+                    <textarea
+                        id="titleArea"
                         onChange={onChangeTitle}
                         defaultValue={props.story.title}
+                        rows={1}
                     />
                 </Title>
                 <Content id="text">
-                    <textarea id="textArea" value={text} onChange={onChangeText}></textarea>
+                    <textarea
+                        id="textArea"
+                        value={text}
+                        onChange={onChangeText}
+                    ></textarea>
                 </Content>
             </Wrapper>
         </Container>
@@ -49,11 +68,7 @@ const Wrapper = styled.div`
     font-weight: 200;
     margin: 0;
     height: fit-content;
-    min-height: 100%;
-    background: linear-gradient(to bottom, #fff6e7 29px, #00b0d7 1px);
-    margin: auto;
-    background-size: 100% 30px;
-    position: relative;
+
     border-radius: 5px;
     -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2),
         0px 0px 6px rgba(0, 0, 0, 0.2);
@@ -64,6 +79,15 @@ const Wrapper = styled.div`
     -o-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2),
         0px 0px 6px rgba(0, 0, 0, 0.2);
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2), 0px 0px 6px rgba(0, 0, 0, 0.2);
+`;
+const Title = styled.div`
+    background: #fff6e7;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 160px;
     &:before {
         content: "";
         display: block;
@@ -75,24 +99,14 @@ const Wrapper = styled.div`
         width: 1px;
         background: #db4034;
     }
-`;
-const Title = styled.div`
-    height: 80px;
-    background: #fff6e7;
-    position: relative;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: flex-end;
-    padding-left: 160px;
-    input {
-        width: 100%;
+    textarea {
         background: transparent;
+        width: 90%;
+        overflow: hidden;
         border: none;
         font-size: 50px;
         line-height: 60px;
-        height: auto;
-        margin: 0;
+        resize: none;
     }
     textarea:focus,
     input:focus {
@@ -100,9 +114,27 @@ const Title = styled.div`
     }
 `;
 const Content = styled.div`
-    padding-top: 13px;
+    padding-top: 2px;
     padding-left: 150px;
     display: flex;
+    min-height: 100%;
+    background: linear-gradient(to bottom, #fff6e7 29px, #00b0d7 1px);
+    margin: auto;
+    background-size: 100% 30px;
+    position: relative;
+    min-height: 80vh;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 140px;
+        height: 100%;
+        width: 1px;
+        background: #db4034;
+    }
     textarea {
         background: transparent;
         width: 90%;

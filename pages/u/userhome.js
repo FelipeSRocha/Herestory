@@ -135,6 +135,7 @@ const UserBar = styled.div`
     }
 `;
 const ActionBar = styled.div``;
+
 export async function getServerSideProps(context) {
     const session = await getSession(context);
     if (!session) {

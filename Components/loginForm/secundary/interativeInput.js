@@ -6,7 +6,7 @@ export default function InterativInput(props) {
         <div className={style.grid}>
             <p className={style.bemvindo}>Bem vindo,</p>
             <p className={style.username}>{props.username}</p>
-            <input placeholder='Username' onChange={props.onChange}></input>
+            <input placeholder='Username' onChange={props.onChange} className={style.input}></input>
         </div>
     );
   }

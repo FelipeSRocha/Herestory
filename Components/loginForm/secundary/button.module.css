@@ -1,5 +1,5 @@
 .btn{
-    background-color: rgb(82, 142, 255); 
+    background-color: rgb(85, 85, 85);
     border: none;
     color: white;
     text-align: center;
@@ -14,5 +14,5 @@
 }
 .btn:hover {
     background-color: white; 
-    color: rgb(82, 142, 255); 
+    color: rgb(85, 85, 85);
 }

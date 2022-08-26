@@ -6,25 +6,26 @@ import Model from "../../../models/user_model";
 export default NextAuth({
     providers: [
         CredentialsProvider({
+            id:"credentials",
             name: "Credentials",
-            credentials: {
-                username: { label: "Username", type: "text" },
-                password: { label: "Password", type: "password" },
-            },
+            credentials: {},
             async authorize(credentials) {
                 mongoose.connect(process.env.MONGODB_URL);
-                const user = await Model.find({ user: credentials.username, password:credentials.password });
-
+                const user = await Model.find({ user: credentials.user, password:credentials.password });
                 if ( user.length >0) {
                     return {
                         id: 2,
-                        name: credentials.username,
+                        name: credentials.user,
                     };
                 }
                 return null;
             },
         }),
     ],
+    pages:{
+        signIn: '/login',
+    }
+    ,
     callbacks: {
         jwt: ({ token, user }) => {
             if (user) {
