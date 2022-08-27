@@ -115,6 +115,7 @@ const Empty = styled.div`
 const Menu = styled.div`
     background: #fee6c8;
     width: 300px;
+    min-width: 300px;
     padding: 20px;
     display: flex;
     gap: 20px;

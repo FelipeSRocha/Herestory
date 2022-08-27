@@ -23,11 +23,11 @@ let StorySchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now(),
+        default: new Date(),
     },
     updatedAt:{
         type: Date,
-        default: Date.now(),
+        default: new Date(),
     },
     published: {
         type: Boolean,
@@ -35,7 +35,7 @@ let StorySchema = new mongoose.Schema({
     },
     publishedAt:{
         type: Date,
-        default: Date.now(),
+        default: null,
     }
 });
 module.exports = mongoose.models.story || mongoose.model("story", StorySchema);

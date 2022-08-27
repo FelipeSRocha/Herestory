@@ -8,13 +8,14 @@ import styled from "styled-components";
 export default function createstoryPage(data) {
     const story = data.story.story_list;
     const user = data.session.user.name;
-    const session = data.session
+    const session = data.session;
 
     const router = useRouter();
     const [title, setTitle] = useState(story.title);
     const [text, setText] = useState(story.text);
     const [savedState, setSavedState] = useState(true);
-    const [publishedState, setPublishedState] = useState(false);
+    const [publishedState, setPublishedState] = useState(story.published);
+    const [publishedTime, setPublishedTime] = useState(story.publishedAt);
 
     function onchangeTitle(event) {
         setTitle(event.target.value);
@@ -29,8 +30,34 @@ export default function createstoryPage(data) {
     }
     async function Save() {
         setSavedState(true);
-        const update = await fetch("../../api/updateStory",{
+        const update = await fetch("../../api/updateStory", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                session: session,
+                title: title,
+                text: text,
+                story_id: story.story_id,
+                publishedAt: publishedTime,
+                published: publishedState,
+            }),
+        }).then((res) => {
+            if (res.status == 200) {
+                alert("Story Saved");
+            } else {
+                alert("We cannot save yout story right now!");
+            }
+        });
+    }
+    async function Publish() {
+        const result = confirm("Are you shure you want to publish this story?");
+        if (result) {
+            setPublishedState(true);
+            setSavedState(true);
+            const update = await fetch("../../api/updateStory", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -38,23 +65,17 @@ export default function createstoryPage(data) {
                     session: session,
                     title: title,
                     text: text,
-                    updatedAt: Date.now(),
                     story_id: story.story_id,
+                    published: true,
+                    publishedAt: new Date(),
                 }),
-        }
-        ).then(res=>{if(res.status==200){
-            alert("Story Saved")
-        }else{
-            alert("We cannot save yout story right now!")
-        }
-    })
-
-
-    }
-    function Publish() {
-        const result = confirm("Are you shure you want to publish this story?")
-        if (result){
-            setPublishedState(true)
+            }).then((res) => {
+                if (res.status == 200) {
+                    alert("Story Published");
+                } else {
+                    alert("We cannot publish yout story right now!");
+                }
+            });
         }
     }
 
@@ -80,7 +101,6 @@ export default function createstoryPage(data) {
                 </StoryOpt>
                 <p>{`Saved: ${savedState}`}</p>
                 <p>{`Published: ${publishedState}`}</p>
-
             </Menu>
             <NewStory
                 story={story}
@@ -130,23 +150,27 @@ export async function getServerSideProps(context) {
         return {
             redirect: {
                 destination:
-                    "/api/auth/signin?callbackUrl=" +
-                    process.env.MAIN_URL,
+                    "/api/auth/signin?callbackUrl=" + process.env.MAIN_URL,
                 permanent: false,
             },
         };
     } else {
         if (context.params.createstory) {
-            const response = await fetch(process.env.LOCAL? process.env.MAIN_URL+"api/getStory":"https://herestory.vercel.app/api/getStory", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    session: session,
-                    story_id: context.params.createstory,
-                }),
-            });
+            const response = await fetch(
+                process.env.LOCAL
+                    ? process.env.MAIN_URL + "api/getStory"
+                    : "https://herestory.vercel.app/api/getStory",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        session: session,
+                        story_id: context.params.createstory,
+                    }),
+                }
+            );
             const data = await response.json();
             return {
                 props: {

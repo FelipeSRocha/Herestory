@@ -8,9 +8,12 @@ export default async function getStoryUser(req,res){
         mongoose.connect(process.env.MONGODB_URL);
         const update = await Model.findOneAndUpdate({story_id: req.body.story_id},
             {
-                title:req.body.title,
-                text:req.body.text,
-                updatedAt:Date.now(), 
+                title: req.body.title,
+                text: req.body.text,
+                updatedAt: Date.now(), 
+                published: req.body.published,
+                publishedAt: req.body.publishedAt,
+                
             }
             )
         res.status(200);
