@@ -97,8 +97,15 @@ export async function getServerSideProps(context) {
             ? process.env.MAIN_URL + "api/getExplorerPage"
             : "https://herestory.vercel.app/api/getExplorerPage"
     );
-    const res = await response.json();
-    return {
-        props: res,
-    };
+    if (response.status==200){
+        const res = await response.json();
+        return {
+            props: res,
+        };
+    }else{
+        return {
+            props: {story_list: []},
+        };
+    }
+
 }
