@@ -86,6 +86,9 @@ const View = styled.div`
     width: 100%;
     box-sizing: border-box;
     overflow: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 `;
 
 export async function getServerSideProps(context) {
