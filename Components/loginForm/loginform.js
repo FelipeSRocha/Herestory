@@ -15,7 +15,7 @@ export default function LoginForm() {
 
     useEffect(()=>{
         if(status==="authenticated"){
-            router.push("/u/userhome")
+            router.push("/home")
         }
     },[status])
 

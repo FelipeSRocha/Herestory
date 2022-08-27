@@ -26,7 +26,7 @@ export default function createstoryPage(data) {
         setSavedState(false);
     }
     function userHome() {
-        router.push("../userhome");
+        router.push("../");
     }
     async function Save() {
         setSavedState(true);
@@ -97,7 +97,10 @@ export default function createstoryPage(data) {
                 </UserBar>
                 <StoryOpt>
                     <button onClick={Save}>Save</button>
+                    {publishedState?(<></>):(
                     <button onClick={Publish}>Publish</button>
+
+                    )}
                 </StoryOpt>
                 <p>{`Saved: ${savedState}`}</p>
                 <p>{`Published: ${publishedState}`}</p>

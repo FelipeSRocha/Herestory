@@ -27,7 +27,7 @@ export default function userhome(data) {
     }
 
     function editstory(event, key) {
-        router.push("./createstory/" + key);
+        router.push("home/createstory/" + key);
     }
     async function deletestory(event, key) {
         const createNewStory = await fetch("../api/deleteStory", {
@@ -60,13 +60,18 @@ export default function userhome(data) {
             router.reload(window.location.pathname);
         });
     }
+    function explorer(){
+        router.push('/')
+    }
     return (
         <Container id="container" key="container">
             <Menu id="menubar" key="menubar">
                 <UserBar>
                     <h1>{user}</h1>
                     <ActionBar>
+                        <button onClick={explorer}>Explorer</button>
                         <button onClick={createStory}>Create New Story</button>
+
                         <button
                             onClick={() => {
                                 signOut();

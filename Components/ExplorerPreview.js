@@ -7,7 +7,6 @@ export default function ExplorerPreview(props) {
                 const date = new Date(story.publishedAt);
                 const day = date.getDate();
                 const month = date.getMonth();
-                console.log(day, month);
                 const monthNames = [
                     "January",
                     "February",
@@ -23,7 +22,7 @@ export default function ExplorerPreview(props) {
                     "December",
                 ];
                 return (
-                    <Box>
+                    <Box key={story.story_id}>
                         <Info>
                             <p>{story.user}</p>
                             <p>{day + " - " + monthNames[month]}</p>
