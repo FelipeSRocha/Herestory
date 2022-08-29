@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import NewStory from "../../../Components/editStory";
 import styled from "styled-components";
+import { updateStoryDB } from "../../../utils/ManageStoryDB";
 
 export default function createstoryPage(data) {
     const story = data.story.story_list;
@@ -29,54 +30,36 @@ export default function createstoryPage(data) {
         router.push("../");
     }
     async function Save() {
-        setSavedState(true);
-        const update = await fetch("../../api/updateStory", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                session: session,
-                title: title,
-                text: text,
-                story_id: story.story_id,
-                publishedAt: publishedTime,
-                published: publishedState,
-            }),
-        }).then((res) => {
-            if (res.status == 200) {
-                alert("Story Saved");
-            } else {
-                alert("We cannot save yout story right now!");
-            }
+        updateStoryDB({
+            title,
+            text,
+            story_id: story.story_id,
+            published: publishedState,
+            publishedAt: publishedTime,
         });
+        setSavedState(true);
     }
     async function Publish() {
-        const result = confirm("Are you shure you want to publish this story?");
-        if (result) {
-            setPublishedState(true);
-            setSavedState(true);
-            const update = await fetch("../../api/updateStory", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    session: session,
-                    title: title,
-                    text: text,
-                    story_id: story.story_id,
-                    published: true,
-                    publishedAt: new Date(),
-                }),
-            }).then((res) => {
-                if (res.status == 200) {
-                    alert("Story Published");
-                } else {
-                    alert("We cannot publish yout story right now!");
-                }
-            });
-        }
+        updateStoryDB({
+            title: title,
+            text: text,
+            story_id: story.story_id,
+            published: true,
+            publishedAt: new Date(),
+        });
+        setSavedState(true);
+        setPublishedState(true);
+    }
+    const unPublish = () =>{
+        updateStoryDB({
+            title,
+            text,
+            story_id: story.story_id,
+            published: false,
+            publishedAt: publishedTime,
+        });
+        setSavedState(true);
+        setPublishedState(false);
     }
 
     return (
@@ -97,9 +80,10 @@ export default function createstoryPage(data) {
                 </UserBar>
                 <StoryOpt>
                     <button onClick={Save}>Save</button>
-                    {publishedState?(<></>):(
-                    <button onClick={Publish}>Publish</button>
-
+                    {publishedState ? (
+                        <button onClick={unPublish}>unPublish</button>
+                    ) : (
+                        <button onClick={Publish}>Publish</button>
                     )}
                 </StoryOpt>
                 <p>{`Saved: ${savedState}`}</p>
