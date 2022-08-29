@@ -22,9 +22,9 @@ export default function NewStory(props) {
                     <h1 onChange={onChangeTitle}>{props.story.title}</h1>
                 </Title>
                 <Content id="text">
-                    {arrayOfText.map(element =>{
+                    {arrayOfText.map((element,index) =>{
  
-                        return(element==""?(<div/>):(<p>{element}</p>))
+                        return(element==""?(<div key={index}/>):(<p key={index}>{element}</p>))
                     })}
                 </Content>
             </Wrapper>
