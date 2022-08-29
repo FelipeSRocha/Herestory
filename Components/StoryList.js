@@ -40,7 +40,7 @@ export default function StoryList(props) {
                 </button>
                 <button
                     className={props.selected == index ? "selected" : "none"}
-                    onClick={(event) => deleteStory(event, key)}
+                    onClick={() => deleteStory(key)}
                     key={"delete_" + key}
                     id={index}
                 >
