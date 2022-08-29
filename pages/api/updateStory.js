@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 //need to secure this API Route
 
 export default async function getStoryUser(req,res){
-    if (req.body.session) {
+    // console.log(req.body)
+    if (req.body.story_id) {
         mongoose.connect(process.env.MONGODB_URL);
         const update = await Model.findOneAndUpdate({story_id: req.body.story_id},
             {
@@ -13,7 +14,6 @@ export default async function getStoryUser(req,res){
                 updatedAt: Date.now(), 
                 published: req.body.published,
                 publishedAt: req.body.publishedAt,
-                
             }
             )
         res.status(200);

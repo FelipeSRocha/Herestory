@@ -1,7 +1,7 @@
 import Model from "../../models/story_model";
 import mongoose from "mongoose";
 
-export default async function handler(req,res){
+export default async function handler(req, res) {
     function uuid() {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
             /[xy]/g,
@@ -19,12 +19,13 @@ export default async function handler(req,res){
         story_id: uuid(),
     };
 
-    if (req.body.session && req.body.user) {
+    if (req.body.user) {
         mongoose.connect(process.env.MONGODB_URL);
-        const new_story = await Model.create(newStory).then(res.status(200).end())
+        const new_story = await Model.create(newStory).then(
+            res.status(200).end()
+        );
     } else {
         res.status(401);
-        res.end()
-
+        res.end();
     }
 }
