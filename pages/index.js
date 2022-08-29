@@ -1,48 +1,69 @@
 import styled from "styled-components";
-import ExplorerPreview from "../Components/ExplorerPreview";
 import { useSession, signOut } from "next-auth/react";
-import { useState } from "react";
 import { useRouter } from "next/router";
 
-export default function LoginPage(data) {
+import ActionBar from "../Components/ActionBar";
+import ExplorerPreview from "../Components/ExplorerPreview";
+import SortBy from "../utils/SortBy"
+import Theme from '../styles/theme'
+
+export default function LoginPage({ story_list }) {
     const router = useRouter();
-    const session = useSession();
-    const status = session.status === "unauthenticated" ? false : true;
-    const stories = data.story_list;
-    if(stories.length>0){stories.sort(function (a, b) {
-        return new Date(b.publishedAt) - new Date(a.publishedAt);
-    })}
+    const { data, status } = useSession();
+    const sorted_stories = SortBy(story_list, "publishedAt");
+
+    const buttons = () => {
+        const buttons = []
+        if (status === "authenticated") {
+            buttons.push(
+                {
+                    name: "Profile",
+                    text: "Profile",
+                    method: () => {
+                        router.push("/profile");
+                    },
+                },
+                {
+                    name: "Logout",
+                    text: "Logout",
+                    method: () => {
+                        signOut();
+                    },
+                },
+            )
+        } else {
+            buttons.push(
+                {
+                    name: "Login",
+                    text: "Login/Create",
+                    method: () => {
+                        router.push("/login");
+                    },
+                },
+            )
+        }
+        return buttons
+    };
+    const actionbar = buttons()
+
     return (
-        <Container id="container">
-            <Menu id="menubar" key="menubar">
-                <h1>{}</h1>
-                <ActionBar>
-                    {status ? (
-                        <>
-                            <button onClick={()=>router.push("./home")}>
-                                Home
-                            </button>
-                            <button
-                                onClick={() => {
-                                    signOut();
-                                }}
-                            >
-                                Logout
-                            </button>
-                        </>
+        <Theme>
+            <Container id="container">
+                <Menu id="menubar" key="menubar">
+                    {status == "authenticated" ? (
+                        <Username>{data.user.name}</Username>
+                    ) : null}
+                    <ActionBar id="actionbar" data={actionbar}></ActionBar>
+                </Menu>
+                <View id="view">
+                    {sorted_stories.length > 0 ? (
+                        <ExplorerPreview data={sorted_stories} />
                     ) : (
-                        <button onClick={()=>router.push("./login")}>Login</button>
+                        <h1>Nothing Here</h1>
                     )}
-                </ActionBar>
-            </Menu>
-            <View id="view">
-                {stories.length > 0 ? (
-                    <ExplorerPreview data={stories} />
-                ) : (
-                    <h1>Nothing Here</h1>
-                )}
-            </View>
-        </Container>
+                </View>
+            </Container>
+        </Theme>
     );
 }
 
@@ -54,33 +75,28 @@ const Container = styled.div`
     justify-content: center;
 `;
 const Menu = styled.div`
-    background: #fee6c8;
+    background: ${props => props.theme.color.secundary};
     width: 300px;
     min-width: 300px;
     height: 100vh;
     left: 0;
-    padding: 20px;
     gap: 20px;
 
-    display: flex;
-    flex-direction: column;
     position: relative;
     border: 2px black solid;
     overflow: hidden;
     box-sizing: border-box;
 `;
-const UserBar = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 5px 5px;
-    gap: 10px;
-    border: 2px solid black;
-    h1 {
-        margin: 0;
-    }
+const Username = styled.div`
+    text-align:center;
+    align-items:center;
+    justify-content:center;
+    background: ${props => props.theme.color.primary    };
+    font-family: ${props => props.theme.font.primary};
+    font-size: ${props => props.theme.size.sz30};
+    display:flex;
+
 `;
-const ActionBar = styled.div``;
 const View = styled.div`
     height: 100%;
     width: 100%;
@@ -97,15 +113,14 @@ export async function getServerSideProps(context) {
             ? process.env.MAIN_URL + "api/getExplorerPage"
             : "https://herestory.vercel.app/api/getExplorerPage"
     );
-    if (response.status==200){
+    if (response.status == 200) {
         const res = await response.json();
         return {
             props: res,
         };
-    }else{
+    } else {
         return {
-            props: {story_list: []},
+            props: { story_list: [] },
         };
     }
-
 }
