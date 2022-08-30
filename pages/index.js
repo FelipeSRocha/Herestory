@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import ActionBar from "../Components/MenuBtn";
+import MenuBtn from "../Components/MenuBtn";
 import ExplorerPreview from "../Components/ExplorerPreview";
 import SortBy from "../utils/SortBy";
 import Theme from "../styles/theme";
@@ -20,14 +20,14 @@ const LoginPage = ({ story_list }) => {
                     {status == "authenticated" ? (
                         <Username>{data.user.name}</Username>
                     ) : null}
-                    <ActionBar
-                        id="actionbar"
+                    <MenuBtn
+                        id="MenuBtn"
                         data={
                             status === "authenticated"
                                 ? [ProfileBtn(router), LogoutBtn]
                                 : [LoginBtn(router)]
                         }
-                    ></ActionBar>
+                    ></MenuBtn>
                 </Menu>
                 <View id="view">
                     {sorted_stories.length > 0 ? (

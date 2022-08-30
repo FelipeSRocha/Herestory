@@ -6,7 +6,7 @@ import StoryList from "../../Components/StoryList";
 import StoryView from "../../Components/StoryView";
 import styled from "styled-components";
 import Theme from "../../styles/theme";
-import ActionBar from "../../Components/ActionBar";
+import MenuBtn from "../../Components/MenuBtn";
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
 import { HomeBtn, LogoutBtn, CreateStory } from "../../utils/MenuButtons";
@@ -39,7 +39,7 @@ const userhome = ({ story_list }) =>{
                         {status == "authenticated" ? (
                             <Username>{data.user.name}</Username>
                         ) : null}
-                        <ActionBar id="actionbar" data={[HomeBtn(router), LogoutBtn, CreateStory(router, data)]}></ActionBar>
+                        <MenuBtn id="MenuBtn" data={[HomeBtn(router), LogoutBtn, CreateStory(router, data)]}></MenuBtn>
                     </UserBar>
                     <Storycontainer key="Storycontainer">
                         <StoryList
