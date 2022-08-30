@@ -15,8 +15,6 @@ const deleteFromDB = async(key, data) => {
     });
 }
 const createStoryDB = async(data) => {
-    console.log(data)
-
     const createStory = await fetch("../api/createnewstory", {
         method: "POST",
         headers: {

@@ -8,8 +8,8 @@ import styled from "styled-components";
 import Theme from "../../styles/theme";
 import ActionBar from "../../Components/ActionBar";
 import SortBy from "../../utils/SortBy";
-import { deleteFromDB, createStoryDB } from "../../utils/ManageStoryDB";
-import { ProfileBtn, LogoutBtn, CreateStory } from "../../utils/MenuButtons";
+import { deleteFromDB } from "../../utils/ManageStoryDB";
+import { HomeBtn, LogoutBtn, CreateStory } from "../../utils/MenuButtons";
 
 const userhome = ({ story_list }) =>{
     const sorted_stories = SortBy(story_list, "updatedAt");
@@ -17,7 +17,9 @@ const userhome = ({ story_list }) =>{
     const [selected, setSelected] = useState(0);
     const [story, setStory] = useState(sorted_stories[selected]);
     const { data, status } = useSession();
-    function selectStory(event) {
+
+
+    const selectStory = (event) => {
         setStory(sorted_stories[event.target.id]);
         setSelected(event.target.id);
     }
@@ -38,7 +40,7 @@ const userhome = ({ story_list }) =>{
                         {status == "authenticated" ? (
                             <Username>{data.user.name}</Username>
                         ) : null}
-                        <ActionBar id="actionbar" data={[ProfileBtn(router), LogoutBtn, CreateStory(router, data.user.name)]}></ActionBar>
+                        <ActionBar id="actionbar" data={[HomeBtn(router), LogoutBtn, CreateStory(router, data)]}></ActionBar>
                     </UserBar>
                     <Storycontainer key="Storycontainer">
                         <StoryList
@@ -100,7 +102,12 @@ const UserBar = styled.div`
         margin: 0;
     }
 `;
-
+const Empty = styled.div`
+display:flex;
+width:100%;
+align-items:center;
+justify-content:center;
+`
 export async function getServerSideProps(context) {
     const session = await getSession(context);
     if (!session) {

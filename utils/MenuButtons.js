@@ -25,15 +25,24 @@ const LoginBtn = (router) => {
         },
     };
 };
-const CreateStory = async (router, user) => {
-    console.log(user)
+const HomeBtn = (router) => {
+    return {
+        name: "Home",
+        text: "Home",
+        method: () => {
+            router.push("/");
+        },
+    };
+};
+//recieves data from useSession
+const CreateStory = (router, data) => {
     return {
         name: "Create",
         text: "Create Story",
         method: async () => {
-            await createStoryDB(user);
+            await createStoryDB(data.user);
             router.reload();
         },
     };
 };
-export { ProfileBtn, LoginBtn, LogoutBtn, CreateStory };
+export { ProfileBtn, HomeBtn, LoginBtn, LogoutBtn, CreateStory };
