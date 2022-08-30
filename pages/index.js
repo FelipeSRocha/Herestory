@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import ActionBar from "../Components/ActionBar";
+import ActionBar from "../Components/MenuBtn";
 import ExplorerPreview from "../Components/ExplorerPreview";
 import SortBy from "../utils/SortBy";
 import Theme from "../styles/theme";
@@ -49,7 +49,7 @@ const Container = styled.div`
     justify-content: center;
 `;
 const Menu = styled.div`
-    background: ${(props) => props.theme.color.secundary};
+    background: ${(props) => props.theme.color.primary};
     width: 300px;
     min-width: 300px;
     height: 100vh;
