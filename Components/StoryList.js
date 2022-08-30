@@ -10,8 +10,8 @@ export default function StoryList(props) {
         function setStory(event) {
             props.selectStory(event);
         }
-        function editStory(event, key) {
-            props.edit(event, key);
+        function editStory(key) {
+            props.edit(key);
         }
         function deleteStory(event, key) {
             props.delete(event, key);
@@ -32,7 +32,7 @@ export default function StoryList(props) {
                 </ClickBox>
                 <button
                     className={props.selected == index ? "selected" : "none"}
-                    onClick={(event) => editStory(event, key)}
+                    onClick={() => editStory(key)}
                     key={"edit_" + key}
                     id={index}
                 >
