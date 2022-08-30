@@ -9,7 +9,7 @@ import Theme from "../../styles/theme";
 import MenuBtn from "../../Components/MenuBtn";
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
-import { HomeBtn, LogoutBtn, CreateStory } from "../../utils/MenuButtons";
+import { HomeBtn, LogoutBtn, CreateStoryBtn } from "../../utils/MenuButtons";
 
 const userhome = ({ story_list, session:{user:{name}} }) => {
 
@@ -41,7 +41,7 @@ const userhome = ({ story_list, session:{user:{name}} }) => {
                         data={[
                             HomeBtn(router),
                             LogoutBtn,
-                            CreateStory(router, name),
+                            CreateStoryBtn(router, name),
                         ]}
                     ></MenuBtn>
                     <Storycontainer key="Storycontainer">
@@ -125,7 +125,7 @@ export async function getServerSideProps(context) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    session: session,
+                    session,
                 }),
             }
         );

@@ -35,7 +35,7 @@ const HomeBtn = (router) => {
     };
 };
 //recieves data from useSession
-const CreateStory = (router, name) => {
+const CreateStoryBtn = (router, name) => {
     return {
         name: "Create",
         text: "Create Story",
@@ -45,4 +45,13 @@ const CreateStory = (router, name) => {
         },
     };
 };
-export { ProfileBtn, HomeBtn, LoginBtn, LogoutBtn, CreateStory };
+const ReturnToBtn = (router, returnTo) => {
+    return {
+        name: "Return",
+        text: `Return to ${returnTo}`,
+        method: async () => {
+            router.push(`/${returnTo}`)
+        },
+    };
+};
+export { ProfileBtn, HomeBtn, LoginBtn, LogoutBtn, CreateStoryBtn, ReturnToBtn };
