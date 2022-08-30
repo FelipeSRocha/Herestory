@@ -1,3 +1,5 @@
+
+//Manage the story related events to DB
 const deleteFromDB = async(key, data) => {
     const deleteFrom = await fetch("../api/deleteStory", {
         method: "POST",
@@ -12,7 +14,6 @@ const deleteFromDB = async(key, data) => {
         alert("Story Deleted");
     });
 }
-
 const createStoryDB = async(data) => {
     console.log(data)
 
@@ -28,6 +29,7 @@ const createStoryDB = async(data) => {
         alert("Story Created");
     });
 }
+//This one works to save and publish
 const updateStoryDB = async(StoryInfo) =>{
     console.log(StoryInfo)
     const updateStory = await fetch("../../api/updateStory", {
