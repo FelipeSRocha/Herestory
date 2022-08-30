@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import MenuBtn from "../Components/MenuBtn";
@@ -8,9 +8,9 @@ import SortBy from "../utils/SortBy";
 import Theme from "../styles/theme";
 import { ProfileBtn, LoginBtn, LogoutBtn } from "../utils/MenuButtons";
 
-const LoginPage = ({ story_list }) => {
+const Home = ({ story_list, session}) => {
     const router = useRouter();
-    const { data, status } = useSession();
+    const { status } = useSession();
     const sorted_stories = SortBy(story_list, "publishedAt");
 
     return (
@@ -18,7 +18,7 @@ const LoginPage = ({ story_list }) => {
             <Container id="container">
                 <Menu id="menubar" key="menubar">
                     {status == "authenticated" ? (
-                        <Username>{data.user.name}</Username>
+                        <Username>{session.user.name}</Username>
                     ) : null}
                     <MenuBtn
                         id="MenuBtn"
@@ -39,8 +39,8 @@ const LoginPage = ({ story_list }) => {
             </Container>
         </Theme>
     );
-}
-export default LoginPage
+};
+export default Home;
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
@@ -50,12 +50,13 @@ const Container = styled.div`
 `;
 const Menu = styled.div`
     background: ${(props) => props.theme.color.primary};
+    height: 100vh;
     width: 300px;
     min-width: 300px;
-    height: 100vh;
-    left: 0;
+    padding: 20px;
+    display: flex;
     gap: 20px;
-
+    flex-direction: column;
     position: relative;
     border: 2px black solid;
     overflow: hidden;
@@ -81,19 +82,21 @@ const View = styled.div`
 `;
 
 export async function getServerSideProps(context) {
+    const session = await getSession(context);
+
     const response = await fetch(
         process.env.LOCAL
             ? process.env.MAIN_URL + "api/getExplorerPage"
             : "https://herestory.vercel.app/api/getExplorerPage"
     );
     if (response.status == 200) {
-        const res = await response.json();
+        const {story_list} = await response.json();
         return {
-            props: res,
+            props: { story_list, session },
         };
     } else {
         return {
-            props: { story_list: [] },
+            props: { story_list: [], session },
         };
     }
 }

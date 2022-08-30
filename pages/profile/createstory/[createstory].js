@@ -1,35 +1,38 @@
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import styled from "styled-components";
 
 import NewStory from "../../../Components/editStory";
-import styled from "styled-components";
+import MenuBtn from "../../../Components/MenuBtn";
 import { updateStoryDB } from "../../../utils/ManageStoryDB";
+import { ReturnToBtn } from "../../../utils/MenuButtons";
+import Theme from "../../../styles/theme";
 
-const createstoryPage = (data) =>{
-    console.log(data)
-    const story = data.story.story_list;
-    const user = data.session.user.name;
-    const session = data.session;
-
+const createstoryPage = ({
+    story_list,
+    session: {
+        user: { name },
+    },
+}) => {
     const router = useRouter();
-    const [title, setTitle] = useState(story.title);
-    const [text, setText] = useState(story.text);
+    const [title, setTitle] = useState(story_list.title);
+    const [text, setText] = useState(story_list.text);
     const [savedState, setSavedState] = useState(true);
-    const [publishedState, setPublishedState] = useState(story.published);
-    const [publishedTime, setPublishedTime] = useState(story.publishedAt);
+    const [publishedState, setPublishedState] = useState(story_list.published);
+    const [publishedTime, setPublishedTime] = useState(story_list.publishedAt);
 
     const onchangeTitle = (event) => {
         setTitle(event.target.value);
         setSavedState(false);
-    }
-    const onchangeText =(event) =>{
+    };
+    const onchangeText = (event) => {
         setText(event.target.value);
         setSavedState(false);
-    }
+    };
     const userHome = () => {
         router.push("../");
-    }
+    };
     const Save = () => {
         updateStoryDB({
             title,
@@ -39,8 +42,8 @@ const createstoryPage = (data) =>{
             publishedAt: publishedTime,
         });
         setSavedState(true);
-    }
-    const Publish = () =>{
+    };
+    const Publish = () => {
         updateStoryDB({
             title: title,
             text: text,
@@ -50,8 +53,8 @@ const createstoryPage = (data) =>{
         });
         setSavedState(true);
         setPublishedState(true);
-    }
-    const unPublish = () =>{
+    };
+    const unPublish = () => {
         updateStoryDB({
             title,
             text,
@@ -61,46 +64,38 @@ const createstoryPage = (data) =>{
         });
         setSavedState(true);
         setPublishedState(false);
-    }
+    };
 
     return (
-        <Container id="container">
-            <Menu id="menubar">
-                <UserBar>
-                    <h1>{user}</h1>
-                    <ActionBar>
-                        <button onClick={userHome}>Home</button>
-                        <button
-                            onClick={() => {
-                                signOut();
-                            }}
-                        >
-                            Logout
-                        </button>
-                    </ActionBar>
-                </UserBar>
-                <StoryOpt>
-                    <button onClick={Save}>Save</button>
-                    {publishedState ? (
-                        <button onClick={unPublish}>unPublish</button>
-                    ) : (
-                        <button onClick={Publish}>Publish</button>
-                    )}
-                </StoryOpt>
-                <p>{`Saved: ${savedState}`}</p>
-                <p>{`Published: ${publishedState}`}</p>
-            </Menu>
-            <NewStory
-                story={story}
-                onchageTitle={onchangeTitle}
-                onchangeText={onchangeText}
-            >
-                {" "}
-            </NewStory>
-        </Container>
+        <Theme>
+            <Container id="container">
+                <Menu id="menubar">
+                    <Username>{name}</Username>
+
+                    <MenuBtn id="MenuBtn" data={[ReturnToBtn(router, "profile")]}></MenuBtn>
+                    <StoryOpt>
+                        <button onClick={Save}>Save</button>
+                        {publishedState ? (
+                            <button onClick={unPublish}>unPublish</button>
+                        ) : (
+                            <button onClick={Publish}>Publish</button>
+                        )}
+                    </StoryOpt>
+                    <p>{`Saved: ${savedState}`}</p>
+                    <p>{`Published: ${publishedState}`}</p>
+                </Menu>
+                <NewStory
+                    story={story_list}
+                    onchageTitle={onchangeTitle}
+                    onchangeText={onchangeText}
+                >
+                    {" "}
+                </NewStory>
+            </Container>
+        </Theme>
     );
-}
-export default createstoryPage
+};
+export default createstoryPage;
 const Container = styled.div`
     width: 100%;
     height: 100vh;
@@ -108,8 +103,10 @@ const Container = styled.div`
     overflow: hidden;
 `;
 const Menu = styled.div`
-    background: #fee6c8;
+    background: ${(props) => props.theme.color.primary};
+    height: 100vh;
     width: 300px;
+    min-width: 300px;
     padding: 20px;
     display: flex;
     gap: 20px;
@@ -117,6 +114,16 @@ const Menu = styled.div`
     position: relative;
     border: 2px black solid;
     overflow: hidden;
+    box-sizing: border-box;
+`;
+const Username = styled.div`
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background: ${(props) => props.theme.color.primary};
+    font-family: ${(props) => props.theme.font.primary};
+    font-size: ${(props) => props.theme.size.sz30};
+    display: flex;
 `;
 const StoryList = styled.div``;
 const UserBar = styled.div`
@@ -155,16 +162,17 @@ export async function getServerSideProps(context) {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        session: session,
+                        session,
                         story_id: context.params.createstory,
                     }),
                 }
             );
-            const data = await response.json();
+            const { story_list } = await response.json();
+            console.log(story_list);
             return {
                 props: {
-                    story: data,
-                    session: session,
+                    story_list,
+                    session,
                 },
             };
         } else {

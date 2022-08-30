@@ -1,27 +1,27 @@
 
 //Manage the story related events to DB
-const deleteFromDB = async(key, data) => {
+const deleteFromDB = async(key, name) => {
     const deleteFrom = await fetch("../api/deleteStory", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            user: data.user.name,
+            user: name,
             story_id: key,
         }),
     }).then(() => {
         alert("Story Deleted");
     });
 }
-const createStoryDB = async(data) => {
+const createStoryDB = async(name) => {
     const createStory = await fetch("../api/createnewstory", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            user: data.name,
+            user: name,
         }),
     }).then(() => {
         alert("Story Created");

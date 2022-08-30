@@ -35,12 +35,12 @@ const HomeBtn = (router) => {
     };
 };
 //recieves data from useSession
-const CreateStory = (router, data) => {
+const CreateStory = (router, name) => {
     return {
         name: "Create",
         text: "Create Story",
         method: async () => {
-            await createStoryDB(data.user);
+            await createStoryDB(name);
             router.reload();
         },
     };
