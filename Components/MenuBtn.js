@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import Theme from "../styles/theme";
 
-export default function ActionBar({ data }) {
+const MenuBtn = ({ data }) =>{
     return (
         <Theme>
             <Container>
@@ -21,7 +20,7 @@ export default function ActionBar({ data }) {
         </Theme>
     );
 }
-
+export default MenuBtn
 const Container = styled.div`
     height: 100%;
     width: 100%;
@@ -36,8 +35,7 @@ const Container = styled.div`
         font-size: 30px;
         padding: 10px;
         background-color: ${props => props.theme.color.secundary};
-        border: 3px solid ${props => props.theme.color.primary};
-
+        border: none;
     }
     .Home:hover {
         background-color: ${props => props.theme.color.primary};
