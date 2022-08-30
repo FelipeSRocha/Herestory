@@ -8,7 +8,7 @@ import SortBy from "../utils/SortBy";
 import Theme from "../styles/theme";
 import { ProfileBtn, LoginBtn, LogoutBtn } from "../utils/MenuButtons";
 
-export default function LoginPage({ story_list }) {
+const LoginPage = ({ story_list }) => {
     const router = useRouter();
     const { data, status } = useSession();
     const sorted_stories = SortBy(story_list, "publishedAt");
@@ -40,7 +40,7 @@ export default function LoginPage({ story_list }) {
         </Theme>
     );
 }
-
+export default LoginPage
 const Container = styled.div`
     width: 100vw;
     height: 100vh;

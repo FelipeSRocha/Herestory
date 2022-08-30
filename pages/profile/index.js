@@ -18,7 +18,6 @@ const userhome = ({ story_list }) =>{
     const [story, setStory] = useState(sorted_stories[selected]);
     const { data, status } = useSession();
 
-
     const selectStory = (event) => {
         setStory(sorted_stories[event.target.id]);
         setSelected(event.target.id);

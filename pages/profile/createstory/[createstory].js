@@ -6,7 +6,8 @@ import NewStory from "../../../Components/editStory";
 import styled from "styled-components";
 import { updateStoryDB } from "../../../utils/ManageStoryDB";
 
-export default function createstoryPage(data) {
+const createstoryPage = (data) =>{
+    console.log(data)
     const story = data.story.story_list;
     const user = data.session.user.name;
     const session = data.session;
@@ -18,18 +19,18 @@ export default function createstoryPage(data) {
     const [publishedState, setPublishedState] = useState(story.published);
     const [publishedTime, setPublishedTime] = useState(story.publishedAt);
 
-    function onchangeTitle(event) {
+    const onchangeTitle = (event) => {
         setTitle(event.target.value);
         setSavedState(false);
     }
-    function onchangeText(event) {
+    const onchangeText =(event) =>{
         setText(event.target.value);
         setSavedState(false);
     }
-    function userHome() {
+    const userHome = () => {
         router.push("../");
     }
-    async function Save() {
+    const Save = () => {
         updateStoryDB({
             title,
             text,
@@ -39,7 +40,7 @@ export default function createstoryPage(data) {
         });
         setSavedState(true);
     }
-    async function Publish() {
+    const Publish = () =>{
         updateStoryDB({
             title: title,
             text: text,
@@ -99,6 +100,7 @@ export default function createstoryPage(data) {
         </Container>
     );
 }
+export default createstoryPage
 const Container = styled.div`
     width: 100%;
     height: 100vh;
