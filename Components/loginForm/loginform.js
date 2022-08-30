@@ -6,18 +6,19 @@ import { signIn, useSession } from "next-auth/react";
 import InterativInput from "./secundary/interativeInput";
 import InputPassword from "./secundary/password";
 import Btn from "./secundary/button";
+import { Login, SignUp } from "../../utils/ManageLoginDB";
 
 export default function LoginForm() {
-    const {status} = useSession()
+    const { status } = useSession();
     const [username, setUsername] = useState("");
     const [password, setpassword] = useState("");
     const router = useRouter();
 
-    useEffect(()=>{
-        if(status==="authenticated"){
-            router.push("/profile")
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push("/profile");
         }
-    },[status])
+    }, [status]);
 
     const handleChangeUser = (event) => {
         const text = event.target.value;
@@ -28,57 +29,11 @@ export default function LoginForm() {
         setpassword(text);
     };
 
-    function signup() {
-        if (!username) {
-            alert("Username cannot be empty");
-            return;
-        }
-        if (password.length < 8) {
-            alert("Password must have a minimum of 8 characters ");
-            return;
-        }
-        if (username && password.length > 7) {
-            console.log("signup");
-            // call function to sign in
-            fetch("./api/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    user: username,
-                    password: password,
-                }),
-            }).then((res) => {
-                if (res.status == 200) {
-                    //if a positive response
-                    res.json().then((res) => {
-                        if (res.signin) {
-                            //if server created a user
-                            alert("User Created, you can login now!");
-                            router.push(`/api/auth/signin`);
-                        } else {
-                            //if user already exists
-                            alert("Username already exist, try another one!");
-                        }
-                    });
-                } else {
-                    alert("Not able to create a new User!");
-                }
-            });
-        }
-    }
-    const login = async (e) => {
-        e.preventDefault();
-
-        const res = await signIn("credentials", {
-            user: username,
-            password: password,
-            redirect: false,
-        });
-        if(res.error){
-            alert("Invalid user or password")
-        }
+    const signup = (e) => {
+        SignUp(e, username, password);
+    };
+    const login = (e) => {
+        Login(e, username, password);
     };
 
     return (

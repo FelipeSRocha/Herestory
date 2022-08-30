@@ -9,52 +9,27 @@ import Theme from "../../styles/theme";
 import ActionBar from "../../Components/ActionBar";
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB, createStoryDB } from "../../utils/ManageStoryDB";
+import { ProfileBtn, LogoutBtn, CreateStory } from "../../utils/MenuButtons";
 
-export default function userhome({ story_list }) {
+const userhome = ({ story_list }) =>{
     const sorted_stories = SortBy(story_list, "updatedAt");
     const router = useRouter();
     const [selected, setSelected] = useState(0);
     const [story, setStory] = useState(sorted_stories[selected]);
     const { data, status } = useSession();
-
     function selectStory(event) {
         setStory(sorted_stories[event.target.id]);
         setSelected(event.target.id);
     }
 
-    const editstory = (event, key) => {
+    const editstory = (key) => {
         router.push("profile/createstory/" + key);
     };
-    let actionbar = [
-        {
-            name: "Home",
-            text: "Home",
-            method: () => {
-                router.push("/");
-            },
-        },
-        {
-            name: "Logout",
-            text: "Logout",
-            method: () => {
-                signOut();
-            },
-        },
-        {
-            name: "Create",
-            text: "Create Story",
-            method: async () => {
-                await createStoryDB(data.user);
-                router.reload()
-            },
-        },
-    ];
 
     const deletestory = (key) => {
         deleteFromDB(key, data);
         router.reload();
     };
-
     return (
         <Theme>
             <Container id="container" key="container">
@@ -63,7 +38,7 @@ export default function userhome({ story_list }) {
                         {status == "authenticated" ? (
                             <Username>{data.user.name}</Username>
                         ) : null}
-                        <ActionBar id="actionbar" data={actionbar}></ActionBar>
+                        <ActionBar id="actionbar" data={[ProfileBtn(router), LogoutBtn, CreateStory(router, data.user.name)]}></ActionBar>
                     </UserBar>
                     <Storycontainer key="Storycontainer">
                         <StoryList
@@ -86,6 +61,7 @@ export default function userhome({ story_list }) {
         </Theme>
     );
 }
+export default userhome
 const Container = styled.div`
     width: 100%;
     height: 100vh;

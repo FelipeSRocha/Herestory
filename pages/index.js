@@ -1,50 +1,17 @@
 import styled from "styled-components";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import ActionBar from "../Components/ActionBar";
 import ExplorerPreview from "../Components/ExplorerPreview";
-import SortBy from "../utils/SortBy"
-import Theme from '../styles/theme'
+import SortBy from "../utils/SortBy";
+import Theme from "../styles/theme";
+import { ProfileBtn, LoginBtn, LogoutBtn } from "../utils/MenuButtons";
 
 export default function LoginPage({ story_list }) {
     const router = useRouter();
     const { data, status } = useSession();
     const sorted_stories = SortBy(story_list, "publishedAt");
-
-    const buttons = () => {
-        const buttons = []
-        if (status === "authenticated") {
-            buttons.push(
-                {
-                    name: "Profile",
-                    text: "Profile",
-                    method: () => {
-                        router.push("/profile");
-                    },
-                },
-                {
-                    name: "Logout",
-                    text: "Logout",
-                    method: () => {
-                        signOut();
-                    },
-                },
-            )
-        } else {
-            buttons.push(
-                {
-                    name: "Login",
-                    text: "Login/Create",
-                    method: () => {
-                        router.push("/login");
-                    },
-                },
-            )
-        }
-        return buttons
-    };
-    const actionbar = buttons()
 
     return (
         <Theme>
@@ -53,7 +20,14 @@ export default function LoginPage({ story_list }) {
                     {status == "authenticated" ? (
                         <Username>{data.user.name}</Username>
                     ) : null}
-                    <ActionBar id="actionbar" data={actionbar}></ActionBar>
+                    <ActionBar
+                        id="actionbar"
+                        data={
+                            status === "authenticated"
+                                ? [ProfileBtn(router), LogoutBtn]
+                                : [LoginBtn(router)]
+                        }
+                    ></ActionBar>
                 </Menu>
                 <View id="view">
                     {sorted_stories.length > 0 ? (
@@ -75,7 +49,7 @@ const Container = styled.div`
     justify-content: center;
 `;
 const Menu = styled.div`
-    background: ${props => props.theme.color.secundary};
+    background: ${(props) => props.theme.color.secundary};
     width: 300px;
     min-width: 300px;
     height: 100vh;
@@ -88,14 +62,13 @@ const Menu = styled.div`
     box-sizing: border-box;
 `;
 const Username = styled.div`
-    text-align:center;
-    align-items:center;
-    justify-content:center;
-    background: ${props => props.theme.color.primary    };
-    font-family: ${props => props.theme.font.primary};
-    font-size: ${props => props.theme.size.sz30};
-    display:flex;
-
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background: ${(props) => props.theme.color.primary};
+    font-family: ${(props) => props.theme.font.primary};
+    font-size: ${(props) => props.theme.size.sz30};
+    display: flex;
 `;
 const View = styled.div`
     height: 100%;
