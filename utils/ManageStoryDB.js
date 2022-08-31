@@ -1,6 +1,8 @@
 
 //Manage the story related events to DB
 const deleteFromDB = async(key, name) => {
+    if(confirm("You want to delete this Story?")){
+
     const deleteFrom = await fetch("../api/deleteStory", {
         method: "POST",
         headers: {
@@ -13,6 +15,7 @@ const deleteFromDB = async(key, name) => {
     }).then(() => {
         alert("Story Deleted");
     });
+}
 }
 const createStoryDB = async(name) => {
     const createStory = await fetch("../api/createnewstory", {
