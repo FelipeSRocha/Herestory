@@ -28,8 +28,7 @@ const createStoryDB = async(name) => {
     });
 }
 //This one works to save and publish
-const updateStoryDB = async(StoryInfo) =>{
-    console.log(StoryInfo)
+const saveStoryDB = async(StoryInfo) =>{
     const updateStory = await fetch("../../api/updateStory", {
         method: "POST",
         headers: {
@@ -46,9 +45,55 @@ const updateStoryDB = async(StoryInfo) =>{
         if (res.status == 200) {
             alert("Story Saved");
         } else {
-            alert("We cannot save yout story right now!");
+            alert("We cannot save your story right now!");
         }
     });
 }
+const publishStoryDB = async(StoryInfo) =>{
+    if(confirm("You want to Publish this Story?")){
+        const updateStory = await fetch("../../api/updateStory", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: StoryInfo.title,
+                text: StoryInfo.text,
+                story_id: StoryInfo.story_id,
+                published: StoryInfo.published,
+                publishedAt: StoryInfo.publishedAt,
+            }),
+        }).then((res) => {
+            if (res.status == 200) {
+                alert("Story Published");
+            } else {
+                alert("We cannot publish your story right now!");
+            }
+        });
+    }
+}
+const unpublishStoryDB = async(StoryInfo) =>{
+    if(confirm("You want to Unpublish this Story?")){
+        const updateStory = await fetch("../../api/updateStory", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: StoryInfo.title,
+                text: StoryInfo.text,
+                story_id: StoryInfo.story_id,
+                published: StoryInfo.published,
+                publishedAt: StoryInfo.publishedAt,
+            }),
+        }).then((res) => {
+            if (res.status == 200) {
+                alert("Story Unpublished");
+            } else {
+                alert("We cannot Unpublish your story right now!");
+            }
+        });
+    }
+}
 
-export {deleteFromDB, createStoryDB, updateStoryDB}
+export {deleteFromDB, createStoryDB, saveStoryDB, publishStoryDB, unpublishStoryDB}

@@ -5,8 +5,14 @@ import styled from "styled-components";
 
 import NewStory from "../../../Components/editStory";
 import MenuBtn from "../../../Components/MenuBtn";
-import { updateStoryDB } from "../../../utils/ManageStoryDB";
-import { ReturnToBtn } from "../../../utils/MenuButtons";
+import {
+    ReturnToBtn,
+    SaveBtn,
+    PublishBtn,
+    unPublishBtn,
+} from "../../../utils/MenuButtons";
+import { saveStoryDB, publishStoryDB, unpublishStoryDB } from "../../../utils/ManageStoryDB";
+
 import Theme from "../../../styles/theme";
 
 const createstoryPage = ({
@@ -34,7 +40,7 @@ const createstoryPage = ({
         router.push("../");
     };
     const Save = () => {
-        updateStoryDB({
+        saveStoryDB({
             title,
             text,
             story_id: story_list.story_id,
@@ -44,7 +50,7 @@ const createstoryPage = ({
         setSavedState(true);
     };
     const Publish = () => {
-        updateStoryDB({
+        publishStoryDB({
             title: title,
             text: text,
             story_id: story_list.story_id,
@@ -55,7 +61,7 @@ const createstoryPage = ({
         setPublishedState(true);
     };
     const unPublish = () => {
-        updateStoryDB({
+        unpublishStoryDB({
             title,
             text,
             story_id: story_list.story_id,
@@ -72,15 +78,25 @@ const createstoryPage = ({
                 <Menu id="menubar">
                     <Username>{name}</Username>
 
-                    <MenuBtn id="MenuBtn" data={[ReturnToBtn(router, "profile")]}></MenuBtn>
-                    <StoryOpt>
-                        <button onClick={Save}>Save</button>
+                    <MenuBtn
+                        id="MenuBtn"
+                        data={[ReturnToBtn(router, "profile")]}
+                    ></MenuBtn>
+                    <Head>
+                        <h1>Your Stories</h1>
+                        <MenuBtn id="MenuBtn" data={[SaveBtn(Save)]}></MenuBtn>
                         {publishedState ? (
-                            <button onClick={unPublish}>unPublish</button>
+                            <MenuBtn
+                                id="MenuBtn"
+                                data={[unPublishBtn(unPublish)]}
+                            ></MenuBtn>
                         ) : (
-                            <button onClick={Publish}>Publish</button>
+                            <MenuBtn
+                                id="MenuBtn"
+                                data={[PublishBtn(Publish)]}
+                            ></MenuBtn>
                         )}
-                    </StoryOpt>
+                    </Head>
                     <p>{`Saved: ${savedState}`}</p>
                     <p>{`Published: ${publishedState}`}</p>
                 </Menu>
@@ -124,6 +140,14 @@ const Username = styled.div`
     font-family: ${(props) => props.theme.font.primary};
     font-size: ${(props) => props.theme.size.sz30};
     display: flex;
+`;
+const Head = styled.div`
+    margin-bottom: 40px;
+    h1 {
+        font-family: helvetica neue, helvetica, arial, sans-serif;
+        font-size: 25px;
+        text-align: center;
+    }
 `;
 const StoryList = styled.div``;
 const UserBar = styled.div`

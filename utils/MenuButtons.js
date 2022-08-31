@@ -1,5 +1,5 @@
 import { SignOut } from "./ManageLoginDB";
-import { createStoryDB } from "./ManageStoryDB";
+import { createStoryDB , saveStoryDB} from "./ManageStoryDB";
 
 //Manage the menu Buttons from left side bar
 const ProfileBtn = (router) => {
@@ -50,8 +50,39 @@ const ReturnToBtn = (router, returnTo) => {
         name: "Return",
         text: `Return to ${returnTo}`,
         method: async () => {
-            router.push(`/${returnTo}`)
+            router.push(`/${returnTo}`);
         },
     };
 };
-export { ProfileBtn, HomeBtn, LoginBtn, LogoutBtn, CreateStoryBtn, ReturnToBtn };
+const SaveBtn = (method) => {
+    return {
+        name: "Save",
+        text: "Save",
+        method: method,
+    };
+};
+const PublishBtn = (method) => {
+    return {
+        name: "Publish",
+        text: "Publish",
+        method: method,
+    };
+};
+const unPublishBtn = (method) => {
+    return {
+        name: "Unpublish",
+        text: "Unpublish",
+        method: method,
+    };
+};
+export {
+    ProfileBtn,
+    HomeBtn,
+    LoginBtn,
+    LogoutBtn,
+    CreateStoryBtn,
+    ReturnToBtn,
+    SaveBtn,
+    PublishBtn,
+    unPublishBtn,
+};
