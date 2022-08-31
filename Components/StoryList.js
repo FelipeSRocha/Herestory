@@ -14,15 +14,15 @@ const StoryList = ({
 }) => {
     return (
         <Theme>
+            <Head>
+                <h1>Your Stories</h1>
+                <MenuBtn
+                    id="MenuBtn"
+                    data={[CreateStoryBtn(router, name)]}
+                ></MenuBtn>
+            </Head>
             <Container>
                 <SecondContainer>
-                    <Head>
-                        <h1>Your Stories</h1>
-                        <MenuBtn
-                            id="MenuBtn"
-                            data={[CreateStoryBtn(router, name)]}
-                        ></MenuBtn>
-                    </Head>
                     {story.length > 0
                         ? story.map((element, index) => {
                               const key = element.story_id;
@@ -130,6 +130,7 @@ const ClickBox = styled.div`
     display: grid;
     grid-template-columns: 4fr 1fr;
     height: 130px;
+    width: 256px;
     background-color: ${(props) => props.theme.color.secundary};
     box-sizing: border-box;
     border-radius: 15px;

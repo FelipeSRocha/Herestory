@@ -11,7 +11,11 @@ import {
     PublishBtn,
     unPublishBtn,
 } from "../../../utils/MenuButtons";
-import { saveStoryDB, publishStoryDB, unpublishStoryDB } from "../../../utils/ManageStoryDB";
+import {
+    saveStoryDB,
+    publishStoryDB,
+    unpublishStoryDB,
+} from "../../../utils/ManageStoryDB";
 
 import Theme from "../../../styles/theme";
 
@@ -36,9 +40,7 @@ const createstoryPage = ({
         setText(event.target.value);
         setSavedState(false);
     };
-    const userHome = () => {
-        router.push("../");
-    };
+
     const Save = () => {
         saveStoryDB({
             title,
@@ -84,7 +86,8 @@ const createstoryPage = ({
                     ></MenuBtn>
                     <Head>
                         <h1>Your Stories</h1>
-                        <MenuBtn id="MenuBtn" data={[SaveBtn(Save)]}></MenuBtn>
+                        {savedState?null:<MenuBtn id="MenuBtn" data={[SaveBtn(Save)]}></MenuBtn>}
+                        
                         {publishedState ? (
                             <MenuBtn
                                 id="MenuBtn"
@@ -96,9 +99,9 @@ const createstoryPage = ({
                                 data={[PublishBtn(Publish)]}
                             ></MenuBtn>
                         )}
+                        <p>{savedState?"All changes Saved":"Changes unsaved"}</p>
+                        <p>{publishedState?"Your Story is published":"Your Story is unpublished"}</p>
                     </Head>
-                    <p>{`Saved: ${savedState}`}</p>
-                    <p>{`Published: ${publishedState}`}</p>
                 </Menu>
                 <NewStory
                     story={story_list}
@@ -143,7 +146,15 @@ const Username = styled.div`
 `;
 const Head = styled.div`
     margin-bottom: 40px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
     h1 {
+        font-family: helvetica neue, helvetica, arial, sans-serif;
+        font-size: 25px;
+        text-align: center;
+    }
+    p {
         font-family: helvetica neue, helvetica, arial, sans-serif;
         font-size: 25px;
         text-align: center;
