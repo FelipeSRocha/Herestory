@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
-export default function ExplorerPreview(props) {
+const ExplorerPreview = ({ data }) => {
     return (
         <Container>
-            {props.data.map((story) => {
+            {data.map((story) => {
                 const date = new Date(story.publishedAt);
+                const paragraph = story.text.substr(0, 500);
+                const arrayOfText = paragraph.split("\n");
+
                 const day = date.getDate();
                 const month = date.getMonth();
                 const monthNames = [
@@ -31,23 +34,28 @@ export default function ExplorerPreview(props) {
                             <h1>{story.title.substr(0, 50)}</h1>
                         </Title>
                         <Text>
-                            <p>{story.text.substr(0, 500) + "..."}</p>
+                            {arrayOfText.map((element, index) => {
+                                return element == "" ? (
+                                    <div key={index} />
+                                ) : (
+                                    <p key={index}>{element}</p>
+                                );
+                            })}
                         </Text>
                     </Box>
                 );
             })}
         </Container>
     );
-}
-
+};
+export default ExplorerPreview;
 const Container = styled.div`
     display: flex;
     gap: 50px;
     padding: 50px;
     align-items: center;
     justify-content: space-evenly;
-    flex-wrap: wrap;   
-     
+    flex-wrap: wrap;
 `;
 
 const Box = styled.div`
@@ -105,16 +113,17 @@ const Text = styled.div`
     height: 100%;
     overflow: hidden;
     text-align: justify;
-    display: flex;
     justify-content: center;
     p {
         background: transparent;
         margin: 0;
-        padding: 3px;
-        width: 95%;
+        width: 100%;
         border: none;
         font-size: 20px;
         line-height: 30px;
         resize: none;
+    }
+    div {
+        height: 30px;
     }
 `;
