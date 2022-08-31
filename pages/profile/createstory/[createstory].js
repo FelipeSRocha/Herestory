@@ -37,7 +37,7 @@ const createstoryPage = ({
         updateStoryDB({
             title,
             text,
-            story_id: story.story_id,
+            story_id: story_list.story_id,
             published: publishedState,
             publishedAt: publishedTime,
         });
@@ -47,7 +47,7 @@ const createstoryPage = ({
         updateStoryDB({
             title: title,
             text: text,
-            story_id: story.story_id,
+            story_id: story_list.story_id,
             published: true,
             publishedAt: new Date(),
         });
@@ -58,7 +58,7 @@ const createstoryPage = ({
         updateStoryDB({
             title,
             text,
-            story_id: story.story_id,
+            story_id: story_list.story_id,
             published: false,
             publishedAt: publishedTime,
         });
