@@ -1,7 +1,6 @@
 
 //Manage the story related events to DB
 const deleteFromDB = async(key, name) => {
-    if(confirm("You want to delete this Masterpiece?")){
 
     const deleteFrom = await fetch("../api/deleteStory", {
         method: "POST",
@@ -15,7 +14,7 @@ const deleteFromDB = async(key, name) => {
     }).then(() => {
         alert("Story Deleted");
     });
-}
+
 }
 const createStoryDB = async(name) => {
     const createStory = await fetch("../api/createnewstory", {
@@ -53,7 +52,6 @@ const saveStoryDB = async(StoryInfo) =>{
     });
 }
 const publishStoryDB = async(StoryInfo) =>{
-    if(confirm("You want to Publish this Story? This will make this glorious story appear on the home page of this site for everyone!")){
         const updateStory = await fetch("../../api/updateStory", {
             method: "POST",
             headers: {
@@ -73,10 +71,9 @@ const publishStoryDB = async(StoryInfo) =>{
                 alert("We cannot publish your story right now!");
             }
         });
-    }
+    
 }
 const unpublishStoryDB = async(StoryInfo) =>{
-    if(confirm("You want to Unpublish this Story? This will make this story vanish to everyone else but you")){
         const updateStory = await fetch("../../api/updateStory", {
             method: "POST",
             headers: {
@@ -96,7 +93,7 @@ const unpublishStoryDB = async(StoryInfo) =>{
                 alert("We cannot Unpublish your story right now!");
             }
         });
-    }
+    
 }
 
 export {deleteFromDB, createStoryDB, saveStoryDB, publishStoryDB, unpublishStoryDB}

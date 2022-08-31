@@ -11,8 +11,12 @@ import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
 import { HomeBtn, LogoutBtn, CreateStoryBtn } from "../../utils/MenuButtons";
 
-const userhome = ({ story_list, session:{user:{name}} }) => {
-
+const userhome = ({
+    story_list,
+    session: {
+        user: { name },
+    },
+}) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
     const router = useRouter();
     const [selected, setSelected] = useState(0);
@@ -28,8 +32,10 @@ const userhome = ({ story_list, session:{user:{name}} }) => {
     };
 
     const deletestory = (key) => {
-        deleteFromDB(key, name);
-        router.reload();
+        if (confirm("You want to delete this Masterpiece?")) {
+            deleteFromDB(key, name);
+            router.reload();
+        }
     };
     return (
         <Theme>
@@ -38,11 +44,7 @@ const userhome = ({ story_list, session:{user:{name}} }) => {
                     <Username>{name}</Username>
                     <MenuBtn
                         id="MenuBtn"
-                        data={[
-                            HomeBtn(router),
-                            LogoutBtn,
-
-                        ]}
+                        data={[HomeBtn(router), LogoutBtn]}
                     ></MenuBtn>
                     <Storycontainer key="Storycontainer">
                         <StoryList
@@ -105,7 +107,6 @@ const Storycontainer = styled.div`
     box-sizing: border-box;
 `;
 
-
 const Empty = styled.div`
     display: flex;
     width: 100%;
@@ -149,4 +150,3 @@ export async function getServerSideProps(context) {
         };
     }
 }
-

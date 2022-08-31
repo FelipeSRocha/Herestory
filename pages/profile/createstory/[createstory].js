@@ -52,26 +52,38 @@ const createstoryPage = ({
         setSavedState(true);
     };
     const Publish = () => {
-        publishStoryDB({
-            title: title,
-            text: text,
-            story_id: story_list.story_id,
-            published: true,
-            publishedAt: new Date(),
-        });
-        setSavedState(true);
-        setPublishedState(true);
+        if (
+            confirm(
+                "You want to Publish this Story? This will make this glorious story appear on the home page of this site for everyone!"
+            )
+        ) {
+            publishStoryDB({
+                title: title,
+                text: text,
+                story_id: story_list.story_id,
+                published: true,
+                publishedAt: new Date(),
+            });
+            setSavedState(true);
+            setPublishedState(true);
+        }
     };
     const unPublish = () => {
-        unpublishStoryDB({
-            title,
-            text,
-            story_id: story_list.story_id,
-            published: false,
-            publishedAt: publishedTime,
-        });
-        setSavedState(true);
-        setPublishedState(false);
+        if (
+            confirm(
+                "You want to Unpublish this Story? This will make this story vanish to everyone else but you"
+            )
+        ) {
+            unpublishStoryDB({
+                title,
+                text,
+                story_id: story_list.story_id,
+                published: false,
+                publishedAt: publishedTime,
+            });
+            setSavedState(true);
+            setPublishedState(false);
+        }
     };
 
     return (
@@ -86,8 +98,13 @@ const createstoryPage = ({
                     ></MenuBtn>
                     <Head>
                         <h1>Your Stories</h1>
-                        {savedState?null:<MenuBtn id="MenuBtn" data={[SaveBtn(Save)]}></MenuBtn>}
-                        
+                        {savedState ? null : (
+                            <MenuBtn
+                                id="MenuBtn"
+                                data={[SaveBtn(Save)]}
+                            ></MenuBtn>
+                        )}
+
                         {publishedState ? (
                             <MenuBtn
                                 id="MenuBtn"
@@ -99,8 +116,16 @@ const createstoryPage = ({
                                 data={[PublishBtn(Publish)]}
                             ></MenuBtn>
                         )}
-                        <p>{savedState?"All changes Saved":"Changes unsaved"}</p>
-                        <p>{publishedState?"Your Story is published":"Your Story is unpublished"}</p>
+                        <p>
+                            {savedState
+                                ? "All changes Saved"
+                                : "Changes unsaved"}
+                        </p>
+                        <p>
+                            {publishedState
+                                ? "Your Story is published"
+                                : "Your Story is unpublished"}
+                        </p>
                     </Head>
                 </Menu>
                 <NewStory
@@ -146,9 +171,9 @@ const Username = styled.div`
 `;
 const Head = styled.div`
     margin-bottom: 40px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     h1 {
         font-family: helvetica neue, helvetica, arial, sans-serif;
         font-size: 25px;
