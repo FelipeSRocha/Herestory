@@ -41,6 +41,10 @@ const Container = styled.div`
         align-items: center;
         border-radius: 15px;
         overflow: hidden;
+        :hover{
+            background-color: ${(props) => props.theme.color.text};
+        color:${(props) => props.theme.color.secundary};
+        }
         div {
             height: 10px;
             width: 10px;
@@ -49,13 +53,5 @@ const Container = styled.div`
             flex: 1fr;
         }
     }
-    .Home:hover,
-    .Profile:hover,
-    .Logout:hover,
-    .Login:hover,
-    .Create:hover,
-    .Return:hover {
-        background-color: ${(props) => props.theme.color.text};
-        color:${(props) => props.theme.color.secundary};
-    }
+
 `;
