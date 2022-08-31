@@ -41,7 +41,7 @@ const userhome = ({ story_list, session:{user:{name}} }) => {
                         data={[
                             HomeBtn(router),
                             LogoutBtn,
-                            CreateStoryBtn(router, name),
+
                         ]}
                     ></MenuBtn>
                     <Storycontainer key="Storycontainer">
@@ -50,7 +50,9 @@ const userhome = ({ story_list, session:{user:{name}} }) => {
                             selected={selected}
                             selectStory={selectStory}
                             edit={editstory}
-                            delete={(key) => deletestory(key)}
+                            deletestory={(key) => deletestory(key)}
+                            router={router}
+                            name={name}
                         />
                     </Storycontainer>
                 </Menu>
@@ -95,6 +97,14 @@ const Menu = styled.div`
     overflow: hidden;
     box-sizing: border-box;
 `;
+const Storycontainer = styled.div`
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    overflow: auto;
+    box-sizing: border-box;
+`;
+
 
 const Empty = styled.div`
     display: flex;
@@ -140,10 +150,3 @@ export async function getServerSideProps(context) {
     }
 }
 
-const Storycontainer = styled.div`
-    display: flex;
-    gap: 5px;
-    flex-direction: column;
-    overflow: auto;
-    box-sizing: border-box;
-`;

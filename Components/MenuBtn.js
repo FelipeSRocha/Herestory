@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Theme from "../styles/theme";
 
-const MenuBtn = ({ data }) =>{
+const MenuBtn = ({ data }) => {
     return (
         <Theme>
             <Container>
@@ -12,6 +12,7 @@ const MenuBtn = ({ data }) =>{
                             className={button.name}
                             onClick={button.method}
                         >
+                            <div></div>
                             {button.text}
                         </button>
                     );
@@ -19,37 +20,42 @@ const MenuBtn = ({ data }) =>{
             </Container>
         </Theme>
     );
-}
-export default MenuBtn
+};
+export default MenuBtn;
 const Container = styled.div`
-    height: 100%;
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-
+    gap: 5px;
     button {
         font-family: helvetica neue, helvetica, arial, sans-serif;
-
         width: 100%;
-        font-size: 30px;
+        font-size: 25px;
         padding: 10px;
-        background-color: ${props => props.theme.color.secundary};
+        padding-left: 20px;
+        background-color: ${(props) => props.theme.color.secundary};
         border: none;
+        display: flex;
+        gap: 10%;
+        align-items: center;
+        border-radius: 15px;
+        overflow: hidden;
+        div {
+            height: 10px;
+            width: 10px;
+            border-radius: 5px;
+            background-color: ${(props) => props.theme.color.text};
+            flex: 1fr;
+        }
     }
-    .Home:hover {
-        background-color: ${props => props.theme.color.primary};
-    }
-    .Profile:hover {
-        background-color: ${props => props.theme.color.primary};
-    }
-    .Logout:hover {
-        background-color: ${props => props.theme.color.primary};
-    }
-    .Login:hover {
-        background-color: ${props => props.theme.color.primary};
-    }
-    .Create:hover {
-        background-color: ${props => props.theme.color.primary};
+    .Home:hover,
+    .Profile:hover,
+    .Logout:hover,
+    .Login:hover,
+    .Create:hover,
+    .Return:hover {
+        background-color: ${(props) => props.theme.color.text};
+        color:${(props) => props.theme.color.secundary};
     }
 `;

@@ -1,77 +1,177 @@
 import styled from "styled-components";
+import Theme from "../styles/theme";
+import MenuBtn from "../Components/MenuBtn";
+import { CreateStoryBtn } from "../utils/MenuButtons";
 
-export default function StoryList(props) {
-    if(props.story.length>0){
-
-    return props.story.map((element, index) => {
-        const key = element.story_id;
-        const title = element.title.substr(0, 25);
-        const preview = element.text.substr(0, 100);
-        function setStory(event) {
-            props.selectStory(event);
-        }
-        function editStory(key) {
-            props.edit(key);
-        }
-        function deleteStory(event, key) {
-            props.delete(event, key);
-        }
+const StoryList = ({
+    story,
+    selected,
+    selectStory,
+    edit,
+    deletestory,
+    router,
+    name,
+}) => {
+    if (story.length > 0) {
         return (
-            <StoryBox key={"box" + key} id={index}>
-                <ClickBox onClick={setStory}>
-                    <Title key={"title" + key} id={index} onClick={setStory}>
-                        Title: {title}
-                    </Title>
-                    <PreviewText
-                        key={"preview" + key}
-                        id={index}
-                        onClick={setStory}
-                    >
-                        "{preview}..."
-                    </PreviewText>
-                </ClickBox>
-                <button
-                    className={props.selected == index ? "selected" : "none"}
-                    onClick={() => editStory(key)}
-                    key={"edit_" + key}
-                    id={index}
-                >
-                    Edit Story
-                </button>
-                <button
-                    className={props.selected == index ? "selected" : "none"}
-                    onClick={() => deleteStory(key)}
-                    key={"delete_" + key}
-                    id={index}
-                >
-                    Delete Story
-                </button>
-            </StoryBox>
-        );
-    })}else{
-        return(<h2>^ Create a New History!</h2>)
-    }
-    
-    
-}
+            <Theme>
+                <Container>
+                    <SecondContainer>
+                        <Head>
+                            <h1>Your Stories</h1>
+                            <MenuBtn
+                                id="MenuBtn"
+                                data={[CreateStoryBtn(router, name)]}
+                            ></MenuBtn>
+                        </Head>
 
+                        {story.map((element, index) => {
+                            const key = element.story_id;
+                            const title = element.title.substr(0, 40);
+                            const preview = element.text.substr(0, 80);
+                            function setStory(event) {
+                                selectStory(event);
+                            }
+                            function editStory(key) {
+                                edit(key);
+                            }
+                            function DeleteStory(event, key) {
+                                deletestory(event, key);
+                            }
+                            return (
+                                <StoryBox key={"box_" + key} id={index}>
+                                    <ClickBox key={"title_" + key} id={index}>
+                                        <ClickBoxLeft
+                                            onClick={setStory}
+                                            id={index}
+                                        >
+                                            <Title id={index}>{title}</Title>
+
+                                            <PreviewText
+                                                key={"preview_" + key}
+                                                id={index}
+                                                onClick={setStory}
+                                            >
+                                                "{preview}..."
+                                            </PreviewText>
+                                        </ClickBoxLeft>
+                                        <ClickBoxRigth>
+                                            <button
+                                                className={
+                                                    selected == index
+                                                        ? "selected"
+                                                        : "none"
+                                                }
+                                                onClick={() => editStory(key)}
+                                                key={"edit_" + key}
+                                                id={index}
+                                            >
+                                                Edit Story
+                                            </button>
+                                            <button
+                                                className={
+                                                    selected == index
+                                                        ? "selected"
+                                                        : "none"
+                                                }
+                                                onClick={() => DeleteStory(key)}
+                                                key={"delete_" + key}
+                                                id={index}
+                                            >
+                                                Delete Story
+                                            </button>
+                                        </ClickBoxRigth>
+                                    </ClickBox>
+                                </StoryBox>
+                            );
+                        })}
+                    </SecondContainer>
+                </Container>
+            </Theme>
+        );
+    } else {
+        return <h2>^ Create a New History!</h2>;
+    }
+};
+export default StoryList;
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+`;
+const SecondContainer = styled.div`
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 276px;
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 20px; /* Increase/decrease this value for cross-browser compatibility */
+    box-sizing: content-box; /* So the width will be 100% + 17px */
+`;
+const Head = styled.div`
+    margin-bottom: 40px;
+    h1 {
+        font-family: helvetica neue, helvetica, arial, sans-serif;
+        font-size: 25px;
+        text-align: center;
+    }
+`;
 const StoryBox = styled.div`
     z-index: 2;
     display: flex;
-    gap: 5px;
     flex-direction: column;
+
     .none {
         display: none;
     }
 `;
-const ClickBox = styled.div``;
+const ClickBox = styled.div`
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    height: 130px;
+    background-color: ${(props) => props.theme.color.secundary};
+    box-sizing: border-box;
+    border-radius: 15px;
+    overflow: hidden;
+    :hover {
+        background-color: ${(props) => props.theme.color.text};
+        color: ${(props) => props.theme.color.secundary};
+    }
+`;
+const ClickBoxLeft = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+`;
+const ClickBoxRigth = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+        background-color: ${(props) => props.theme.color.text};
+        border: none;
+        height: 50%;
+        color: ${(props) => props.theme.color.secundary};
+        :hover {
+            background-color: black;
+        }
+    }
+`;
 const Title = styled.h2`
+    height: 100%;
+    margin: 0;
+    z-index: 1;
+    font-size: 20px;
+`;
+const PreviewText = styled.p`
+    height: 100%;
+
     margin: 0;
     z-index: 1;
     font-size: 15px;
-`;
-const PreviewText = styled.p`
-    margin: 0;
-    z-index: 1;
-    font-size: 12px;
 `;
