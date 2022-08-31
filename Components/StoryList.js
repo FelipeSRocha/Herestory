@@ -12,86 +12,85 @@ const StoryList = ({
     router,
     name,
 }) => {
-    if (story.length > 0) {
-        return (
-            <Theme>
-                <Container>
-                    <SecondContainer>
-                        <Head>
-                            <h1>Your Stories</h1>
-                            <MenuBtn
-                                id="MenuBtn"
-                                data={[CreateStoryBtn(router, name)]}
-                            ></MenuBtn>
-                        </Head>
+    return (
+        <Theme>
+            <Container>
+                <SecondContainer>
+                    <Head>
+                        <h1>Your Stories</h1>
+                        <MenuBtn
+                            id="MenuBtn"
+                            data={[CreateStoryBtn(router, name)]}
+                        ></MenuBtn>
+                    </Head>
+                    {story.length > 0
+                        ? story.map((element, index) => {
+                              const key = element.story_id;
+                              const title = element.title.substr(0, 40);
+                              const preview = element.text.substr(0, 80);
+                              function setStory(event) {
+                                  selectStory(event);
+                              }
+                              function editStory(key) {
+                                  edit(key);
+                              }
+                              function DeleteStory(event, key) {
+                                  deletestory(event, key);
+                              }
+                              return (
+                                  <StoryBox key={"box_" + key} id={index}>
+                                      <ClickBox key={"title_" + key} id={index}>
+                                          <ClickBoxLeft
+                                              onClick={setStory}
+                                              id={index}
+                                          >
+                                              <Title id={index}>{title}</Title>
 
-                        {story.map((element, index) => {
-                            const key = element.story_id;
-                            const title = element.title.substr(0, 40);
-                            const preview = element.text.substr(0, 80);
-                            function setStory(event) {
-                                selectStory(event);
-                            }
-                            function editStory(key) {
-                                edit(key);
-                            }
-                            function DeleteStory(event, key) {
-                                deletestory(event, key);
-                            }
-                            return (
-                                <StoryBox key={"box_" + key} id={index}>
-                                    <ClickBox key={"title_" + key} id={index}>
-                                        <ClickBoxLeft
-                                            onClick={setStory}
-                                            id={index}
-                                        >
-                                            <Title id={index}>{title}</Title>
-
-                                            <PreviewText
-                                                key={"preview_" + key}
-                                                id={index}
-                                                onClick={setStory}
-                                            >
-                                                "{preview}..."
-                                            </PreviewText>
-                                        </ClickBoxLeft>
-                                        <ClickBoxRigth>
-                                            <button
-                                                className={
-                                                    selected == index
-                                                        ? "selected"
-                                                        : "none"
-                                                }
-                                                onClick={() => editStory(key)}
-                                                key={"edit_" + key}
-                                                id={index}
-                                            >
-                                                Edit Story
-                                            </button>
-                                            <button
-                                                className={
-                                                    selected == index
-                                                        ? "selected"
-                                                        : "none"
-                                                }
-                                                onClick={() => DeleteStory(key)}
-                                                key={"delete_" + key}
-                                                id={index}
-                                            >
-                                                Delete Story
-                                            </button>
-                                        </ClickBoxRigth>
-                                    </ClickBox>
-                                </StoryBox>
-                            );
-                        })}
-                    </SecondContainer>
-                </Container>
-            </Theme>
-        );
-    } else {
-        return <h2>^ Create a New History!</h2>;
-    }
+                                              <PreviewText
+                                                  key={"preview_" + key}
+                                                  id={index}
+                                                  onClick={setStory}
+                                              >
+                                                  "{preview}..."
+                                              </PreviewText>
+                                          </ClickBoxLeft>
+                                          <ClickBoxRigth>
+                                              <button
+                                                  className={
+                                                      selected == index
+                                                          ? "selected"
+                                                          : "none"
+                                                  }
+                                                  onClick={() => editStory(key)}
+                                                  key={"edit_" + key}
+                                                  id={index}
+                                              >
+                                                  Edit Story
+                                              </button>
+                                              <button
+                                                  className={
+                                                      selected == index
+                                                          ? "selected"
+                                                          : "none"
+                                                  }
+                                                  onClick={() =>
+                                                      DeleteStory(key)
+                                                  }
+                                                  key={"delete_" + key}
+                                                  id={index}
+                                              >
+                                                  Delete Story
+                                              </button>
+                                          </ClickBoxRigth>
+                                      </ClickBox>
+                                  </StoryBox>
+                              );
+                          })
+                        : null}
+                </SecondContainer>
+            </Container>
+        </Theme>
+    );
 };
 export default StoryList;
 const Container = styled.div`
