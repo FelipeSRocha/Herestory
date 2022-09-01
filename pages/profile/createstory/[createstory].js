@@ -90,13 +90,14 @@ const createstoryPage = ({
         <Theme>
             <Container id="container">
                 <MenuBar id="menubar" components={[
-                    <Username>{name}</Username>,
+                    <Username key="username">{name}</Username>,
 
                     <MenuBtn
-                        id="MenuBtn"
+                    id="MenuBtn"
+                    key="MenuBtn"
                         data={[ReturnToBtn(router, "profile")]}
                     ></MenuBtn>,
-                    <Head>
+                    <Head key="head">
                         <h1>Your Stories</h1>
                         {savedState ? null : (
                             <MenuBtn

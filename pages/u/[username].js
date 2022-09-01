@@ -1,19 +1,23 @@
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
+
 import Theme from "../../styles/theme";
 import styled from "styled-components";
 import SortBy from "../../utils/SortBy";
 import MenuBtn from "../../Components/MenuBtn";
 import MenuBar from "../../Components/MenuBar";
-import { HomeBtn, LogoutBtn, ProfileBtn } from "../../utils/MenuButtons";
 import StoryListHome from "../../Components/StoryListHome";
 import StoryView from "../../Components/StoryView";
+import { HomeBtn, LoginBtn, LogoutBtn, ProfileBtn } from "../../utils/MenuButtons";
+
 
 const userpage = ({ story_list, user: user }) => {
     const sorted_stories = SortBy(story_list, "publishedAt");
     const router = useRouter();
     const [selected, setSelected] = useState(0);
     const [story, setStory] = useState(sorted_stories[selected]);
+    const { status } = useSession();
 
     const selectStory = (event) => {
         setStory(sorted_stories[event.target.id]);
@@ -26,15 +30,15 @@ const userpage = ({ story_list, user: user }) => {
                     id="menubar"
                     key="menubar"
                     components={[
-                        <Username key="username">{user}</Username>,
+                        <Username key="username">{`"${user}" Stories`}</Username>,
                         <MenuBtn
                             id="MenuBtn"
                             key="MenuBtn"
-                            data={[
+                            data={status == "authenticated" ?[
                                 HomeBtn(router),
                                 ProfileBtn(router),
                                 LogoutBtn,
-                            ]}
+                            ]:[LoginBtn(router)]}
                         ></MenuBtn>,
                         <Storycontainer key="Storycontainer">
                             <StoryListHome

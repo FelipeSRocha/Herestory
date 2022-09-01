@@ -68,6 +68,9 @@ const SecondContainer = styled.div`
     overflow-y: scroll;
     padding-right: 20px; /* Increase/decrease this value for cross-browser compatibility */
     box-sizing: content-box; /* So the width will be 100% + 17px */
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        width: 100%;
+    }
 `;
 const Head = styled.div`
     margin-bottom: 40px;
@@ -98,6 +101,10 @@ const ClickBox = styled.div`
     :hover {
         background-color: ${(props) => props.theme.color.text};
         color: ${(props) => props.theme.color.secundary};
+    }
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        width: 100%;
+        height:inherit;
     }
 `;
 const ClickBoxLeft = styled.div`

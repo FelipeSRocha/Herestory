@@ -9,7 +9,7 @@ export default function MenuBar({ components }) {
     };
     return (
         <Theme>
-            <Menu id="menubar">
+            <Menu id="menubar" key="menubar">
                 <ToggleMenu className={menuState ? "MenuOpen" : "MenuClose"}>
                     <Arrow onClick={clickMenu}>
                         <p>{menuState ? "<" : ">"}</p>
@@ -23,13 +23,17 @@ export default function MenuBar({ components }) {
     );
 }
 const Menu = styled.div`
-    z-index: 2;
+    z-index: 3;
+    width:0;
     .MenuClose {
         transform: translate(-100%);
+        z-index: 3;
+
     }
     @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {
         position: absolute;
         left: 0;
+        z-index:3;
     }
 `;
 const ToggleMenu = styled.div`
@@ -44,25 +48,30 @@ const ToggleMenu = styled.div`
     box-sizing: border-box;
     @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
         transition: 0.5s;
+        width: 90vw;
     }
 `;
 const Arrow = styled.div`
+    z-index:3;
+    box-sizing: border-box;
     position: absolute;
     height: 60px;
-    width: 25px;
+    width: 10vw;
     font-style: bold;
     font-size: 25px;
     background-color: ${(props) => props.theme.color.primary};
-    left: 300px;
-    bottom: 20px;
-    display: flex;
+    left: 90vw;
+    bottom: 10vh;
     align-items: center;
     justify-content: center;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     display: none;
     padding: 10px;
+    p{
+        margin:0;
+    }
     @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
-        display: block;
+        display: flex;
     }
 `;

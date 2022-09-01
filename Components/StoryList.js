@@ -108,6 +108,9 @@ const SecondContainer = styled.div`
     overflow-y: scroll;
     padding-right: 20px; /* Increase/decrease this value for cross-browser compatibility */
     box-sizing: content-box; /* So the width will be 100% + 17px */
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        width: 100%;
+    }
 `;
 const Head = styled.div`
     margin-bottom: 40px;
@@ -121,7 +124,6 @@ const StoryBox = styled.div`
     z-index: 2;
     display: flex;
     flex-direction: column;
-
     .none {
         display: none;
     }
@@ -138,6 +140,10 @@ const ClickBox = styled.div`
     :hover {
         background-color: ${(props) => props.theme.color.text};
         color: ${(props) => props.theme.color.secundary};
+    }
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        width: 100%;
+        height:inherit;
     }
 `;
 const ClickBoxLeft = styled.div`
@@ -156,6 +162,7 @@ const ClickBoxRigth = styled.div`
         background-color: ${(props) => props.theme.color.text};
         border: none;
         height: 50%;
+        width:100%;
         color: ${(props) => props.theme.color.secundary};
         :hover {
             background-color: black;
