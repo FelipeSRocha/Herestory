@@ -1,8 +1,8 @@
-import { useState } from "react";
 import styled from "styled-components";
+import Theme from "../styles/theme";
 
 export default function NewStory(props) {
-    const arrayOfText = props.story.text.split('\n');
+    const arrayOfText = props.story.text.split("\n");
 
     function onChangeTitle(event) {
         setSavedState(false);
@@ -16,31 +16,38 @@ export default function NewStory(props) {
         setText(event.target.value);
     }
     return (
-        <Container id="storyArea">
-            <Wrapper id="boxStory">
-                <Title id="title">
-                    <h1 onChange={onChangeTitle}>{props.story.title}</h1>
-                </Title>
-                <Content id="text">
-                    {arrayOfText.map((element,index) =>{
- 
-                        return(element==""?(<div key={index}/>):(<p key={index}>{element}</p>))
-                    })}
-                </Content>
-            </Wrapper>
-        </Container>
+        <Theme>
+            <Container id="storyArea">
+                <Wrapper id="boxStory">
+                    <Title id="title">
+                        <h1 onChange={onChangeTitle}>{props.story.title}</h1>
+                    </Title>
+                    <Content id="text">
+                        {arrayOfText.map((element, index) => {
+                            return element == "" ? (
+                                <div key={index} />
+                            ) : (
+                                <p key={index}>{element}</p>
+                            );
+                        })}
+                    </Content>
+                </Wrapper>
+            </Container>
+        </Theme>
     );
 }
 const Container = styled.div`
-    width:100%;
-    height:100%;
-    padding:50px;
-    overflow:auto;
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+    overflow: auto;
     box-sizing: border-box;
-`
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        padding: 2vw;
+    }
+`;
 const Wrapper = styled.div`
-
--webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2),
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2),
         0px 0px 6px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2),
         0px 0px 6px rgba(0, 0, 0, 0.2);
@@ -62,15 +69,15 @@ const Title = styled.div`
     font-weight: 200;
     margin: 0;
     height: fit-content;
-    min-height:100%;
-    /* background: linear-gradient(to bottom, #fff6e7 29px, #00b0d7 1px); */
+    min-height: 100%;
     margin: auto;
     background-size: 100% 30px;
     position: relative;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-
-    
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        padding-left: 12vw;
+    }
     &:before {
         content: "";
         display: block;
@@ -81,12 +88,15 @@ const Title = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
+        @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+            left: 10vw;
     }
-    
+    }
+
     h1 {
         padding: 10px 0px;
         width: 100%;
-        max-width:100%;
+        max-width: 100%;
         background: transparent;
         border: none;
         font-size: 50px;
@@ -95,12 +105,24 @@ const Title = styled.div`
         margin: 0;
         overflow: hidden;
     }
-
 `;
 const Content = styled.div`
     padding-top: 5px;
     padding-left: 120px;
-    min-height:80vh;
+    min-height: 80vh;
+    font-family: helvetica neue, helvetica, arial, sans-serif;
+    font-weight: 200;
+    margin: 0;
+    height: fit-content;
+    background: linear-gradient(to bottom, #fff6e7 29px, #00b0d7 1px);
+    margin: auto;
+    background-size: 100% 30px;
+    position: relative;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        padding-left: 12vw;
+    }
     p {
         background: transparent;
         margin: 0;
@@ -113,16 +135,7 @@ const Content = styled.div`
     div {
         height: 30px;
     }
-    font-family: helvetica neue, helvetica, arial, sans-serif;
-    font-weight: 200;
-    margin: 0;
-    height: fit-content;
-    background: linear-gradient(to bottom, #fff6e7 29px, #00b0d7 1px);
-    margin: auto;
-    background-size: 100% 30px;
-    position: relative;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+
 
     &:before {
         content: "";
@@ -134,5 +147,8 @@ const Content = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
+        @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+            left: 10vw;
+    }
     }
 `;
