@@ -56,20 +56,6 @@ const Container = styled.div`
     justify-content: center;
     overflow:hidden;
 `;
-const Menu = styled.div`
-    background: ${(props) => props.theme.color.primary};
-    height: 100vh;
-    width: 300px;
-    min-width: 300px;
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    position: relative;
-    border: 2px black solid;
-    overflow: hidden;
-    box-sizing: border-box;
-`;
 const Username = styled.div`
     text-align: center;
     align-items: center;

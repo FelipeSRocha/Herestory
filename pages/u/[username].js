@@ -78,20 +78,6 @@ const Username = styled.div`
     font-size: ${(props) => props.theme.size.sz30};
     display: flex;
 `;
-const Menu = styled.div`
-    background: ${(props) => props.theme.color.primary};
-    height: 100vh;
-    width: 300px;
-    min-width: 300px;
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    position: relative;
-    border: 2px black solid;
-    overflow: hidden;
-    box-sizing: border-box;
-`;
 const Storycontainer = styled.div`
     display: flex;
     gap: 5px;

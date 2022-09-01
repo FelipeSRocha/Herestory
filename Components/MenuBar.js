@@ -24,16 +24,19 @@ export default function MenuBar({ components }) {
 }
 const Menu = styled.div`
     z-index: 3;
-    width:0;
+    width:300px;
+    position: relative;
+    
     .MenuClose {
         transform: translate(-100%);
         z-index: 3;
 
     }
     @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {
-        position: absolute;
         left: 0;
         z-index:3;
+    width:0px;
+
     }
 `;
 const ToggleMenu = styled.div`
