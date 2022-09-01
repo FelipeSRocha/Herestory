@@ -7,6 +7,7 @@ import StoryView from "../../Components/StoryView";
 import styled from "styled-components";
 import Theme from "../../styles/theme";
 import MenuBtn from "../../Components/MenuBtn";
+import MenuBar from "../../Components/MenuBar";
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
 import { HomeBtn, LogoutBtn, CreateStoryBtn } from "../../utils/MenuButtons";
@@ -40,24 +41,30 @@ const userhome = ({
     return (
         <Theme>
             <Container id="container" key="container">
-                <Menu id="menubar" key="menubar">
-                    <Username>{name}</Username>
-                    <MenuBtn
-                        id="MenuBtn"
-                        data={[HomeBtn(router), LogoutBtn]}
-                    ></MenuBtn>
-                    <Storycontainer key="Storycontainer">
-                        <StoryList
-                            story={sorted_stories}
-                            selected={selected}
-                            selectStory={selectStory}
-                            edit={editstory}
-                            deletestory={(key) => deletestory(key)}
-                            router={router}
-                            name={name}
-                        />
-                    </Storycontainer>
-                </Menu>
+                <MenuBar
+                    id="menubar"
+                    key="menubar"
+                    components={[
+                        <Username key="username">{name}</Username>,
+                        <MenuBtn
+                            id="MenuBtn"
+                            key="MenuBtn"
+                            data={[HomeBtn(router), LogoutBtn]}
+                        ></MenuBtn>,
+                        <Storycontainer key="Storycontainer">
+                            <StoryList
+                                story={sorted_stories}
+                                selected={selected}
+                                selectStory={selectStory}
+                                edit={editstory}
+                                deletestory={(key) => deletestory(key)}
+                                router={router}
+                                name={name}
+                            />
+                        </Storycontainer>,
+                    ]}
+                />
+
                 {sorted_stories.length > 0 ? (
                     <StoryView id="storyview" story={story} />
                 ) : (

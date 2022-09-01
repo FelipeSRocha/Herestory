@@ -3,6 +3,7 @@ import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import MenuBtn from "../Components/MenuBtn";
+import MenuBar from "../Components/MenuBar";
 import ExplorerPreview from "../Components/ExplorerPreview";
 import SortBy from "../utils/SortBy";
 import Theme from "../styles/theme";
@@ -12,29 +13,32 @@ const Home = ({ story_list, session }) => {
     const router = useRouter();
     const { status } = useSession();
     const sorted_stories = SortBy(story_list, "publishedAt");
-
-    const goTo = () =>{
-        console.log("alou")
-    }
+;
     return (
         <Theme>
             <Container id="container">
-                <Menu id="menubar" key="menubar">
-                    {status == "authenticated" ? (
-                        <Username>{session.user.name}</Username>
-                    ) : null}
-                    <MenuBtn
-                        id="MenuBtn"
-                        data={
-                            status === "authenticated"
-                                ? [ProfileBtn(router), LogoutBtn]
-                                : [LoginBtn(router)]
-                        }
-                    ></MenuBtn>
-                </Menu>
+                <MenuBar
+                    components={[
+                        status == "authenticated" ? (
+                            <Username key="username">{session.user.name}</Username>
+                        ) : null,
+                        <MenuBtn
+                            id="MenuBtn"
+                            key="MenuBtn"
+                            data={
+                                status === "authenticated"
+                                    ? [ProfileBtn(router), LogoutBtn]
+                                    : [LoginBtn(router)]
+                            }
+                        ></MenuBtn>,
+                    ]}
+                />
                 <View id="view">
                     {sorted_stories.length > 0 ? (
-                        <ExplorerPreview data={sorted_stories} router={router}/>
+                        <ExplorerPreview
+                            data={sorted_stories}
+                            router={router}
+                        />
                     ) : (
                         <h1>Nothing Here</h1>
                     )}
@@ -50,6 +54,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow:hidden;
 `;
 const Menu = styled.div`
     background: ${(props) => props.theme.color.primary};

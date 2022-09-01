@@ -1,54 +1,61 @@
 import styled from "styled-components";
-
+import Theme from "../styles/theme";
 const ExplorerPreview = ({ data, router }) => {
-    const goTo = (name)=>{
-        router.push('/u/'+name)
-    }
+    const goTo = (name) => {
+        router.push("/u/" + name);
+    };
     return (
-        <Container>
-            {data.map((story) => {
-                const date = new Date(story.publishedAt);
-                const paragraph = story.text.substr(0, 500);
-                const arrayOfText = paragraph.split("\n");
+        <Theme>
+            <Container>
+                {data.map((story) => {
+                    const date = new Date(story.publishedAt);
+                    const paragraph = story.text.substr(0, 500);
+                    const arrayOfText = paragraph.split("\n");
 
-                const day = date.getDate();
-                const month = date.getMonth();
-                const monthNames = [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                ];
-                return (
-                    <Box key={story.story_id} onClick={()=>{goTo(story.user)}}>
-                        <Info>
-                            <p>{story.user}</p>
-                            <p>{day + " - " + monthNames[month]}</p>
-                        </Info>
-                        <Title>
-                            <h1>{story.title.substr(0, 50)}</h1>
-                        </Title>
-                        <Text>
-                            {arrayOfText.map((element, index) => {
-                                return element == "" ? (
-                                    <div key={index} />
-                                ) : (
-                                    <p key={index}>{element}</p>
-                                );
-                            })}
-                        </Text>
-                    </Box>
-                );
-            })}
-        </Container>
+                    const day = date.getDate();
+                    const month = date.getMonth();
+                    const monthNames = [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December",
+                    ];
+                    return (
+                        <Box
+                            key={story.story_id}
+                            onClick={() => {
+                                goTo(story.user);
+                            }}
+                        >
+                            <Info>
+                                <p>{story.user}</p>
+                                <p>{day + " - " + monthNames[month]}</p>
+                            </Info>
+                            <Title>
+                                <h1>{story.title.substr(0, 50)}</h1>
+                            </Title>
+                            <Text>
+                                {arrayOfText.map((element, index) => {
+                                    return element == "" ? (
+                                        <div key={index} />
+                                    ) : (
+                                        <p key={index}>{element}</p>
+                                    );
+                                })}
+                            </Text>
+                        </Box>
+                    );
+                })}
+            </Container>
+        </Theme>
     );
 };
 export default ExplorerPreview;
@@ -62,8 +69,12 @@ const Container = styled.div`
 `;
 
 const Box = styled.div`
-    height: 500px;
-    width: 500px;
+    height: 40vw;
+    width: 40vw;
+    min-height: 150px;
+    min-width: 150px;
+    max-height: 400px;
+    max-width: 400px;
     background: #fff6e7;
     overflow: hidden;
     border-radius: 10px;
@@ -76,6 +87,11 @@ const Box = styled.div`
     -o-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2),
         0px 0px 6px rgba(0, 0, 0, 0.2);
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2), 0px 0px 6px rgba(0, 0, 0, 0.2);
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {
+        width: 90vw;
+        min-height: 400px;
+        min-width: 0;
+    }
 `;
 const Info = styled.div`
     display: flex;

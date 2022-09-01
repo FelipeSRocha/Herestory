@@ -1,74 +1,68 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
-import { signIn, signOut, useSession } from "next-auth/react";
+import Theme from "../styles/theme";
+import { useState } from "react";
 
-export default function MenuBar() {
-    const { data: session } = useSession();
-    const router = useRouter();
-    function userHome() {
-        router.push("./u/userhome");
-    }
-    function Signup() {
-        router.push("./signup");
-    }
-    function Login() {
-        router.push("./api/auth/signin");
-    }
+export default function MenuBar({ components }) {
+    const [menuState, setMenuState] = useState(true);
+    const clickMenu = () => {
+        setMenuState(!menuState);
+    };
     return (
-        <Menu id="menubar">
-            <h1>Username</h1>
-            <StoryList id="storylist">
-                <li>test1</li>
-                <li>test1</li>
-                <li>test1</li>
-                <li>test1</li>
-                <li>test1</li>
-                <li>test1</li>
-            </StoryList>
-            <UserBar>
-                {!session ? (
-                    <ActionBar>
-                        <button onClick={Login}>Login</button>
-                        <button onClick={Signup}>SignUp</button>
-                    </ActionBar>
-                ) : (
-                    <>
-                        <h1>{session.user.name}</h1>
-                        <ActionBar>
-                            <button onClick={userHome}>Home</button>
-                            <button onClick={()=>{signOut()}}>Logout</button>
-
-                        </ActionBar>
-                    </>
-                )}
-            </UserBar>
-        </Menu>
+        <Theme>
+            <Menu id="menubar">
+                <ToggleMenu className={menuState ? "MenuOpen" : "MenuClose"}>
+                    <Arrow onClick={clickMenu}>
+                        <p>{menuState ? "<" : ">"}</p>
+                    </Arrow>
+                    {components.map((component) => {
+                        return component;
+                    })}
+                </ToggleMenu>
+            </Menu>
+        </Theme>
     );
 }
 const Menu = styled.div`
-    background: #fee6c8;
+    z-index: 2;
+    .MenuClose {
+        transform: translate(-100%);
+    }
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {
+        position: absolute;
+        left: 0;
+    }
+`;
+const ToggleMenu = styled.div`
+    background: ${(props) => props.theme.color.primary};
     width: 300px;
     height: 100vh;
     padding: 20px;
     display: flex;
     gap: 20px;
     flex-direction: column;
-    justify-content: space-between;
     justify-items: center;
     box-sizing: border-box;
-`;
-const StoryList = styled.div`
-`;
-const UserBar = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 5px 5px;
-    gap: 10px;
-    border: 2px solid black;
-    h1 {
-        margin: 0;
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        transition: 0.5s;
     }
 `;
-const ActionBar = styled.div`
+const Arrow = styled.div`
+    position: absolute;
+    height: 60px;
+    width: 25px;
+    font-style: bold;
+    font-size: 25px;
+    background-color: ${(props) => props.theme.color.primary};
+    left: 300px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: none;
+    padding: 10px;
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        display: block;
+    }
 `;

@@ -4,11 +4,12 @@ import Theme from "../../styles/theme";
 import styled from "styled-components";
 import SortBy from "../../utils/SortBy";
 import MenuBtn from "../../Components/MenuBtn";
+import MenuBar from "../../Components/MenuBar";
 import { HomeBtn, LogoutBtn, ProfileBtn } from "../../utils/MenuButtons";
 import StoryListHome from "../../Components/StoryListHome";
-import StoryView from "../../Components/StoryView"
+import StoryView from "../../Components/StoryView";
 
-const userpage = ({story_list, user:user}) => {
+const userpage = ({ story_list, user: user }) => {
     const sorted_stories = SortBy(story_list, "publishedAt");
     const router = useRouter();
     const [selected, setSelected] = useState(0);
@@ -21,21 +22,30 @@ const userpage = ({story_list, user:user}) => {
     return (
         <Theme>
             <Container id="container" key="container">
-                <Menu id="menubar" key="menubar">
-                    <Username>{user}</Username>
-                    <MenuBtn
-                        id="MenuBtn"
-                        data={[HomeBtn(router),ProfileBtn(router), LogoutBtn]}
-                    ></MenuBtn>
-                    <Storycontainer key="Storycontainer">
-                        <StoryListHome
-                            story={sorted_stories}
-                            selected={selected}
-                            selectStory={selectStory}
-                            router={router}
-                        />
-                    </Storycontainer>
-                </Menu>
+                <MenuBar
+                    id="menubar"
+                    key="menubar"
+                    components={[
+                        <Username key="username">{user}</Username>,
+                        <MenuBtn
+                            id="MenuBtn"
+                            key="MenuBtn"
+                            data={[
+                                HomeBtn(router),
+                                ProfileBtn(router),
+                                LogoutBtn,
+                            ]}
+                        ></MenuBtn>,
+                        <Storycontainer key="Storycontainer">
+                            <StoryListHome
+                                story={sorted_stories}
+                                selected={selected}
+                                selectStory={selectStory}
+                                router={router}
+                            />
+                        </Storycontainer>,
+                    ]}
+                />
                 {sorted_stories.length > 0 ? (
                     <StoryView id="storyview" story={story} />
                 ) : (
@@ -113,14 +123,13 @@ export async function getServerSideProps(context) {
         return {
             props: {
                 story_list,
-                user:context.params.username
+                user: context.params.username,
             },
         };
     } else {
         return {
             redirect: {
-                destination:
-                    "/?callbackUrl=" + process.env.MAIN_URL + "/",
+                destination: "/?callbackUrl=" + process.env.MAIN_URL + "/",
                 permanent: false,
             },
         };

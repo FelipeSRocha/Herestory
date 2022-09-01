@@ -23,6 +23,9 @@ const theme = {
         sz20: "20px",
         sz15: "15px",
     },
+    MinSize:{
+        Large: "1000px"
+    }
 };
 
 const Theme = ({ children }) => (

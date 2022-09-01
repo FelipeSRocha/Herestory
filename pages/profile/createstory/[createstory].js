@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import NewStory from "../../../Components/editStory";
 import MenuBtn from "../../../Components/MenuBtn";
+import MenuBar from "../../../Components/MenuBar";
 import {
     ReturnToBtn,
     SaveBtn,
@@ -40,7 +41,6 @@ const createstoryPage = ({
         setText(event.target.value);
         setSavedState(false);
     };
-
     const Save = () => {
         saveStoryDB({
             title,
@@ -89,13 +89,13 @@ const createstoryPage = ({
     return (
         <Theme>
             <Container id="container">
-                <Menu id="menubar">
-                    <Username>{name}</Username>
+                <MenuBar id="menubar" components={[
+                    <Username>{name}</Username>,
 
                     <MenuBtn
                         id="MenuBtn"
                         data={[ReturnToBtn(router, "profile")]}
-                    ></MenuBtn>
+                    ></MenuBtn>,
                     <Head>
                         <h1>Your Stories</h1>
                         {savedState ? null : (
@@ -127,7 +127,8 @@ const createstoryPage = ({
                                 : "Your Story is unpublished"}
                         </p>
                     </Head>
-                </Menu>
+                ]}
+                />
                 <NewStory
                     story={story_list}
                     onchageTitle={onchangeTitle}

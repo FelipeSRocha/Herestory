@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import Theme from "../styles/theme";
 export default function NewStory(props) {
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
@@ -24,9 +24,8 @@ export default function NewStory(props) {
     }, [title]);
 
     function onChangeTitle(event) {
-        setTitle(event.target.value)
+        setTitle(event.target.value);
         props.onchageTitle(event);
-
     }
 
     function onChangeText(event) {
@@ -35,25 +34,27 @@ export default function NewStory(props) {
     }
 
     return (
-        <Container id="storyArea">
-            <Wrapper id="boxStory">
-                <Title id="title">
-                    <textarea
-                        id="titleArea"
-                        onChange={onChangeTitle}
-                        defaultValue={props.story.title}
-                        rows={1}
-                    />
-                </Title>
-                <Content id="text">
-                    <textarea
-                        id="textArea"
-                        value={text}
-                        onChange={onChangeText}
-                    ></textarea>
-                </Content>
-            </Wrapper>
-        </Container>
+        <Theme>
+            <Container id="storyArea">
+                <Wrapper id="boxStory">
+                    <Title id="title">
+                        <textarea
+                            id="titleArea"
+                            onChange={onChangeTitle}
+                            defaultValue={props.story.title}
+                            rows={1}
+                        />
+                    </Title>
+                    <Content id="text">
+                        <textarea
+                            id="textArea"
+                            value={text}
+                            onChange={onChangeText}
+                        ></textarea>
+                    </Content>
+                </Wrapper>
+            </Container>
+        </Theme>
     );
 }
 const Container = styled.div`
@@ -62,6 +63,9 @@ const Container = styled.div`
     padding: 50px;
     overflow: auto;
     box-sizing: border-box;
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        padding: 2vw;
+    }
 `;
 const Wrapper = styled.div`
     font-family: helvetica neue, helvetica, arial, sans-serif;
@@ -88,6 +92,9 @@ const Title = styled.div`
     display: flex;
     align-items: flex-end;
     padding-left: 160px;
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        padding-left: 12vw;
+    }
     &:before {
         content: "";
         display: block;
@@ -98,6 +105,9 @@ const Title = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
+        @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+            left: 10vw;
+    }
     }
     textarea {
         background: transparent;
@@ -123,7 +133,9 @@ const Content = styled.div`
     background-size: 100% 30px;
     position: relative;
     min-height: 80vh;
-
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        padding-left: 12vw;
+    }
     &:before {
         content: "";
         display: block;
@@ -134,6 +146,9 @@ const Content = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
+        @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+            left: 10vw;
+    }
     }
     textarea {
         background: transparent;
