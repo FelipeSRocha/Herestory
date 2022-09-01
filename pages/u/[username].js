@@ -9,8 +9,12 @@ import MenuBtn from "../../Components/MenuBtn";
 import MenuBar from "../../Components/MenuBar";
 import StoryListHome from "../../Components/StoryListHome";
 import StoryView from "../../Components/StoryView";
-import { HomeBtn, LoginBtn, LogoutBtn, ProfileBtn } from "../../utils/MenuButtons";
-
+import {
+    HomeBtn,
+    LoginBtn,
+    LogoutBtn,
+    ProfileBtn,
+} from "../../utils/MenuButtons";
 
 const userpage = ({ story_list, user: user }) => {
     const sorted_stories = SortBy(story_list, "publishedAt");
@@ -34,11 +38,15 @@ const userpage = ({ story_list, user: user }) => {
                         <MenuBtn
                             id="MenuBtn"
                             key="MenuBtn"
-                            data={status == "authenticated" ?[
-                                HomeBtn(router),
-                                ProfileBtn(router),
-                                LogoutBtn,
-                            ]:[LoginBtn(router)]}
+                            data={
+                                status == "authenticated"
+                                    ? [
+                                          HomeBtn(router),
+                                          ProfileBtn(router),
+                                          LogoutBtn,
+                                      ]
+                                    : [HomeBtn(router), LoginBtn(router)]
+                            }
                         ></MenuBtn>,
                         <Storycontainer key="Storycontainer">
                             <StoryListHome
