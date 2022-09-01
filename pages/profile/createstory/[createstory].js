@@ -228,7 +228,6 @@ export async function getServerSideProps(context) {
                 }
             );
             const { story_list } = await response.json();
-            console.log(story_list);
             return {
                 props: {
                     story_list,

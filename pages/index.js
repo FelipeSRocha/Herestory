@@ -8,11 +8,14 @@ import SortBy from "../utils/SortBy";
 import Theme from "../styles/theme";
 import { ProfileBtn, LoginBtn, LogoutBtn } from "../utils/MenuButtons";
 
-const Home = ({ story_list, session}) => {
+const Home = ({ story_list, session }) => {
     const router = useRouter();
     const { status } = useSession();
     const sorted_stories = SortBy(story_list, "publishedAt");
 
+    const goTo = () =>{
+        console.log("alou")
+    }
     return (
         <Theme>
             <Container id="container">
@@ -31,7 +34,7 @@ const Home = ({ story_list, session}) => {
                 </Menu>
                 <View id="view">
                     {sorted_stories.length > 0 ? (
-                        <ExplorerPreview data={sorted_stories} />
+                        <ExplorerPreview data={sorted_stories} router={router}/>
                     ) : (
                         <h1>Nothing Here</h1>
                     )}
@@ -89,10 +92,9 @@ export async function getServerSideProps(context) {
             ? process.env.MAIN_URL + "api/getExplorerPage"
             : "https://herestory.vercel.app/api/getExplorerPage"
     );
-    console.log(response)
 
     if (response.status == 200) {
-        const {story_list} = await response.json();
+        const { story_list } = await response.json();
         return {
             props: { story_list, session },
         };

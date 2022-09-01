@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const ExplorerPreview = ({ data }) => {
+const ExplorerPreview = ({ data, router }) => {
+    const goTo = (name)=>{
+        router.push('/u/'+name)
+    }
     return (
         <Container>
             {data.map((story) => {
@@ -25,7 +28,7 @@ const ExplorerPreview = ({ data }) => {
                     "December",
                 ];
                 return (
-                    <Box key={story.story_id}>
+                    <Box key={story.story_id} onClick={()=>{goTo(story.user)}}>
                         <Info>
                             <p>{story.user}</p>
                             <p>{day + " - " + monthNames[month]}</p>

@@ -11,6 +11,7 @@ const ProfileBtn = (router) => {
         },
     };
 };
+
 const LogoutBtn = {
     name: "Logout",
     text: "Logout",
