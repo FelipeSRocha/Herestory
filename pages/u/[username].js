@@ -6,7 +6,7 @@ import Theme from "../../styles/theme";
 import styled from "styled-components";
 import SortBy from "../../utils/SortBy";
 import MenuBtn from "../../Components/MenuBtn";
-import MenuBar from "../../Components/MenuBar";
+import MenuBar from "../../Components/Viewport/MenuBar/MenuBar";
 import StoryListHome from "../../Components/StoryListHome";
 import StoryView from "../../Components/StoryView";
 import {
@@ -15,8 +15,10 @@ import {
     LogoutBtn,
     ProfileBtn,
 } from "../../utils/MenuButtons";
+import ViewPort from "../../Components/Viewport/Viewport";
 
 const userpage = ({ story_list, user: user }) => {
+
     const sorted_stories = SortBy(story_list, "publishedAt");
     const router = useRouter();
     const [selected, setSelected] = useState(0);
@@ -29,35 +31,31 @@ const userpage = ({ story_list, user: user }) => {
     };
     return (
         <Theme>
-            <Container id="container" key="container">
-                <MenuBar
-                    id="menubar"
-                    key="menubar"
-                    components={[
-                        <Username key="username">{`"${user}" Stories`}</Username>,
-                        <MenuBtn
-                            id="MenuBtn"
-                            key="MenuBtn"
-                            data={
-                                status == "authenticated"
-                                    ? [
-                                          HomeBtn(router),
-                                          ProfileBtn(router),
-                                          LogoutBtn,
-                                      ]
-                                    : [HomeBtn(router), LoginBtn(router)]
-                            }
-                        ></MenuBtn>,
-                        <Storycontainer key="Storycontainer">
-                            <StoryListHome
-                                story={sorted_stories}
-                                selected={selected}
-                                selectStory={selectStory}
-                                router={router}
-                            />
-                        </Storycontainer>,
-                    ]}
-                />
+            <ViewPort id="container" key="container">
+                <MenuBar id="menubar" key="menubar">
+                    <Username key="username">{`"${user}" Stories`}</Username>
+                    <MenuBtn
+                        id="MenuBtn"
+                        key="MenuBtn"
+                        data={
+                            status == "authenticated"
+                                ? [
+                                      HomeBtn(router),
+                                      ProfileBtn(router),
+                                      LogoutBtn,
+                                  ]
+                                : [HomeBtn(router), LoginBtn(router)]
+                        }
+                    ></MenuBtn>
+                    <Storycontainer key="Storycontainer">
+                        <StoryListHome
+                            story={sorted_stories}
+                            selected={selected}
+                            selectStory={selectStory}
+                            router={router}
+                        />
+                    </Storycontainer>
+                </MenuBar>
                 {sorted_stories.length > 0 ? (
                     <StoryView id="storyview" story={story} />
                 ) : (
@@ -65,18 +63,12 @@ const userpage = ({ story_list, user: user }) => {
                         <h2>It's so empty here...</h2>
                     </Empty>
                 )}
-            </Container>
+            </ViewPort>
         </Theme>
     );
 };
 export default userpage;
 
-const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
-`;
 const Username = styled.div`
     text-align: center;
     align-items: center;

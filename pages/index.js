@@ -2,38 +2,47 @@ import styled from "styled-components";
 import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
+import ViewPort from "../Components/Viewport/Viewport";
 import MenuBtn from "../Components/MenuBtn";
-import MenuBar from "../Components/MenuBar";
+import MenuBar from "../Components/Viewport/MenuBar/MenuBar";
 import ExplorerPreview from "../Components/ExplorerPreview";
 import SortBy from "../utils/SortBy";
 import Theme from "../styles/theme";
-import { ProfileBtn, LoginBtn, LogoutBtn } from "../utils/MenuButtons";
+import {
+    HomeBtn,
+    LoginBtn,
+    LogoutBtn,
+    ProfileBtn,
+} from "../utils/MenuButtons";
+import StoryBar from "../Components/Viewport/StoryBar/StoryBar";
 
 const Home = ({ story_list, session }) => {
+
     const router = useRouter();
     const { status } = useSession();
     const sorted_stories = SortBy(story_list, "publishedAt");
-;
     return (
         <Theme>
-            <Container id="container">
-                <MenuBar
-                    components={[
-                        status == "authenticated" ? (
-                            <Username key="username">{session.user.name}</Username>
-                        ) : null,
-                        <MenuBtn
-                            id="MenuBtn"
-                            key="MenuBtn"
-                            data={
-                                status === "authenticated"
-                                    ? [ProfileBtn(router), LogoutBtn]
-                                    : [LoginBtn(router)]
-                            }
-                        ></MenuBtn>,
-                    ]}
-                />
-                <View id="view">
+            <ViewPort id="ViewPort">
+                <MenuBar id="MenuBar">
+                    {status == "authenticated" ? (
+                        <Username key="username">{session.user.name}</Username>
+                    ) : null}
+                    <MenuBtn
+                        id="MenuBtn"
+                        key="MenuBtn"
+                        data={
+                            status === "authenticated"
+                                ? [
+                                      HomeBtn(router),
+                                      ProfileBtn(router),
+                                      LogoutBtn,
+                                  ]
+                                : [LoginBtn(router)]
+                        }
+                    ></MenuBtn>
+                </MenuBar>
+                <StoryBar id="StoryBar">
                     {sorted_stories.length > 0 ? (
                         <ExplorerPreview
                             data={sorted_stories}
@@ -42,20 +51,12 @@ const Home = ({ story_list, session }) => {
                     ) : (
                         <h1>Nothing Here</h1>
                     )}
-                </View>
-            </Container>
+                </StoryBar>
+            </ViewPort>
         </Theme>
     );
 };
 export default Home;
-const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow:hidden;
-`;
 const Username = styled.div`
     text-align: center;
     align-items: center;

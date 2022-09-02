@@ -28,6 +28,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {
+        flex-direction: row;
+    }
     button {
         font-family: helvetica neue, helvetica, arial, sans-serif;
         width: 100%;
@@ -53,5 +56,6 @@ const Container = styled.div`
             flex: 1fr;
         }
     }
+
 
 `;

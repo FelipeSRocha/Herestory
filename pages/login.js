@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import LoginForm from "../Components/loginForm/loginform";
+import Theme from "../styles/theme";
 
 function LoginPage() {
     return (
-        <Container>
-            <LoginForm></LoginForm>
-        </Container>
+        <Theme>
+            <Container>
+                <LoginForm></LoginForm>
+            </Container>
+        </Theme>
     );
 }
 
@@ -15,6 +18,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
 `;
 
 export default LoginPage;

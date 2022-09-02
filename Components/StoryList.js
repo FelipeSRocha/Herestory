@@ -94,22 +94,26 @@ const StoryList = ({
 };
 export default StoryList;
 const Container = styled.div`
+
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display:flex;
 `;
 const SecondContainer = styled.div`
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    width: 276px;
+    gap: 10px;
     height: 100%;
+    overflow-x: hidden;
+    width:200%;
     overflow-y: scroll;
     padding-right: 20px; /* Increase/decrease this value for cross-browser compatibility */
-    box-sizing: content-box; /* So the width will be 100% + 17px */
+    box-sizing: border-box; /* So the width will be 100% + 17px */
     @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
-        width: 100%;
+        padding-right: 5px; /* Increase/decrease this value for cross-browser compatibility */
+
     }
 `;
 const Head = styled.div`
@@ -127,12 +131,13 @@ const StoryBox = styled.div`
     .none {
         display: none;
     }
+    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+    }
 `;
 const ClickBox = styled.div`
     display: grid;
     grid-template-columns: 4fr 1fr;
     height: 130px;
-    width: 256px;
     background-color: ${(props) => props.theme.color.secundary};
     box-sizing: border-box;
     border-radius: 15px;
@@ -143,7 +148,7 @@ const ClickBox = styled.div`
     }
     @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
         width: 100%;
-        height:inherit;
+        min-height:75px;
     }
 `;
 const ClickBoxLeft = styled.div`
