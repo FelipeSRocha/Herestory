@@ -5,12 +5,12 @@ const theme = {
     title: "light",
 
     color: {
-        background: "#f5f5f5",
+        background: "#F2F2F2",
+        paper: "#3E3E40",
+        primary: "#252426",
+        secundary: "#8C8C8C",
 
-        primary: "#fee6c8",
-        secundary: "#fff6e7",
-
-        text: "#414141",
+        text: "#3E3E40",
     },
 
     font: {
@@ -23,9 +23,9 @@ const theme = {
         sz20: "20px",
         sz15: "15px",
     },
-    MinSize:{
-        Large: "1000px"
-    }
+    MinSize: {
+        Large: "1000px",
+    },
 };
 
 const Theme = ({ children }) => (

@@ -3,6 +3,7 @@ import { signOut, signIn } from "next-auth/react";
 //Manage the log events
 
 const Login = async (e,username, password) =>{
+    console.log(e,username, password)
     e.preventDefault();
 
     const res = await signIn("credentials", {
@@ -16,7 +17,6 @@ const Login = async (e,username, password) =>{
 }
 
 const SignUp = async (e, username, password) =>{
-    console.log(e, username, password)
     if (!username) {
         alert("Username cannot be empty");
         return;

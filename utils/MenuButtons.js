@@ -1,5 +1,6 @@
 import { SignOut } from "./ManageLoginDB";
 import { createStoryDB , saveStoryDB} from "./ManageStoryDB";
+import { FaSignOutAlt, FaHome, FaUserAlt } from "react-icons/fa";
 
 //Manage the menu Buttons from left side bar
 const ProfileBtn = (router) => {
@@ -9,6 +10,7 @@ const ProfileBtn = (router) => {
         method: () => {
             router.push("/profile");
         },
+        icon: <FaUserAlt/>
     };
 };
 
@@ -16,6 +18,7 @@ const LogoutBtn = {
     name: "Logout",
     text: "Logout",
     method: SignOut,
+    icon: <FaSignOutAlt/>
 };
 const LoginBtn = (router) => {
     return {
@@ -24,6 +27,7 @@ const LoginBtn = (router) => {
         method: () => {
             router.push("/login");
         },
+        icon: <FaSignOutAlt/>
     };
 };
 const HomeBtn = (router) => {
@@ -33,6 +37,7 @@ const HomeBtn = (router) => {
         method: () => {
             router.push("/");
         },
+        icon: <FaHome/>
     };
 };
 //recieves data from useSession
@@ -44,6 +49,7 @@ const CreateStoryBtn = (router, name) => {
             await createStoryDB(name);
             router.reload();
         },
+        icon: <FaSignOutAlt/>
     };
 };
 const ReturnToBtn = (router, returnTo) => {
@@ -53,6 +59,7 @@ const ReturnToBtn = (router, returnTo) => {
         method: async () => {
             router.push(`/${returnTo}`);
         },
+        icon: <FaSignOutAlt/>
     };
 };
 const SaveBtn = (method) => {
@@ -60,6 +67,7 @@ const SaveBtn = (method) => {
         name: "Save",
         text: "Save",
         method: method,
+        icon: <FaSignOutAlt/>
     };
 };
 const PublishBtn = (method) => {
@@ -67,6 +75,7 @@ const PublishBtn = (method) => {
         name: "Publish",
         text: "Publish",
         method: method,
+        icon: <FaSignOutAlt/>
     };
 };
 const unPublishBtn = (method) => {
@@ -74,6 +83,7 @@ const unPublishBtn = (method) => {
         name: "Unpublish",
         text: "Unpublish",
         method: method,
+        icon: <FaSignOutAlt/>
     };
 };
 export {

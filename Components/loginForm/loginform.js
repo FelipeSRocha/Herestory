@@ -1,66 +1,44 @@
-import styles from "./loginform.module.css";
-import { useState, React, useEffect } from "react";
-import { useRouter } from "next/router";
-import { signIn, useSession } from "next-auth/react";
-
-import InterativInput from "./secundary/interativeInput";
-import InputPassword from "./secundary/password";
-import Btn from "./secundary/button";
+import { useState } from "react";
+import * as S from "./style";
 import { Login, SignUp } from "../../utils/ManageLoginDB";
-import styled from "styled-components";
 
-export default function LoginForm() {
-    const { status } = useSession();
+const LoginForm = () => {
     const [username, setUsername] = useState("");
-    const [password, setpassword] = useState("");
-    const router = useRouter();
+    const [password, setPassword] = useState("");
 
-    useEffect(() => {
-        if (status === "authenticated") {
-            router.push("/profile");
-        }
-    }, [status]);
-
-    const handleChangeUser = (event) => {
-        const text = event.target.value;
-        setUsername(text);
+    const changeUsername = (e) => {
+        setUsername(e.target.value);
     };
-    const handleChangePass = (event) => {
-        const text = event.target.value;
-        setpassword(text);
+    const changePassword = (e) => {
+        setPassword(e.target.value);
     };
-
-    const signup = (e) => {
-        SignUp(e, username, password);
-    };
-    const login = (e) => {
-        Login(e, username, password);
-    };
-
+    const login = (e) =>{
+        Login(e, username, password)
+    }
+    const signup = (e) =>{
+        SignUp(e, username, password)
+    }
     return (
-        <Container className={styles.loginForm}>
-            <InterativInput onChange={handleChangeUser} username={username} />
-            <InputPassword onChange={handleChangePass} />
-            <div className={styles.btn}>
-                <Btn onClick={login} id="login">
-                    Login
-                </Btn>
-                <Btn onClick={signup} id="sign_up">
-                    Sign up
-                </Btn>
-            </div>
-        </Container>
+        <S.Container>
+            <S.Form>
+                <S.Text>Welcome,</S.Text>
+                <S.Input
+                    placeholder="Username"
+                    onChange={changeUsername}
+                ></S.Input>
+                <S.Input
+                    placeholder="Password"
+                    onChange={changePassword}
+                    type="password"
+                ></S.Input>
+                <S.BtnArea>
+                    <S.Btn onClick={login}>Login</S.Btn>
+
+                    <S.Btn onClick={signup}>Signup</S.Btn>
+                </S.BtnArea>
+            </S.Form>
+        </S.Container>
     );
-}
-const Container = styled.div`
-    background-color: #fff6e7;
-    max-width: 80vw;
-    grid-row: auto;
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.402);
+};
 
-    display: grid;
-    gap: 10px;
-
-`
+export default LoginForm;

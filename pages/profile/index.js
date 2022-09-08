@@ -1,18 +1,18 @@
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
-import StoryList from "../../Components/StoryList";
-import StoryView from "../../Components/StoryView";
 import styled from "styled-components";
-import Theme from "../../styles/theme";
-import MenuBtn from "../../Components/MenuBtn";
-import MenuBar from "../../Components/Viewport/MenuBar/MenuBar";
+
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
 import { HomeBtn, LogoutBtn, ProfileBtn } from "../../utils/MenuButtons";
+
+import StoryList from "../../Components/StoryList/StoryList";
+import StoryView from "../../Components/StoryView/StoryView";
+import MenuBtn from "../../Components/MenuBtn/MenuBtn";
+import MenuBar from "../../Components/MenuBar/MenuBar";
 import ViewPort from "../../Components/Viewport/Viewport";
-import StoryBar from "../../Components/Viewport/StoryBar/StoryBar";
+import StoryBar from "../../Components/StoryBar/StoryBar";
 
 const userhome = ({
     story_list,
@@ -41,16 +41,15 @@ const userhome = ({
         }
     };
     return (
-        <Theme>
+        <>
             <ViewPort id="container" key="container">
                 <MenuBar id="menubar" key="menubar">
-                    <Username key="username">{name}</Username>
+                    <div key="username">{name}</div>
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
                         data={[HomeBtn(router), ProfileBtn(router), LogoutBtn]}
                     ></MenuBtn>
-                    <Storycontainer key="Storycontainer">
                         <StoryList
                             story={sorted_stories}
                             selected={selected}
@@ -60,7 +59,6 @@ const userhome = ({
                             router={router}
                             name={name}
                         />
-                    </Storycontainer>
                 </MenuBar>
                 <StoryBar>
                     {sorted_stories.length > 0 ? (
@@ -72,34 +70,11 @@ const userhome = ({
                     )}
                 </StoryBar>
             </ViewPort>
-        </Theme>
+        </>
     );
 };
 export default userhome;
 
-const Username = styled.div`
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    background: ${(props) => props.theme.color.primary};
-    font-family: ${(props) => props.theme.font.primary};
-    font-size: ${(props) => props.theme.size.sz30};
-    display: flex;
-`;
-const Menu = styled.div`
-    background: ${(props) => props.theme.color.primary};
-    height: 100vh;
-    width: 300px;
-    min-width: 300px;
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    position: relative;
-    border: 2px black solid;
-    overflow: hidden;
-    box-sizing: border-box;
-`;
 const Storycontainer = styled.div`
     display: flex;
     gap: 5px;
