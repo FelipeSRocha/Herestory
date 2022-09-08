@@ -20,6 +20,9 @@ export const Form = styled.div`
     box-sizing: border-box;
 `;
 export const Text = styled.h1`
+    font-family: "Kaushan Script", cursive;
+    color: var(--Co_text);
+    font-size: 25px;
     margin: 0;
 `;
 export const Input = styled.input`
@@ -31,9 +34,9 @@ export const Input = styled.input`
     background-color: transparent;
     border-bottom: 3px solid var(--Co_text);
     box-sizing: border-box;
-    :focus{
+    color: var(--Co_secundary);
+    :focus {
         background-color: transparent;
-
     }
 `;
 export const BtnArea = styled.div`
@@ -43,18 +46,20 @@ export const BtnArea = styled.div`
     gap: 10px;
     box-sizing: border-box;
     margin-top: 20px;
-    padding:2px;
+    padding: 2px;
 `;
 export const Btn = styled.button`
     background-color: var(--Co_secundary);
-    color: var(--Co_background);
+    color: var(--Co_terciary);
     border: none;
     padding: 10px;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 2px 2px 2px gray;
+    font-size: 25px;
+
     :hover {
-        background-color: var(--Co_background);
+        background-color: var(--Co_terciary);
         color: var(--Co_secundary);
         box-sizing: border-box;
     }
