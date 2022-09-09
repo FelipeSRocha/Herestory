@@ -2,37 +2,47 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
-    height: 100%;
+    margin-bottom:65px;
     overflow: hidden;
     display: flex;
+    justify-content: flex-start;
+
 `;
 export const SecondContainer = styled.div`
     height: auto;
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 10px;
     height: 100%;
     overflow-x: hidden;
-    width: 200%;
-    overflow-y: scroll;
-    padding-right: 20px; /* Increase/decrease this value for cross-browser compatibility */
-    box-sizing: border-box; /* So the width will be 100% + 17px */
+    overflow-y: auto;
+    padding-right: 20px;
+    width:300px;
+    box-sizing: content-box; /* So the width will be 100% + 17px */
+
     @media only screen and (max-width: (max-width: var(--BS_Large))) {
         padding-right: 5px; /* Increase/decrease this value for cross-browser compatibility */
     }
 `;
 export const Head = styled.div`
-    margin-bottom: 40px;
-    h1 {
-        font-family: helvetica neue, helvetica, arial, sans-serif;
-        font-size: 25px;
-        text-align: center;
-    }
+    display:flex;
+    flex-direction:column;
+    width:100%;
 `;
+export const Header = styled.h2`
+        font-family: "Kaushan Script", cursive;
+        color:var(--Co_terciary);
+        text-shadow: 2px 2px 2px var(--Co_shadow);
+        font-size:30px;
+        margin:0;
+`
 export const StoryBox = styled.div`
     z-index: 2;
     display: flex;
     flex-direction: column;
+    width:inherit;
+
     .none {
         display: none;
     }
@@ -45,6 +55,8 @@ export const ClickBox = styled.div`
     box-sizing: border-box;
     border-radius: 15px;
     overflow: hidden;
+    width:100%;
+
     :hover {
         background-color: var(--Co_secundary);
         color: var(--Co_primary);

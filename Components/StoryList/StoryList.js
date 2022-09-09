@@ -1,6 +1,6 @@
 import MenuBtn from "../MenuBtn/MenuBtn";
 import { CreateStoryBtn } from "../../utils/MenuButtons";
-import * as S from "./style"
+import * as S from "./style";
 const StoryList = ({
     story,
     selected,
@@ -13,7 +13,7 @@ const StoryList = ({
     return (
         <>
             <S.Head>
-                <h1>Your Stories</h1>
+                <S.Header>Your Stories</S.Header>
                 <MenuBtn
                     id="MenuBtn"
                     data={[CreateStoryBtn(router, name)]}
@@ -37,12 +37,17 @@ const StoryList = ({
                               }
                               return (
                                   <S.StoryBox key={"box_" + key} id={index}>
-                                      <S.ClickBox key={"title_" + key} id={index}>
+                                      <S.ClickBox
+                                          key={"title_" + key}
+                                          id={index}
+                                      >
                                           <S.ClickBoxLeft
                                               onClick={setStory}
                                               id={index}
                                           >
-                                              <S.Title id={index}>{title}</S.Title>
+                                              <S.Title id={index}>
+                                                  {title}
+                                              </S.Title>
 
                                               <S.PreviewText
                                                   key={"preview_" + key}

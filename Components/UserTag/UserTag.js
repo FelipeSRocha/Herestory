@@ -1,11 +1,29 @@
-import * as S from './style'
-
-const UserTag = ({children}) =>{
-    console.log(children.type)
-    return(
+import * as S from "./style";
+import { LogoutBtn, LoginBtn } from "../../utils/MenuButtons";
+export const LoggedInUserTag = ({ user }) => {
+    return (
         <S.Container>
-            {children}
+            <S.Name>{user}</S.Name>
+            <S.BtnContainer>
+                <button key={LogoutBtn.name} onClick={LogoutBtn.method}>
+                    {LogoutBtn.icon}
+                    {LogoutBtn.text}
+                </button>
+            </S.BtnContainer>
         </S.Container>
-    )
-}
-export default UserTag
+    );
+};
+
+export const LoggedOutUserTag = ({router}) => {
+    const login = LoginBtn(router)
+    return (
+        <S.Container>
+            <S.BtnContainer>
+                <button key={login.name} onClick={login.method}>
+                    {login.icon}
+                    {login.text}
+                </button>
+            </S.BtnContainer>
+        </S.Container>
+    );
+};

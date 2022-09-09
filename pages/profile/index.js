@@ -2,24 +2,21 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import { GlobalStyle } from "../../styles/globalStyle";
 
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
 import { HomeBtn, LogoutBtn, ProfileBtn } from "../../utils/MenuButtons";
 
 import StoryList from "../../Components/StoryList/StoryList";
-import StoryView from "../../Components/StoryView/StoryView";
+import StoryPage from "../../Components/StoryPage/StoryPage";
 import MenuBtn from "../../Components/MenuBtn/MenuBtn";
 import MenuBar from "../../Components/MenuBar/MenuBar";
 import ViewPort from "../../Components/Viewport/Viewport";
 import StoryBar from "../../Components/StoryBar/StoryBar";
+import {LoggedInUserTag} from "../../Components/UserTag/UserTag";
 
-const userhome = ({
-    story_list,
-    session: {
-        user: { name },
-    },
-}) => {
+const userhome = ({ story_list, session }) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
     const router = useRouter();
     const [selected, setSelected] = useState(0);
@@ -40,29 +37,33 @@ const userhome = ({
             router.reload();
         }
     };
+
     return (
         <>
+            <GlobalStyle />
+
             <ViewPort id="container" key="container">
-                <MenuBar id="menubar" key="menubar">
-                    <div key="username">{name}</div>
+                <MenuBar id="MenuBar">
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
-                        data={[HomeBtn(router), ProfileBtn(router), LogoutBtn]}
+                        select="Profile"
+                        data={[HomeBtn(router), ProfileBtn(router)]}
                     ></MenuBtn>
-                        <StoryList
+                    <StoryList
                             story={sorted_stories}
                             selected={selected}
                             selectStory={selectStory}
                             edit={editstory}
                             deletestory={(key) => deletestory(key)}
                             router={router}
-                            name={name}
+                            name={session.user.name}
                         />
+                        <LoggedInUserTag user={session.user.name}/>
                 </MenuBar>
                 <StoryBar>
                     {sorted_stories.length > 0 ? (
-                        <StoryView id="storyview" story={story} />
+                        <StoryPage id="StoryPage" story={story} />
                     ) : (
                         <Empty>
                             <h2>It's so empty here...</h2>

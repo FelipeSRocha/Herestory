@@ -16,7 +16,7 @@ export const Box = styled.div`
     min-width: 150px;
     max-height: 400px;
     max-width: 400px;
-    background: var(--Co_background);
+    background: var(--Co_paper);
     overflow: hidden;
     border-radius: 10px;
     -webkit-box-shadow: 3px 3px 3px var(--Co_shadow),
@@ -28,6 +28,9 @@ export const Box = styled.div`
 
     :hover {
         cursor: pointer;
+        div {
+            background-color: var(--Co_terciary);
+        }
     }
     @media only screen and (max-width: var(--BS_Large)) {
         width: 90vw;
@@ -41,18 +44,18 @@ export const Info = styled.div`
     padding: 10px;
     background-color: var(--Co_secundary);
     color: var(--Co_text);
-    :hover {
-        background-color: var(--Co_terciary);
-    }
+
     p {
         margin: 0;
     }
 `;
-export const Title = styled.div`
+export const Title = styled.span`
     font-family: helvetica neue, helvetica, arial, sans-serif;
     font-weight: 200;
     padding: 10px;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid var(--Co_headline);
+    background-color: transparent;
+    display: flex;
     h1 {
         width: 100%;
         max-width: 100%;
@@ -71,8 +74,8 @@ export const Text = styled.div`
     font-family: helvetica neue, helvetica, arial, sans-serif;
     background: linear-gradient(
         to bottom,
-        var(--Co_primary) 29px,
-        var(--Co_terciary) 1px
+        var(--Co_paper) 29px,
+        var(--Co_line) 1px
     );
     margin: auto;
     margin-top: 10px;
@@ -93,7 +96,7 @@ export const Text = styled.div`
         line-height: 30px;
         resize: none;
     }
-    div {
+    span {
         height: 30px;
     }
 `;

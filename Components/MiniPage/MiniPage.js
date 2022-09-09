@@ -45,7 +45,7 @@ const ExplorerPreview = ({ data, router }) => {
                             <S.Text>
                                 {arrayOfText.map((element, index) => {
                                     return element == "" ? (
-                                        <div key={index} />
+                                        <span key={index} />
                                     ) : (
                                         <p key={index}>{element}</p>
                                     );

@@ -1,6 +1,18 @@
 import { SignOut } from "./ManageLoginDB";
-import { createStoryDB , saveStoryDB} from "./ManageStoryDB";
-import { FaSignOutAlt, FaHome, FaUserAlt } from "react-icons/fa";
+import { createStoryDB, saveStoryDB } from "./ManageStoryDB";
+import {
+    FaSignOutAlt,
+    FaHome,
+    FaUserAlt,
+    FaPlusSquare,
+    FaArrowCircleLeft,
+    FaSave,
+    FaCloudUploadAlt,
+    FaBan,
+    FaEdit,
+    FaEraser
+} from "react-icons/fa";
+
 
 //Manage the menu Buttons from left side bar
 const ProfileBtn = (router) => {
@@ -10,7 +22,7 @@ const ProfileBtn = (router) => {
         method: () => {
             router.push("/profile");
         },
-        icon: <FaUserAlt/>
+        icon: <FaUserAlt />,
     };
 };
 
@@ -18,7 +30,7 @@ const LogoutBtn = {
     name: "Logout",
     text: "Logout",
     method: SignOut,
-    icon: <FaSignOutAlt/>
+    icon: <FaSignOutAlt />,
 };
 const LoginBtn = (router) => {
     return {
@@ -27,7 +39,7 @@ const LoginBtn = (router) => {
         method: () => {
             router.push("/login");
         },
-        icon: <FaSignOutAlt/>
+        icon: <FaSignOutAlt />,
     };
 };
 const HomeBtn = (router) => {
@@ -37,19 +49,19 @@ const HomeBtn = (router) => {
         method: () => {
             router.push("/");
         },
-        icon: <FaHome/>
+        icon: <FaHome />,
     };
 };
 //recieves data from useSession
 const CreateStoryBtn = (router, name) => {
     return {
         name: "Create",
-        text: "Create Story",
+        text: "Create New Story",
         method: async () => {
             await createStoryDB(name);
             router.reload();
         },
-        icon: <FaSignOutAlt/>
+        icon: <FaPlusSquare />,
     };
 };
 const ReturnToBtn = (router, returnTo) => {
@@ -59,7 +71,7 @@ const ReturnToBtn = (router, returnTo) => {
         method: async () => {
             router.push(`/${returnTo}`);
         },
-        icon: <FaSignOutAlt/>
+        icon: <FaArrowCircleLeft />,
     };
 };
 const SaveBtn = (method) => {
@@ -67,7 +79,7 @@ const SaveBtn = (method) => {
         name: "Save",
         text: "Save",
         method: method,
-        icon: <FaSignOutAlt/>
+        icon: <FaSave />,
     };
 };
 const PublishBtn = (method) => {
@@ -75,7 +87,7 @@ const PublishBtn = (method) => {
         name: "Publish",
         text: "Publish",
         method: method,
-        icon: <FaSignOutAlt/>
+        icon: <FaCloudUploadAlt />,
     };
 };
 const unPublishBtn = (method) => {
@@ -83,9 +95,25 @@ const unPublishBtn = (method) => {
         name: "Unpublish",
         text: "Unpublish",
         method: method,
-        icon: <FaSignOutAlt/>
+        icon: <FaBan />,
     };
 };
+const editBtn = (method) =>{
+    return{
+        name: "Edit",
+        text: "Edit",
+        method: method,
+        icon: <FaEdit />,
+    }
+}
+const deleteBtn = (method) =>{
+    return{
+        name: "Delete",
+        text: "Delete",
+        method: method,
+        icon: <FaEraser />,
+    }
+}
 export {
     ProfileBtn,
     HomeBtn,
@@ -96,4 +124,6 @@ export {
     SaveBtn,
     PublishBtn,
     unPublishBtn,
+    editBtn,
+    deleteBtn
 };

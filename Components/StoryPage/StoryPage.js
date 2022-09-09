@@ -1,6 +1,6 @@
 import * as S from './style'
 
-export default function NewStory(props) {
+export default function StoryPage(props) {
     const arrayOfText = props.story.text.split("\n");
 
     function onChangeTitle(event) {

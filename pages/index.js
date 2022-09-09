@@ -6,10 +6,13 @@ import MenuBtn from "../Components/MenuBtn/MenuBtn";
 import MenuBar from "../Components/MenuBar/MenuBar";
 import MiniPage from "../Components/MiniPage/MiniPage";
 import SortBy from "../utils/SortBy";
-import { HomeBtn, LoginBtn, LogoutBtn, ProfileBtn } from "../utils/MenuButtons";
+import { HomeBtn, ProfileBtn } from "../utils/MenuButtons";
 import StoryBar from "../Components/StoryBar/StoryBar";
 import { GlobalStyle } from "../styles/globalStyle";
-import UserTag from "../Components/LoginTag/UserTag";
+import {
+    LoggedInUserTag,
+    LoggedOutUserTag,
+} from "../Components/UserTag/UserTag";
 
 const Home = ({ story_list, session }) => {
     const router = useRouter();
@@ -31,26 +34,11 @@ const Home = ({ story_list, session }) => {
                         }
                     ></MenuBtn>
 
-                    <UserTag>
-                        {status === "authenticated" ? (
-                            <div>
-                                <h2>{session.user.name}</h2>
-                                <MenuBtn
-                                    id="MenuBtn"
-                                    key="MenuBtn"
-                                    select="Home"
-                                    data={[LogoutBtn]}
-                                ></MenuBtn>
-                            </div>
-                        ) : (
-                            <MenuBtn
-                                id="MenuBtn"
-                                key="MenuBtn"
-                                select="Home"
-                                data={[LoginBtn(router)]}
-                            ></MenuBtn>
-                        )}
-                    </UserTag>
+                    {status === "authenticated" ? (
+                        <LoggedInUserTag user={session.user.name} />
+                    ) : (
+                        <LoggedOutUserTag router={router} />
+                    )}
                 </MenuBar>
                 <StoryBar id="StoryBar">
                     {sorted_stories.length > 0 ? (

@@ -1,63 +1,7 @@
-import { useState, useEffect } from "react";
+
 import styled from "styled-components";
-import Theme from "../styles/theme";
-export default function NewStory(props) {
-    const [title, setTitle] = useState("");
-    const [text, setText] = useState("");
 
-    useEffect(() => {
-        setText(props.story.text);
-    }, []);
-    useEffect(() => {
-        setTitle(props.story.title);
-    }, []);
-
-    useEffect(() => {
-        const textArea = document.getElementById("textArea");
-        textArea.style.height = "inherit";
-        textArea.style.height = `${textArea.scrollHeight}px`;
-    }, [text]);
-    useEffect(() => {
-        const titleArea = document.getElementById("titleArea");
-        titleArea.style.height = "inherit";
-        titleArea.style.height = `${titleArea.scrollHeight}px`;
-    }, [title]);
-
-    function onChangeTitle(event) {
-        setTitle(event.target.value);
-        props.onchageTitle(event);
-    }
-
-    function onChangeText(event) {
-        setText(event.target.value);
-        props.onchangeText(event);
-    }
-
-    return (
-        <Theme>
-            <Container id="storyArea">
-                <Wrapper id="boxStory">
-                    <Title id="title">
-                        <textarea
-                            id="titleArea"
-                            onChange={onChangeTitle}
-                            defaultValue={props.story.title}
-                            rows={1}
-                        />
-                    </Title>
-                    <Content id="text">
-                        <textarea
-                            id="textArea"
-                            value={text}
-                            onChange={onChangeText}
-                        ></textarea>
-                    </Content>
-                </Wrapper>
-            </Container>
-        </Theme>
-    );
-}
-const Container = styled.div`
+export const Container = styled.div`
     width: 100%;
     height: 100%;
     padding: 50px;
@@ -67,7 +11,7 @@ const Container = styled.div`
         padding: 2vw;
     }
 `;
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     font-family: helvetica neue, helvetica, arial, sans-serif;
     font-weight: 200;
     margin: 0;
@@ -84,7 +28,7 @@ const Wrapper = styled.div`
         0px 0px 6px rgba(0, 0, 0, 0.2);
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2), 0px 0px 6px rgba(0, 0, 0, 0.2);
 `;
-const Title = styled.div`
+export const Title = styled.div`
     background: #fff6e7;
     position: relative;
     top: 0;
@@ -123,7 +67,7 @@ const Title = styled.div`
         outline: none;
     }
 `;
-const Content = styled.div`
+export const Content = styled.div`
     padding-top: 2px;
     padding-left: 150px;
     display: flex;
@@ -164,7 +108,7 @@ const Content = styled.div`
         outline: none;
     }
 `;
-const Savediv = styled.div`
+export const Savediv = styled.div`
     position: fixed;
     top: 500px;
     left: 380px;

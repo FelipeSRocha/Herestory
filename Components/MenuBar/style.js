@@ -7,13 +7,12 @@ export const Menubar = styled.div`
     position: relative;
     background: var(--Co_secundary);
     height: 100vh;
-    padding: 20px;
-    display: flex;
+    padding: 0px 20px;
     gap: 20px;
     flex-direction: column;
-    justify-items: center;
-    align-items:center;
+    align-items: center;
     box-sizing: border-box;
+    display:flex;
     @media only screen and (max-width: var(--BS_Large)) {
         display: none;
     }
@@ -25,12 +24,12 @@ export const Menubar = styled.div`
         font-size: 50px;
         display: flex;
     }
-    h1{
+    h1 {
         font-family: "Kaushan Script", cursive;
-        color:var(--Co_terciary);
+        color: var(--Co_terciary);
         text-shadow: 2px 2px 2px var(--Co_shadow);
-        font-size:50px;
-        margin:0;
+        font-size: 50px;
+        margin: 0;
     }
 `;
 
