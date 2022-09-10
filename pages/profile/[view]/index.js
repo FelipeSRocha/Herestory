@@ -1,7 +1,6 @@
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import styled from "styled-components";
 import { HomeBtn, ProfileBtn } from "../../../utils/MenuButtons";
 import { LoggedInUserTag } from "../../../Components/UserTag/UserTag";
 
@@ -140,46 +139,7 @@ const createstoryPage = ({ story_list, session }) => {
     );
 };
 export default createstoryPage;
-const Menu = styled.div`
-    background: ${(props) => props.theme.color.primary};
-    height: 100vh;
-    width: 300px;
-    min-width: 300px;
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    position: relative;
-    border: 2px black solid;
-    overflow: hidden;
-    box-sizing: border-box;
-`;
-const Username = styled.div`
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    background: ${(props) => props.theme.color.primary};
-    font-family: ${(props) => props.theme.font.primary};
-    font-size: ${(props) => props.theme.size.sz30};
-    display: flex;
-`;
-const Head = styled.div`
-    display: flex;
-    gap: 5px;
-    flex-direction: column;
-    overflow: auto;
-    box-sizing: border-box;
-    h1 {
-        font-family: helvetica neue, helvetica, arial, sans-serif;
-        font-size: 25px;
-        text-align: center;
-    }
-    p {
-        font-family: helvetica neue, helvetica, arial, sans-serif;
-        font-size: 25px;
-        text-align: center;
-    }
-`;
+
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -221,7 +181,7 @@ export async function getServerSideProps(context) {
                     destination:
                         "/?callbackUrl=" +
                         process.env.MAIN_URL +
-                        "profile/view/[view]",
+                        "profile/[view]",
                     permanent: false,
                 },
             };

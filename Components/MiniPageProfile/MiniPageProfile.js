@@ -2,7 +2,7 @@ import * as S from "./style"
 
 const MiniPageProfile = ({ data, router }) => {
     const goTo = (id) => {
-        router.push("/profile/view/" + id);
+        router.push("/profile/" + id);
     };
     return (
         <>
