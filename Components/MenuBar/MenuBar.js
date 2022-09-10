@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "./style";
 
-export default function MenuBar({ children }) {
+export default function MenuBar({ children, page }) {
     const [menuState, setMenuState] = useState(false);
     const clickMenu = () => {
         setMenuState(!menuState);
@@ -14,6 +14,7 @@ export default function MenuBar({ children }) {
                 {/* <S.Arrow onClick={clickMenu}>
                     <p>{menuState ? "X" : "Menu"}</p>
                 </S.Arrow> */}
+                {page?(<S.PageUser>{page + "'s Page"}</S.PageUser>):null}
             </S.Menubar>
         </>
     );
