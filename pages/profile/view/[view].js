@@ -2,15 +2,20 @@ import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import { HomeBtn, ProfileBtn } from "../../../utils/MenuButtons";
+import { LoggedInUserTag } from "../../../Components/UserTag/UserTag";
 
-import NewStory from "../../../Components/editStory";
-import MenuBtn from "../../../Components/MenuBtn";
-import MenuBar from "../../../Components/Viewport/MenuBar/MenuBar";
+import StoryEditPage from "../../../Components/StoryEditPage/StoryEditPage";
+import StoryPage from "../../../Components/StoryPage/StoryPage";
+
+import MenuBtn from "../../../Components/MenuBtn/MenuBtn";
+import MenuBar from "../../../Components/MenuBar/MenuBar";
 import {
-    ReturnToBtn,
+    EditBtn,
     SaveBtn,
     PublishBtn,
     unPublishBtn,
+    readBtn,
 } from "../../../utils/MenuButtons";
 import {
     saveStoryDB,
@@ -18,16 +23,12 @@ import {
     unpublishStoryDB,
 } from "../../../utils/ManageStoryDB";
 
-import Theme from "../../../styles/theme";
 import ViewPort from "../../../Components/Viewport/Viewport";
-const createstoryPage = ({
-    story_list,
-    session: {
-        user: { name },
-    },
-}) => {
-
+import { GlobalStyle } from "../../../styles/globalStyle";
+import EditOpt from "../../../Components/EditOpt/EditOpt";
+const createstoryPage = ({ story_list, session }) => {
     const router = useRouter();
+    const [edit, setEdit] = useState(false);
     const [title, setTitle] = useState(story_list.title);
     const [text, setText] = useState(story_list.text);
     const [savedState, setSavedState] = useState(true);
@@ -42,6 +43,13 @@ const createstoryPage = ({
         setText(event.target.value);
         setSavedState(false);
     };
+    const editStory = () =>{
+        setEdit(true)
+    }
+    const readStory = () =>{
+        Save()
+        router.reload()
+    }
     const Save = () => {
         saveStoryDB({
             title,
@@ -88,58 +96,47 @@ const createstoryPage = ({
     };
 
     return (
-        <Theme>
+        <>
+            <GlobalStyle />
             <ViewPort id="container">
-                <MenuBar id="menubar">
-                    <Username key="username">{name}</Username>
-
+                <MenuBar id="MenuBar">
                     <MenuBtn
-                    id="MenuBtn"
-                    key="MenuBtn"
-                        data={[ReturnToBtn(router, "profile")]}
+                        id="MenuBtn"
+                        key="MenuBtn"
+                        data={[HomeBtn(router), ProfileBtn(router)]}
                     ></MenuBtn>
-                    <Head key="head">
-                        <h1>Your Stories</h1>
-                        {savedState ? null : (
-                            <MenuBtn
-                                id="MenuBtn"
-                                data={[SaveBtn(Save)]}
-                            ></MenuBtn>
-                        )}
+                    {edit ? (
+                        <EditOpt
+                            data={[
+                                readBtn(readStory),
+                                SaveBtn(Save),
+                                PublishBtn(Publish),
+                                unPublishBtn(unPublish),
+                            ]}
+                        ></EditOpt>
+                    ) : (
+                        <EditOpt
+                            data={[
+                                EditBtn(editStory),
+                            ]}
+                        ></EditOpt>
+                    )}
 
-                        {publishedState ? (
-                            <MenuBtn
-                                id="MenuBtn"
-                                data={[unPublishBtn(unPublish)]}
-                            ></MenuBtn>
-                        ) : (
-                            <MenuBtn
-                                id="MenuBtn"
-                                data={[PublishBtn(Publish)]}
-                            ></MenuBtn>
-                        )}
-                        <p>
-                            {savedState
-                                ? "All changes Saved"
-                                : "Changes unsaved"}
-                        </p>
-                        <p>
-                            {publishedState
-                                ? "Your Story is published"
-                                : "Your Story is unpublished"}
-                        </p>
-                    </Head>
-                
+                    <LoggedInUserTag user={session.user.name} />
                 </MenuBar>
-                <NewStory
-                    story={story_list}
-                    onchageTitle={onchangeTitle}
-                    onchangeText={onchangeText}
-                >
-                    {" "}
-                </NewStory>
+                {edit ? (
+                    <StoryEditPage
+                        story={story_list}
+                        onchageTitle={onchangeTitle}
+                        onchangeText={onchangeText}
+                    >
+                        {" "}
+                    </StoryEditPage>
+                ) : (
+                    <StoryPage id="StoryPage" story={story_list} />
+                )}
             </ViewPort>
-        </Theme>
+        </>
     );
 };
 export default createstoryPage;
@@ -195,7 +192,7 @@ export async function getServerSideProps(context) {
             },
         };
     } else {
-        if (context.params.createstory) {
+        if (context.params.view) {
             const response = await fetch(
                 process.env.LOCAL
                     ? process.env.MAIN_URL + "api/getStory"
@@ -207,7 +204,7 @@ export async function getServerSideProps(context) {
                     },
                     body: JSON.stringify({
                         session,
-                        story_id: context.params.createstory,
+                        story_id: context.params.view,
                     }),
                 }
             );
@@ -224,7 +221,7 @@ export async function getServerSideProps(context) {
                     destination:
                         "/?callbackUrl=" +
                         process.env.MAIN_URL +
-                        "u/[createstory]",
+                        "profile/view/[view]",
                     permanent: false,
                 },
             };

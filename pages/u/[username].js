@@ -5,10 +5,10 @@ import { useState } from "react";
 import Theme from "../../styles/theme";
 import styled from "styled-components";
 import SortBy from "../../utils/SortBy";
-import MenuBtn from "../../Components/MenuBtn";
-import MenuBar from "../../Components/Viewport/MenuBar/MenuBar";
+import MenuBtn from "../../Components/MenuBtn/MenuBtn";
+import MenuBar from "../../Components/MenuBar/MenuBar";
 import StoryListHome from "../../Components/StoryListHome";
-import StoryView from "../../Components/StoryView";
+import StoryPage from "../../Components/StoryPage/StoryPage";
 import {
     HomeBtn,
     LoginBtn,
@@ -57,7 +57,7 @@ const userpage = ({ story_list, user: user }) => {
                     </Storycontainer>
                 </MenuBar>
                 {sorted_stories.length > 0 ? (
-                    <StoryView id="storyview" story={story} />
+                    <StoryPage id="StoryPage" story={story} />
                 ) : (
                     <Empty>
                         <h2>It's so empty here...</h2>

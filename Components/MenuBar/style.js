@@ -21,7 +21,7 @@ export const Menubar = styled.div`
         align-items: center;
         justify-content: center;
         font-family: var(--Fo_primary);
-        font-size: 50px;
+        font-size: 25px;
         display: flex;
     }
     h1 {

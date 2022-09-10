@@ -7,7 +7,7 @@ export const Container = styled.div`
     padding: 50px;
     overflow: auto;
     box-sizing: border-box;
-    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+    @media only screen and (max-width: (max-width: var(--BS_Large))) {   
         padding: 2vw;
     }
 `;
@@ -36,7 +36,7 @@ export const Title = styled.div`
     display: flex;
     align-items: flex-end;
     padding-left: 160px;
-    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+    @media only screen and (max-width: (max-width: var(--BS_Large))) {   
         padding-left: 12vw;
     }
     &:before {
@@ -49,7 +49,7 @@ export const Title = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
-        @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        @media only screen and (max-width: (max-width: var(--BS_Large))) {   
             left: 10vw;
     }
     }
@@ -77,7 +77,7 @@ export const Content = styled.div`
     background-size: 100% 30px;
     position: relative;
     min-height: 80vh;
-    @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+    @media only screen and (max-width: (max-width: var(--BS_Large))) {   
         padding-left: 12vw;
     }
     &:before {
@@ -90,7 +90,7 @@ export const Content = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
-        @media only screen and (max-width: ${(props) =>props.theme.MinSize.Large}) {   
+        @media only screen and (max-width: (max-width: var(--BS_Large))) {   
             left: 10vw;
     }
     }

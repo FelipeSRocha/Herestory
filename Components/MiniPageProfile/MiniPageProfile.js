@@ -1,8 +1,8 @@
 import * as S from "./style"
 
-const MiniPage = ({ data, router }) => {
-    const goTo = (name) => {
-        router.push("/u/" + name);
+const MiniPageProfile = ({ data, router }) => {
+    const goTo = (id) => {
+        router.push("/profile/view/" + id);
     };
     return (
         <>
@@ -32,7 +32,7 @@ const MiniPage = ({ data, router }) => {
                         <S.Box
                             key={story.story_id}
                             onClick={() => {
-                                goTo(story.user);
+                                goTo(story.story_id);
                             }}
                         >
                             <S.Info>
@@ -58,4 +58,4 @@ const MiniPage = ({ data, router }) => {
         </>
     );
 };
-export default MiniPage;
+export default MiniPageProfile;

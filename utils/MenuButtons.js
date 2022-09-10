@@ -5,12 +5,12 @@ import {
     FaHome,
     FaUserAlt,
     FaPlusSquare,
-    FaArrowCircleLeft,
     FaSave,
-    FaCloudUploadAlt,
-    FaBan,
+    FaShareAlt,
+    FaTimes,
     FaEdit,
-    FaEraser
+    FaEraser,
+    FaCheckCircle
 } from "react-icons/fa";
 
 
@@ -64,16 +64,7 @@ const CreateStoryBtn = (router, name) => {
         icon: <FaPlusSquare />,
     };
 };
-const ReturnToBtn = (router, returnTo) => {
-    return {
-        name: "Return",
-        text: `Return to ${returnTo}`,
-        method: async () => {
-            router.push(`/${returnTo}`);
-        },
-        icon: <FaArrowCircleLeft />,
-    };
-};
+
 const SaveBtn = (method) => {
     return {
         name: "Save",
@@ -87,7 +78,7 @@ const PublishBtn = (method) => {
         name: "Publish",
         text: "Publish",
         method: method,
-        icon: <FaCloudUploadAlt />,
+        icon: <FaShareAlt />,
     };
 };
 const unPublishBtn = (method) => {
@@ -95,15 +86,23 @@ const unPublishBtn = (method) => {
         name: "Unpublish",
         text: "Unpublish",
         method: method,
-        icon: <FaBan />,
+        icon: <FaTimes />,
     };
 };
-const editBtn = (method) =>{
+const EditBtn = (method) =>{
     return{
         name: "Edit",
         text: "Edit",
         method: method,
         icon: <FaEdit />,
+    }
+}
+const readBtn = (method) =>{
+    return{
+        name: "Save and Finish",
+        text: "Save and Finish",
+        method: method,
+        icon: <FaCheckCircle />,
     }
 }
 const deleteBtn = (method) =>{
@@ -120,10 +119,10 @@ export {
     LoginBtn,
     LogoutBtn,
     CreateStoryBtn,
-    ReturnToBtn,
     SaveBtn,
     PublishBtn,
     unPublishBtn,
-    editBtn,
-    deleteBtn
+    EditBtn,
+    deleteBtn,
+    readBtn
 };

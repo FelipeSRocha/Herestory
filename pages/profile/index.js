@@ -6,15 +6,15 @@ import { GlobalStyle } from "../../styles/globalStyle";
 
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
-import { HomeBtn, LogoutBtn, ProfileBtn } from "../../utils/MenuButtons";
+import { HomeBtn, ProfileBtn } from "../../utils/MenuButtons";
 
 import StoryList from "../../Components/StoryList/StoryList";
-import StoryPage from "../../Components/StoryPage/StoryPage";
 import MenuBtn from "../../Components/MenuBtn/MenuBtn";
 import MenuBar from "../../Components/MenuBar/MenuBar";
 import ViewPort from "../../Components/Viewport/Viewport";
 import StoryBar from "../../Components/StoryBar/StoryBar";
 import {LoggedInUserTag} from "../../Components/UserTag/UserTag";
+import MiniPageProfile from "../../Components/MiniPageProfile/MiniPageProfile"
 
 const userhome = ({ story_list, session }) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
@@ -22,6 +22,7 @@ const userhome = ({ story_list, session }) => {
     const [selected, setSelected] = useState(0);
     const [story, setStory] = useState(sorted_stories[selected]);
 
+    console.log(sorted_stories)
     const selectStory = (event) => {
         setStory(sorted_stories[event.target.id]);
         setSelected(event.target.id);
@@ -50,20 +51,12 @@ const userhome = ({ story_list, session }) => {
                         select="Profile"
                         data={[HomeBtn(router), ProfileBtn(router)]}
                     ></MenuBtn>
-                    <StoryList
-                            story={sorted_stories}
-                            selected={selected}
-                            selectStory={selectStory}
-                            edit={editstory}
-                            deletestory={(key) => deletestory(key)}
-                            router={router}
-                            name={session.user.name}
-                        />
+
                         <LoggedInUserTag user={session.user.name}/>
                 </MenuBar>
                 <StoryBar>
                     {sorted_stories.length > 0 ? (
-                        <StoryPage id="StoryPage" story={story} />
+                        <MiniPageProfile data={sorted_stories} router={router} />
                     ) : (
                         <Empty>
                             <h2>It's so empty here...</h2>

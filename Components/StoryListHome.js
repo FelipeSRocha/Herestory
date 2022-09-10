@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Theme from "../styles/theme";
-import MenuBtn from "./MenuBtn";
+import MenuBtn from "./MenuBtn/MenuBtn";
 import { CreateStoryBtn } from "../utils/MenuButtons";
 
 const StoryListHome = ({
