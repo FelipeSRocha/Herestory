@@ -95,11 +95,12 @@ const createstoryPage = ({ story_list, session }) => {
             setPublishedState(false);
         }
     };
-    const deletestory = () => {
+    const deletestory = async () => {
         if (confirm("You want to delete this Masterpiece?")) {
-            deleteFromDB(router, story_list.story_id, session.user.name);
+            await deleteFromDB(story_list.story_id, session.user.name);
+            router.push('/profile')
         }
-    };
+    };  
     return (
         <>
             <GlobalStyle />

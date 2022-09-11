@@ -107,14 +107,12 @@ const readBtn = (method) =>{
         icon: <FaCheckCircle />,
     }
 }
-const deleteBtn = (router, key, name) =>{
+const deleteBtn = (method) =>{
+
     return{
         name: "Delete",
         text: "Delete",
-        method: async () => {
-            await deleteFromDB(key, name);
-            router.push('/profile');
-        },
+        method: method,
         icon: <FaEraser />,
     }
 }

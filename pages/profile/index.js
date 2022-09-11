@@ -20,8 +20,6 @@ import PageUserOpt from "../../Components/PageUserOpt/PageUserOpt";
 const userhome = ({ story_list, session }) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
     const router = useRouter();
-    const [selected, setSelected] = useState(0);
-    const [story, setStory] = useState(sorted_stories[selected]);
 
     return (
         <>
