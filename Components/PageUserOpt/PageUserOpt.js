@@ -1,13 +1,11 @@
 import * as S from "./style";
 
-const PageUserOpt = ({userPage, children}) => {
+const PageUserOpt = ({ text, children }) => {
     return (
         <>
-            <S.PageUser>{userPage + "'s Page"}
-            
-            </S.PageUser>
+            <S.PageUser>{text}</S.PageUser>
             {children}
         </>
     );
 };
-export default PageUserOpt
+export default PageUserOpt;

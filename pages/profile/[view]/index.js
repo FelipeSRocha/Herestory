@@ -15,11 +15,13 @@ import {
     PublishBtn,
     unPublishBtn,
     readBtn,
+    deleteBtn,
 } from "../../../utils/MenuButtons";
 import {
     saveStoryDB,
     publishStoryDB,
     unpublishStoryDB,
+    deleteFromDB,
 } from "../../../utils/ManageStoryDB";
 
 import ViewPort from "../../../Components/Viewport/Viewport";
@@ -93,7 +95,12 @@ const createstoryPage = ({ story_list, session }) => {
             setPublishedState(false);
         }
     };
-
+    const deletestory = () => {
+        if (confirm("You want to delete this Masterpiece?")) {
+            deleteFromDB(story_list.story_id, session.user.name);
+            router.push('/profile');
+        }
+    };
     return (
         <>
             <GlobalStyle />
@@ -112,6 +119,7 @@ const createstoryPage = ({ story_list, session }) => {
                                 publishedState
                                     ? unPublishBtn(unPublish)
                                     : PublishBtn(Publish),
+                                deleteBtn(deletestory),
                             ]}
                         ></EditOpt>
                     ) : (

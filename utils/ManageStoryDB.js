@@ -1,7 +1,6 @@
 
 //Manage the story related events to DB
 const deleteFromDB = async(key, name) => {
-
     const deleteFrom = await fetch("../api/deleteStory", {
         method: "POST",
         headers: {

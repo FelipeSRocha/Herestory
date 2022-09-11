@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         );
     }
     const newStory = {
-        title: "My Story",
+        title: "My New Story",
         text: "Once upon a time...",
         user: req.body.user,
         story_id: uuid(),

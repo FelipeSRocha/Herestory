@@ -6,7 +6,7 @@ import { GlobalStyle } from "../../styles/globalStyle";
 
 import SortBy from "../../utils/SortBy";
 import { deleteFromDB } from "../../utils/ManageStoryDB";
-import { HomeBtn, ProfileBtn } from "../../utils/MenuButtons";
+import { HomeBtn, ProfileBtn, CreateStoryBtn } from "../../utils/MenuButtons";
 
 import StoryList from "../../Components/StoryList/StoryList";
 import MenuBtn from "../../Components/MenuBtn/MenuBtn";
@@ -15,29 +15,13 @@ import ViewPort from "../../Components/Viewport/Viewport";
 import StoryBar from "../../Components/StoryBar/StoryBar";
 import { LoggedInUserTag } from "../../Components/UserTag/UserTag";
 import MiniPageProfile from "../../Components/MiniPageProfile/MiniPageProfile";
+import PageUserOpt from "../../Components/PageUserOpt/PageUserOpt";
 
 const userhome = ({ story_list, session }) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
     const router = useRouter();
     const [selected, setSelected] = useState(0);
     const [story, setStory] = useState(sorted_stories[selected]);
-
-    console.log(sorted_stories);
-    const selectStory = (event) => {
-        setStory(sorted_stories[event.target.id]);
-        setSelected(event.target.id);
-    };
-
-    const editstory = (key) => {
-        router.push("profile/createstory/" + key);
-    };
-
-    const deletestory = (key) => {
-        if (confirm("You want to delete this Masterpiece?")) {
-            deleteFromDB(key, name);
-            router.reload();
-        }
-    };
 
     return (
         <>
@@ -51,7 +35,13 @@ const userhome = ({ story_list, session }) => {
                         select="Profile"
                         data={[HomeBtn(router), ProfileBtn(router)]}
                     ></MenuBtn>
-
+                    <PageUserOpt text="Your Page">
+                        <MenuBtn
+                            id="CreateBtn"
+                            key="CreateBtn"
+                            data={[CreateStoryBtn(router, session.user.name)]}
+                        ></MenuBtn>
+                    </PageUserOpt>
                     <LoggedInUserTag user={session.user.name} />
                 </MenuBar>
                 <StoryBar text="Your Page">

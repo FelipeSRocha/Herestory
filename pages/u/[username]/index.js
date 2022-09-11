@@ -37,7 +37,7 @@ const userpage = ({ story_list, session, user: user }) => {
                                 : [HomeBtn(router)]
                         }
                     ></MenuBtn>
-                    <PageUserOpt userPage={user}></PageUserOpt>
+                    <PageUserOpt text={user+"'s Page"}></PageUserOpt>
                     {status === "authenticated" ? (
                         <LoggedInUserTag user={session.user.name} />
                     ) : (

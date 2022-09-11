@@ -30,7 +30,7 @@ const ViewPage = ({ story_single, session, user }) => {
                                 : [HomeBtn(router)]
                         }
                     ></MenuBtn>
-                    <PageUserOpt userPage={user}>
+                    <PageUserOpt text={user+"'s Page"}>
                         <MenuBtn
                             id="return"
                             key="return"
