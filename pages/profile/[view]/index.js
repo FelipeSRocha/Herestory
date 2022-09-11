@@ -42,13 +42,13 @@ const createstoryPage = ({ story_list, session }) => {
         setText(event.target.value);
         setSavedState(false);
     };
-    const editStory = () =>{
-        setEdit(true)
-    }
-    const readStory = () =>{
-        Save()
-        router.reload()
-    }
+    const editStory = () => {
+        setEdit(true);
+    };
+    const readStory = () => {
+        Save();
+        router.reload();
+    };
     const Save = () => {
         saveStoryDB({
             title,
@@ -109,16 +109,13 @@ const createstoryPage = ({ story_list, session }) => {
                             data={[
                                 readBtn(readStory),
                                 SaveBtn(Save),
-                                PublishBtn(Publish),
-                                unPublishBtn(unPublish),
+                                publishedState
+                                    ? unPublishBtn(unPublish)
+                                    : PublishBtn(Publish),
                             ]}
                         ></EditOpt>
                     ) : (
-                        <EditOpt
-                            data={[
-                                EditBtn(editStory),
-                            ]}
-                        ></EditOpt>
+                        <EditOpt data={[EditBtn(editStory)]}></EditOpt>
                     )}
 
                     <LoggedInUserTag user={session.user.name} />
@@ -139,7 +136,6 @@ const createstoryPage = ({ story_list, session }) => {
     );
 };
 export default createstoryPage;
-
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);

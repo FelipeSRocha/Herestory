@@ -1,7 +1,7 @@
-import { getSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { HomeBtn, ProfileBtn, ReturnBtn } from "../../../../utils/MenuButtons";
-import { LoggedInUserTag } from "../../../../Components/UserTag/UserTag";
+import { LoggedInUserTag, LoggedOutUserTag } from "../../../../Components/UserTag/UserTag";
 
 import StoryPage from "../../../../Components/StoryPage/StoryPage";
 
@@ -14,6 +14,8 @@ import PageUserOpt from "../../../../Components/PageUserOpt/PageUserOpt";
 
 const ViewPage = ({ story_single, session, user }) => {
     const router = useRouter();
+    const { status } = useSession();
+
     return (
         <>
             <GlobalStyle />
@@ -22,7 +24,11 @@ const ViewPage = ({ story_single, session, user }) => {
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
-                        data={[HomeBtn(router), ProfileBtn(router)]}
+                        data={
+                            status === "authenticated"
+                                ? [HomeBtn(router), ProfileBtn(router)]
+                                : [HomeBtn(router)]
+                        }
                     ></MenuBtn>
                     <PageUserOpt userPage={user}>
                         <MenuBtn
@@ -31,7 +37,11 @@ const ViewPage = ({ story_single, session, user }) => {
                             data={[ReturnBtn(router, user)]}
                         ></MenuBtn>
                     </PageUserOpt>
-                    <LoggedInUserTag user={session.user.name} />
+                    {status === "authenticated" ? (
+                        <LoggedInUserTag user={session.user.name} />
+                    ) : (
+                        <LoggedOutUserTag router={router} />
+                    )}
                 </MenuBar>
                 <StoryPage id="StoryPage" story={story_single} />
             </ViewPort>
