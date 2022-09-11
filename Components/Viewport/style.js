@@ -9,4 +9,5 @@ export const Viewport = styled.div`
     overflow: hidden;
     flex-wrap:nowrap;
     flex:1;
+    box-sizing:border-box;
 `;

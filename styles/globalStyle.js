@@ -19,4 +19,12 @@ export const GlobalStyle = createGlobalStyle`
     --Wi_Large:1000px;
 }
 
+html{
+    height:-webkit-fill-available;
+
+}
+body{
+    height:-webkit-fill-available;
+
+}
 `;

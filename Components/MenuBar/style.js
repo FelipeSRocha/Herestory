@@ -7,12 +7,12 @@ export const Container = styled.div`
         .open {
         }
         .closed {
-            transform: translateX(-100vw);
+            transform: translateX(-100%);
         }
     }
 `;
 export const Menubar = styled.div`
-    z-index: 3;
+    z-index: 2;
     width: 300px;
     min-width: 300px;
     position: relative;
@@ -44,20 +44,13 @@ export const Menubar = styled.div`
         font-size: 50px;
         margin: 0;
     }
-    .open {
-        left: 0;
-    }
-    .closed {
-        position: absolute;
-        right: 0;
-        transform: translateX(100%);
-    }
+
 `;
 
 
 export const Arrow = styled.div`
     z-index: 3;
-    position: absolute;
+    position: fixed;
     bottom: 66px;
     width: 50px;
     height: 66px;
@@ -65,14 +58,12 @@ export const Arrow = styled.div`
     color: var(--Co_text);
     box-sizing: border-box;
     border-top: 2px solid var(--Co_terciary);
-    p {
-        margin: 0;
-        font-size: 30px;
-    }
+    font-size: 30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     @media only screen and (min-width: 1000px) {
-        background-color:black;
         display:none !important;
-
     }
 `;
 
