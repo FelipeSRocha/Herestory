@@ -14,7 +14,6 @@ export default function MenuBar({ children, page }) {
                 {/* <S.Arrow onClick={clickMenu}>
                     <p>{menuState ? "X" : "Menu"}</p>
                 </S.Arrow> */}
-                {page?(<S.PageUser>{page + "'s Page"}</S.PageUser>):null}
             </S.Menubar>
         </>
     );

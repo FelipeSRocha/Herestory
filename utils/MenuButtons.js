@@ -10,8 +10,10 @@ import {
     FaTimes,
     FaEdit,
     FaEraser,
-    FaCheckCircle
+    FaCheckCircle,
+    FaReply
 } from "react-icons/fa";
+import userpage from "../pages/u/[username]";
 
 
 //Manage the menu Buttons from left side bar
@@ -113,6 +115,16 @@ const deleteBtn = (method) =>{
         icon: <FaEraser />,
     }
 }
+const ReturnBtn = (router, userPage) =>{
+    return{
+        name: `Return to ${userPage}'s Page`,
+        text: `Return to ${userPage}'s Page`,
+        method: () => {
+            router.push(`/u/${userPage}`);
+        },
+        icon: <FaReply />,
+    }
+}
 export {
     ProfileBtn,
     HomeBtn,
@@ -124,5 +136,6 @@ export {
     unPublishBtn,
     EditBtn,
     deleteBtn,
-    readBtn
+    readBtn,
+    ReturnBtn
 };

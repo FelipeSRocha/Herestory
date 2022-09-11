@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { HomeBtn, ProfileBtn } from "../../../../utils/MenuButtons";
+import { HomeBtn, ProfileBtn, ReturnBtn } from "../../../../utils/MenuButtons";
 import { LoggedInUserTag } from "../../../../Components/UserTag/UserTag";
 
 import StoryPage from "../../../../Components/StoryPage/StoryPage";
@@ -10,8 +10,9 @@ import MenuBar from "../../../../Components/MenuBar/MenuBar";
 
 import ViewPort from "../../../../Components/Viewport/Viewport";
 import { GlobalStyle } from "../../../../styles/globalStyle";
+import PageUserOpt from "../../../../Components/PageUserOpt/PageUserOpt";
 
-const ViewPage = ({ story_single, session }) => {
+const ViewPage = ({ story_single, session, user }) => {
     const router = useRouter();
     return (
         <>
@@ -23,7 +24,13 @@ const ViewPage = ({ story_single, session }) => {
                         key="MenuBtn"
                         data={[HomeBtn(router), ProfileBtn(router)]}
                     ></MenuBtn>
-
+                    <PageUserOpt userPage={user}>
+                        <MenuBtn
+                            id="return"
+                            key="return"
+                            data={[ReturnBtn(router, user)]}
+                        ></MenuBtn>
+                    </PageUserOpt>
                     <LoggedInUserTag user={session.user.name} />
                 </MenuBar>
                 <StoryPage id="StoryPage" story={story_single} />
@@ -34,13 +41,14 @@ const ViewPage = ({ story_single, session }) => {
 export default ViewPage;
 
 export async function getServerSideProps(context) {
+    console.log(context.params);
     const session = await getSession(context);
     if (context.params.story) {
         const response = await fetch(
             process.env.LOCAL
                 ? process.env.MAIN_URL +
-                      `api/Herestory/story?user=${context.params.username}&story_id=${context.params.story}`
-                : `https://herestory.vercel.app/api/Herestory/story?user=${context.params.username}&story_id=${context.params.story}`,
+                      `api/viewer/story?user=${context.params.username}&story_id=${context.params.story}`
+                : `https://herestory.vercel.app/api/viewer/story?user=${context.params.username}&story_id=${context.params.story}`,
             {
                 method: "GET",
             }

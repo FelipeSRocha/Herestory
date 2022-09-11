@@ -15,6 +15,8 @@ import {
 } from "../../../Components/UserTag/UserTag";
 import { GlobalStyle } from "../../../styles/globalStyle";
 import MiniPage from "../../../Components/MiniPage/MiniPage";
+import StoryBar from "../../../Components/StoryBar/StoryBar";
+import PageUserOpt from "../../../Components/PageUserOpt/PageUserOpt";
 
 const userpage = ({ story_list, session, user: user }) => {
     const sorted_stories = SortBy(story_list, "publishedAt");
@@ -23,34 +25,36 @@ const userpage = ({ story_list, session, user: user }) => {
 
     return (
         <>
-            <GlobalStyle/>
+            <GlobalStyle />
             <ViewPort id="container" key="container">
                 <MenuBar id="MenuBar" page={user}>
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
-                        select="Home"
                         data={
                             status === "authenticated"
                                 ? [HomeBtn(router), ProfileBtn(router)]
                                 : [HomeBtn(router)]
                         }
-                        
                     ></MenuBtn>
+                    <PageUserOpt userPage={user}>
 
+                    </PageUserOpt>
                     {status === "authenticated" ? (
                         <LoggedInUserTag user={session.user.name} />
                     ) : (
                         <LoggedOutUserTag router={router} />
                     )}
                 </MenuBar>
-                {sorted_stories.length > 0 ? (
-                    <MiniPage data={sorted_stories} router={router} />
-                ) : (
-                    <Empty>
-                        <h2>It's so empty here...</h2>
-                    </Empty>
-                )}
+                <StoryBar>
+                    {sorted_stories.length > 0 ? (
+                        <MiniPage data={sorted_stories} router={router} />
+                    ) : (
+                        <Empty>
+                            <h2>It's so empty here...</h2>
+                        </Empty>
+                    )}
+                </StoryBar>
             </ViewPort>
         </>
     );
@@ -69,16 +73,11 @@ export async function getServerSideProps(context) {
     if (context.params.username) {
         const response = await fetch(
             process.env.LOCAL
-                ? process.env.MAIN_URL + "api/getPublishedStoryUser"
-                : "https://herestory.vercel.app/api/getPublishedStoryUser",
+                ? process.env.MAIN_URL +
+                      `api/viewer/user?user=${context.params.username}`
+                : `https://herestory.vercel.app/api/viewer/user?user=${context.params.username}`,
             {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    user: context.params.username,
-                }),
+                method: "GET",
             }
         );
         const { story_list } = await response.json();
@@ -92,7 +91,8 @@ export async function getServerSideProps(context) {
     } else {
         return {
             redirect: {
-                destination: "/?callbackUrl=" + process.env.MAIN_URL + "/u/[username]",
+                destination:
+                    "/?callbackUrl=" + process.env.MAIN_URL + "/u/[username]",
                 permanent: false,
             },
         };
