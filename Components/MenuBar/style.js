@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    height:-webkit-fill-available;
+
     @media only screen and (max-width: 1000px) {
     width: 0;
 
