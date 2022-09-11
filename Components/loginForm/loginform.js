@@ -18,6 +18,7 @@ const LoginForm = () => {
     const signup = (e) =>{
         SignUp(e, username, password)
     }
+    
     return (
         <S.Container>
             <S.Form>
