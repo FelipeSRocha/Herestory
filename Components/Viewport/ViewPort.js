@@ -1,6 +1,6 @@
 import * as S from "./style";
 
-const ViewPort = ({ children }) => {
+const Viewport = ({ children }) => {
     return <S.Viewport>{children}</S.Viewport>;
 };
-export default ViewPort;
+export default Viewport;

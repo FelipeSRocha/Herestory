@@ -1,7 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import styled from "styled-components";
 import LoginForm from "../Components/LoginForm/LoginForm";
 import { GlobalStyle } from "../styles/globalStyle";
 
