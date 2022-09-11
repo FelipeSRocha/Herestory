@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -7,8 +6,8 @@ export const Container = styled.div`
     padding: 50px;
     overflow: auto;
     box-sizing: border-box;
-    @media only screen and (max-width: (max-width: var(--BS_Large))) {   
-        padding: 2vw;
+    @media only screen and (max-width: 1000px) {
+        padding: 0;
     }
 `;
 export const Wrapper = styled.div`
@@ -36,8 +35,8 @@ export const Title = styled.div`
     display: flex;
     align-items: flex-end;
     padding-left: 160px;
-    @media only screen and (max-width: (max-width: var(--BS_Large))) {   
-        padding-left: 12vw;
+    @media only screen and (max-width: 1000px) {
+        padding-left: 6vw;
     }
     &:before {
         content: "";
@@ -49,9 +48,9 @@ export const Title = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
-        @media only screen and (max-width: (max-width: var(--BS_Large))) {   
-            left: 10vw;
-    }
+        @media only screen and (max-width: 1000px) {
+            left: 5vw;
+        }
     }
     textarea {
         background: transparent;
@@ -61,6 +60,10 @@ export const Title = styled.div`
         font-size: 50px;
         line-height: 60px;
         resize: none;
+        text-shadow: 1px 1px 1px var(--Co_shadow);
+        color: var(--Co_text);
+        font-family: "Kaushan Script", cursive;
+        font-weight: 200;
     }
     textarea:focus,
     input:focus {
@@ -77,8 +80,8 @@ export const Content = styled.div`
     background-size: 100% 30px;
     position: relative;
     min-height: 80vh;
-    @media only screen and (max-width: (max-width: var(--BS_Large))) {   
-        padding-left: 12vw;
+    @media only screen and (max-width: 1000px) {
+        padding-left: 6vw;
     }
     &:before {
         content: "";
@@ -90,9 +93,9 @@ export const Content = styled.div`
         height: 100%;
         width: 1px;
         background: #db4034;
-        @media only screen and (max-width: (max-width: var(--BS_Large))) {   
-            left: 10vw;
-    }
+        @media only screen and (max-width: 1000px) {
+            left: 5vw;
+        }
     }
     textarea {
         background: transparent;
@@ -102,6 +105,8 @@ export const Content = styled.div`
         font-size: 20px;
         line-height: 30px;
         resize: none;
+        color: var(--Co_text);
+        font-family: helvetica neue, helvetica, arial, sans-serif;
     }
     textarea:focus,
     input:focus {

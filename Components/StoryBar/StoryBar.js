@@ -1,8 +1,10 @@
 import * as S from "./style"
 
-const StoryBar = ({ children }) => {
+const StoryBar = ({ children, text }) => {
     return (
-            <S.Storybar>{children}</S.Storybar>
+            <S.Storybar>
+                <S.Title>{text}</S.Title>
+                {children}</S.Storybar>
     );
 };
 export default StoryBar;

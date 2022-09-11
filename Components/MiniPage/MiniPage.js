@@ -7,6 +7,7 @@ const MiniPage = ({ data, router }) => {
     return (
         <>
             <S.Container>
+
                 {data.map((story) => {
                     const date = new Date(story.publishedAt);
                     const paragraph = story.text.substr(0, 500);

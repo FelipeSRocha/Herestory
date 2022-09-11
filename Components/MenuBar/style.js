@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+    @media only screen and (max-width: 1000px) {
+    width: 0;
+
+        .open {
+        }
+        .closed {
+            transform: translateX(-100vw);
+        }
+    }
+`;
 export const Menubar = styled.div`
     z-index: 3;
     width: 300px;
@@ -12,9 +23,11 @@ export const Menubar = styled.div`
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    display:flex;
-    @media only screen and (max-width: var(--BS_Large)) {
-        display: none;
+    display: flex;
+
+    @media only screen and (max-width: 1000px) {
+        width: 100vw;
+        transition: 0.2s;
     }
     div {
         text-align: center;
@@ -31,47 +44,42 @@ export const Menubar = styled.div`
         font-size: 50px;
         margin: 0;
     }
+    .open {
+        left: 0;
+    }
+    .closed {
+        position: absolute;
+        right: 0;
+        transform: translateX(100%);
+    }
 `;
 
-export const ToggleMenu = styled.div`
-    position: relative;
-    width: 100vw;
-    height: 10vh;
-    display: flex;
-    gap: 20px;
-    padding: 2vw;
-    flex-direction: column;
-    justify-items: center;
-    box-sizing: border-box;
-    z-index: 3;
-    background: var(--Co_primary);
-    transition: 0.5s;
-`;
+
 export const Arrow = styled.div`
     z-index: 3;
     position: absolute;
-    bottom: 0;
-    transform: translateY(100%);
-    right: 0;
-    width: 100px;
-    height: 50px;
-    background: var(--Co_primary);
-
-    display: none;
-
+    bottom: 66px;
+    width: 50px;
+    height: 66px;
+    background-color: var(--Co_terciary);
+    color: var(--Co_text);
+    box-sizing: border-box;
+    border-top: 2px solid var(--Co_terciary);
     p {
         margin: 0;
         font-size: 30px;
     }
-    @media only screen and (max-width: var(--BS_Large)) {
-        display: none;
+    @media only screen and (min-width: 1000px) {
+        background-color:black;
+        display:none !important;
+
     }
 `;
 
 export const PageUser = styled.p`
-        font-family: "Kaushan Script", cursive;
-        color: var(--Co_terciary);
-        text-shadow: 2px 2px 2px var(--Co_shadow);
-        font-size: 30px;
-        margin: 0;
-`
+    font-family: "Kaushan Script", cursive;
+    color: var(--Co_terciary);
+    text-shadow: 2px 2px 2px var(--Co_shadow);
+    font-size: 30px;
+    margin: 0;
+`;

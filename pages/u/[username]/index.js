@@ -37,16 +37,14 @@ const userpage = ({ story_list, session, user: user }) => {
                                 : [HomeBtn(router)]
                         }
                     ></MenuBtn>
-                    <PageUserOpt userPage={user}>
-
-                    </PageUserOpt>
+                    <PageUserOpt userPage={user}></PageUserOpt>
                     {status === "authenticated" ? (
                         <LoggedInUserTag user={session.user.name} />
                     ) : (
                         <LoggedOutUserTag router={router} />
                     )}
                 </MenuBar>
-                <StoryBar>
+                <StoryBar  text={`${user}'s Page`}>
                     {sorted_stories.length > 0 ? (
                         <MiniPage data={sorted_stories} router={router} />
                     ) : (

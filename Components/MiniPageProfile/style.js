@@ -7,6 +7,9 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    @media only screen and (max-width: 1000px) {
+        padding: 0;
+    }
 `;
 
 export const Box = styled.div`
@@ -32,10 +35,9 @@ export const Box = styled.div`
             background-color: var(--Co_terciary);
         }
     }
-    @media only screen and (max-width: var(--BS_Large)) {
-        width: 90vw;
+    @media only screen and (max-width: 1000px) {
         min-height: 400px;
-        min-width: 0;
+        min-width: 95vw;
     }
 `;
 export const Info = styled.div`
@@ -50,8 +52,6 @@ export const Info = styled.div`
     }
 `;
 export const Title = styled.span`
-    font-family: helvetica neue, helvetica, arial, sans-serif;
-    font-weight: 200;
     padding: 10px;
     border-bottom: 1px solid var(--Co_headline);
     background-color: transparent;
@@ -66,11 +66,15 @@ export const Title = styled.span`
         height: auto;
         margin: 0;
         text-align: center;
+        text-shadow: 1px 1px 1px var(--Co_shadow);
         color: var(--Co_text);
+        font-family: "Kaushan Script", cursive;
+        font-weight: 200;
     }
 `;
 export const Text = styled.div`
     padding: 0px 20px;
+    color: var(--Co_text);
     font-family: helvetica neue, helvetica, arial, sans-serif;
     background: linear-gradient(
         to bottom,

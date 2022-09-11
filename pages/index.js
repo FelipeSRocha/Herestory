@@ -40,7 +40,7 @@ const Home = ({ story_list, session }) => {
                         <LoggedOutUserTag router={router} />
                     )}
                 </MenuBar>
-                <StoryBar id="StoryBar">
+                <StoryBar id="StoryBar" text="Herestory">
                     {sorted_stories.length > 0 ? (
                         <MiniPage data={sorted_stories} router={router} />
                     ) : (

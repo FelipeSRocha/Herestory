@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     --Fo_primary:"helvetica neue, helvetica, arial, sans-serif",
     --Fo_secundary: "Roboto Slab",
     --Fo_Herestory:  "Kaushan Script", cursive,
-    --BS_Large:"1000px"
+    --Wi_Large:1000px;
 }
 
 `;

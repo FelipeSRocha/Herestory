@@ -13,8 +13,8 @@ import MenuBtn from "../../Components/MenuBtn/MenuBtn";
 import MenuBar from "../../Components/MenuBar/MenuBar";
 import ViewPort from "../../Components/Viewport/Viewport";
 import StoryBar from "../../Components/StoryBar/StoryBar";
-import {LoggedInUserTag} from "../../Components/UserTag/UserTag";
-import MiniPageProfile from "../../Components/MiniPageProfile/MiniPageProfile"
+import { LoggedInUserTag } from "../../Components/UserTag/UserTag";
+import MiniPageProfile from "../../Components/MiniPageProfile/MiniPageProfile";
 
 const userhome = ({ story_list, session }) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
@@ -22,7 +22,7 @@ const userhome = ({ story_list, session }) => {
     const [selected, setSelected] = useState(0);
     const [story, setStory] = useState(sorted_stories[selected]);
 
-    console.log(sorted_stories)
+    console.log(sorted_stories);
     const selectStory = (event) => {
         setStory(sorted_stories[event.target.id]);
         setSelected(event.target.id);
@@ -52,11 +52,14 @@ const userhome = ({ story_list, session }) => {
                         data={[HomeBtn(router), ProfileBtn(router)]}
                     ></MenuBtn>
 
-                        <LoggedInUserTag user={session.user.name}/>
+                    <LoggedInUserTag user={session.user.name} />
                 </MenuBar>
-                <StoryBar>
+                <StoryBar text="Your Page">
                     {sorted_stories.length > 0 ? (
-                        <MiniPageProfile data={sorted_stories} router={router} />
+                        <MiniPageProfile
+                            data={sorted_stories}
+                            router={router}
+                        />
                     ) : (
                         <Empty>
                             <h2>It's so empty here...</h2>
