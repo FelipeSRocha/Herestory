@@ -97,8 +97,7 @@ const createstoryPage = ({ story_list, session }) => {
     };
     const deletestory = () => {
         if (confirm("You want to delete this Masterpiece?")) {
-            deleteFromDB(story_list.story_id, session.user.name);
-            router.push('/profile');
+            deleteFromDB(router, story_list.story_id, session.user.name);
         }
     };
     return (

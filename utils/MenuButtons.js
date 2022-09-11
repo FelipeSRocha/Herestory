@@ -1,5 +1,5 @@
 import { SignOut } from "./ManageLoginDB";
-import { createStoryDB, saveStoryDB } from "./ManageStoryDB";
+import { createStoryDB, deleteFromDB } from "./ManageStoryDB";
 import {
     FaSignOutAlt,
     FaHome,
@@ -107,11 +107,14 @@ const readBtn = (method) =>{
         icon: <FaCheckCircle />,
     }
 }
-const deleteBtn = (method) =>{
+const deleteBtn = (router, key, name) =>{
     return{
         name: "Delete",
         text: "Delete",
-        method: method,
+        method: async () => {
+            await deleteFromDB(key, name);
+            router.push('/profile');
+        },
         icon: <FaEraser />,
     }
 }
