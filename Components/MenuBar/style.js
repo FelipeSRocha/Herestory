@@ -17,7 +17,7 @@ export const Menubar = styled.div`
     min-width: 300px;
     position: relative;
     background: var(--Co_secundary);
-    height: 100vh;
+    height: 100%;
     padding: 0px 20px;
     gap: 20px;
     flex-direction: column;
