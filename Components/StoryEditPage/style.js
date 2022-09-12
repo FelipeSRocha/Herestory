@@ -7,7 +7,8 @@ export const Container = styled.div`
     overflow: auto;
     box-sizing: border-box;
     @media only screen and (max-width: 1000px) {
-        padding: 0;
+        padding: 10px;
+
     }
 `;
 export const Wrapper = styled.div`
