@@ -5,10 +5,8 @@ import styled from "styled-components";
 import { GlobalStyle } from "../../styles/globalStyle";
 
 import SortBy from "../../utils/SortBy";
-import { deleteFromDB } from "../../utils/ManageStoryDB";
 import { HomeBtn, ProfileBtn, CreateStoryBtn } from "../../utils/MenuButtons";
 
-import StoryList from "../../Components/StoryList/StoryList";
 import MenuBtn from "../../Components/MenuBtn/MenuBtn";
 import MenuBar from "../../Components/MenuBar/MenuBar";
 import ViewPort from "../../Components/Viewport/Viewport";
@@ -20,7 +18,6 @@ import PageUserOpt from "../../Components/PageUserOpt/PageUserOpt";
 const userhome = ({ story_list, session }) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
     const router = useRouter();
-
     return (
         <>
             <GlobalStyle />

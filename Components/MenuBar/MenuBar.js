@@ -2,23 +2,20 @@ import { useState } from "react";
 import * as S from "./style";
 import { FaAngleDoubleRight, FaAngleDoubleLeft } from "react-icons/fa";
 
-export default function MenuBar({ children }) {
-    const [menuState, setMenuState] = useState(false);
-    const clickMenu = () => {
-        setMenuState(!menuState);
-    };
+export default function MenuBar({ children, MenuState, changeMenuState }) {
+
     return (
         <>
             <S.Arrow
-                onClick={clickMenu}
+                onClick={changeMenuState}
             >
-                {menuState ? <FaAngleDoubleLeft /> : <FaAngleDoubleRight />}
+                {MenuState ? <FaAngleDoubleLeft /> : <FaAngleDoubleRight />}
             </S.Arrow>
             <S.Container>
                 <S.Menubar
                     id="menubar"
                     key="menubar"
-                    className={menuState ? "open" : "closed"}
+                    className={MenuState ? "open" : "closed"}
                 >
                     <h1>Herestory</h1>
                     {children}

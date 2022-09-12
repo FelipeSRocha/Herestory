@@ -35,6 +35,7 @@ const createstoryPage = ({ story_list, session }) => {
     const [savedState, setSavedState] = useState(true);
     const [publishedState, setPublishedState] = useState(story_list.published);
     const [publishedTime, setPublishedTime] = useState(story_list.publishedAt);
+    const [menuState, setMenuState] = useState(false)
 
     const onchangeTitle = (event) => {
         setTitle(event.target.value);
@@ -46,6 +47,7 @@ const createstoryPage = ({ story_list, session }) => {
     };
     const editStory = () => {
         setEdit(true);
+        setMenuState(false)
     };
     const readStory = () => {
         Save();
@@ -101,11 +103,14 @@ const createstoryPage = ({ story_list, session }) => {
             router.push('/profile')
         }
     };  
+    const changeMenuState = () =>{
+        setMenuState(!menuState)
+    }
     return (
         <>
             <GlobalStyle />
             <ViewPort id="container">
-                <MenuBar id="MenuBar">
+                <MenuBar id="MenuBar" MenuState={menuState} changeMenuState={changeMenuState}>
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
