@@ -19,11 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     --Wi_Large:1000px;
 }
 body {
-    height: 100%;
-
-}
-html {
-    height: 100%;
+    margin:0;
 
 }
 `;
