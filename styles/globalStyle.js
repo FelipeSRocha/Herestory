@@ -18,8 +18,4 @@ export const GlobalStyle = createGlobalStyle`
     --Fo_Herestory:  "Kaushan Script", cursive,
     --Wi_Large:1000px;
 }
-body {
-    margin:0;
-
-}
 `;
