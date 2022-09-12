@@ -22,12 +22,20 @@ const userpage = ({ story_list, session, user: user }) => {
     const sorted_stories = SortBy(story_list, "publishedAt");
     const router = useRouter();
     const { status } = useSession();
+    const [menuState, setMenuState] = useState(false);
 
+    const changeMenuState = () => {
+        setMenuState(!menuState);
+    };
     return (
         <>
             <GlobalStyle />
             <ViewPort id="container" key="container">
-                <MenuBar id="MenuBar" page={user}>
+                <MenuBar
+                    id="MenuBar"
+                    MenuState={menuState}
+                    changeMenuState={changeMenuState}
+                >
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
@@ -37,14 +45,14 @@ const userpage = ({ story_list, session, user: user }) => {
                                 : [HomeBtn(router)]
                         }
                     ></MenuBtn>
-                    <PageUserOpt text={user+"'s Page"}></PageUserOpt>
+                    <PageUserOpt text={user + "'s Page"}></PageUserOpt>
                     {status === "authenticated" ? (
                         <LoggedInUserTag user={session.user.name} />
                     ) : (
                         <LoggedOutUserTag router={router} />
                     )}
                 </MenuBar>
-                <StoryBar  text={`${user}'s Page`}>
+                <StoryBar text={`${user}'s Page`}>
                     {sorted_stories.length > 0 ? (
                         <MiniPage data={sorted_stories} router={router} />
                     ) : (

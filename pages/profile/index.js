@@ -18,12 +18,17 @@ import PageUserOpt from "../../Components/PageUserOpt/PageUserOpt";
 const userhome = ({ story_list, session }) => {
     const sorted_stories = SortBy(story_list, "updatedAt");
     const router = useRouter();
+    const [menuState, setMenuState] = useState(false)
+
+    const changeMenuState = () =>{
+        setMenuState(!menuState)
+    }
     return (
         <>
             <GlobalStyle />
 
             <ViewPort id="container" key="container">
-                <MenuBar id="MenuBar">
+                <MenuBar id="MenuBar" MenuState={menuState} changeMenuState={changeMenuState}>
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"

@@ -1,7 +1,10 @@
 import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { HomeBtn, ProfileBtn, ReturnBtn } from "../../../../utils/MenuButtons";
-import { LoggedInUserTag, LoggedOutUserTag } from "../../../../Components/UserTag/UserTag";
+import {
+    LoggedInUserTag,
+    LoggedOutUserTag,
+} from "../../../../Components/UserTag/UserTag";
 
 import StoryPage from "../../../../Components/StoryPage/StoryPage";
 
@@ -15,12 +18,20 @@ import PageUserOpt from "../../../../Components/PageUserOpt/PageUserOpt";
 const ViewPage = ({ story_single, session, user }) => {
     const router = useRouter();
     const { status } = useSession();
+    const [menuState, setMenuState] = useState(false);
 
+    const changeMenuState = () => {
+        setMenuState(!menuState);
+    };
     return (
         <>
             <GlobalStyle />
             <ViewPort id="container">
-                <MenuBar id="MenuBar">
+                <MenuBar
+                    id="MenuBar"
+                    MenuState={menuState}
+                    changeMenuState={changeMenuState}
+                >
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
@@ -30,7 +41,7 @@ const ViewPage = ({ story_single, session, user }) => {
                                 : [HomeBtn(router)]
                         }
                     ></MenuBtn>
-                    <PageUserOpt text={user+"'s Page"}>
+                    <PageUserOpt text={user + "'s Page"}>
                         <MenuBtn
                             id="return"
                             key="return"

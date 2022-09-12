@@ -17,12 +17,17 @@ import {
 const Home = ({ story_list, session }) => {
     const router = useRouter();
     const { status } = useSession();
+    const [menuState, setMenuState] = useState(false);
     const sorted_stories = SortBy(story_list, "publishedAt");
+    const changeMenuState = () => {
+        setMenuState(!menuState);
+    };
     return (
         <>
             <GlobalStyle />
             <ViewPort id="ViewPort">
-                <MenuBar id="MenuBar">
+                <MenuBar id="MenuBar" MenuState={menuState}
+                    changeMenuState={changeMenuState}>
                     <MenuBtn
                         id="MenuBtn"
                         key="MenuBtn"
